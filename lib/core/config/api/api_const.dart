@@ -1,4 +1,4 @@
-class Api {
+class ApiConsts {
   // Base URL (the const part of the URL)
   static const String baseUrl = "https://exam.elevateegy.com/api/v1/auth";
 
@@ -13,5 +13,4 @@ class Api {
   static const String profileDataEndPoint = "/profileData";
   static const String updateProfileEndPoint = "/updateProfile";
   static const String changePasswordEndPoint = "/changePassword";
-
 }

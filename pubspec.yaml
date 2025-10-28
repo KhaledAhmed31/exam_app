@@ -24,4 +24,21 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  assets:
+    - assets/fonts/roboto/
+    - assets/fonts/inter/
+    - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/roboto/Roboto-Medium.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Regular.otf
+        - asset: assets/fonts/inter/Inter-Bold.otf
+        - asset: assets/fonts/inter/Inter-Medium.otf
   uses-material-design: true
