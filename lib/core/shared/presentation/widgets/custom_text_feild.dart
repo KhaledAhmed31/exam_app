@@ -23,7 +23,7 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late TextTheme textTheme;
-
+  bool isFocused = false;
   @override
   Widget build(BuildContext context) {
     textTheme = Theme.of(context).textTheme;
@@ -33,16 +33,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
         style: textTheme.bodyLarge!.copyWith(color: AppColors.blackBase),
         obscureText: widget.obscureText,
         controller: widget.controller,
-        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+        focusNode: widget.focusNode,
+        keyboardType: widget.keyboardType,
+        cursorColor: AppColors.blueBase,
+        onTap: () => setState(() {
+          isFocused = true;
+        }),
+        onTapOutside: (event) {
+          isFocused = false;
+          FocusScope.of(context).unfocus();
+        },
         decoration: InputDecoration(
           hint: Text(widget.label, style: textTheme.bodyLarge),
           labelText: widget.label,
           constraints: BoxConstraints(minHeight: 56, maxWidth: 343),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelStyle: textTheme.bodySmall!.copyWith(
-            color: FocusScope.of(context).hasFocus
-                ? AppColors.blueBase
-                : AppColors.placholder,
+            color: isFocused ? AppColors.blueBase : AppColors.gray,
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
@@ -54,7 +61,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: AppColors.blackBase, width: 1),
+            borderSide: BorderSide(color: AppColors.gray, width: 1),
           ),
         ),
       ),

@@ -14,6 +14,7 @@ class AppTheme {
         fontSize: FontSizesManager.s14,
       ),
       bodySmall: FontStyleManager.robotoRegular(
+        color: AppColors.gray,
         fontSize: FontSizesManager.s12,
       ),
     ),

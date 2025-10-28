@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomTextField(label: "Email"),
-              AppButton(title: "Login"),
+              AppButton(title: "Login", onPressed: () {}),
             ],
           ),
         ),
