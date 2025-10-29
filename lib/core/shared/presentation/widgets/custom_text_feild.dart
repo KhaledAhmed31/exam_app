@@ -9,8 +9,9 @@ class CustomTextField extends StatefulWidget {
     this.textFieldController,
     this.focusNode,
     this.keyboardType,
-    this.width,
+    this.width, this.validator,
   });
+  final String? Function(String? val)? validator;
   final bool obscureText;
   final String label;
   final TextEditingController? textFieldController;
@@ -29,13 +30,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
     textTheme = Theme.of(context).textTheme;
     return SizedBox(
       width: widget.width,
-      child: TextField(
+      child: TextFormField(
         style: textTheme.bodyLarge!.copyWith(color: AppColors.blackBase),
         obscureText: widget.obscureText,
         controller: widget.textFieldController,
         focusNode: widget.focusNode,
         keyboardType: widget.keyboardType,
         cursorColor: AppColors.blueBase,
+        validator:widget.validator ,
         onTap: () => setState(() {
           isFocused = true;
         }),
