@@ -7,21 +7,20 @@ environment:
   sdk: ^3.9.2
 
 dependencies:
-  injectable: ^2.5.2
-
   dio: ^5.9.0
   flutter:
     sdk: flutter
+  flutter_svg: ^2.2.1
   get_it: ^8.2.0
-  
+  injectable: ^2.5.2
 
 dev_dependencies:
-  injectable_generator: ^2.9.0
   build_runner: ^2.10.1
 
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
+  injectable_generator: ^2.9.0
 
 flutter:
   assets:
@@ -42,3 +41,8 @@ flutter:
         - asset: assets/fonts/inter/Inter-Bold.otf
         - asset: assets/fonts/inter/Inter-Medium.otf
   uses-material-design: true
+
+flutter_assets:
+  assets_path: assets/icons
+  output_path: lib/core/const/
+  filename: assets.dart

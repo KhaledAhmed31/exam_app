@@ -6,14 +6,14 @@ class CustomTextField extends StatefulWidget {
     super.key,
     this.obscureText = false,
     required this.label,
-    this.controller,
+    this.textFieldController,
     this.focusNode,
     this.keyboardType,
     this.width,
   });
   final bool obscureText;
   final String label;
-  final TextEditingController? controller;
+  final TextEditingController? textFieldController;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final double? width;
@@ -32,7 +32,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: TextField(
         style: textTheme.bodyLarge!.copyWith(color: AppColors.blackBase),
         obscureText: widget.obscureText,
-        controller: widget.controller,
+        controller: widget.textFieldController,
         focusNode: widget.focusNode,
         keyboardType: widget.keyboardType,
         cursorColor: AppColors.blueBase,
