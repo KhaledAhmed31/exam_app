@@ -4,8 +4,14 @@ import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  const AppButton({super.key, required this.title, this.onPressed});
+  AppButton({
+    super.key,
+    required this.title,
+    this.onPressed,
+    this.isDisabled = false,
+  });
   final String title;
+  bool isDisabled;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -14,8 +20,13 @@ class AppButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: AppColors.blueBase,overlayColor: AppColors.white),
-          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: isDisabled
+                ? Colors.transparent
+                : AppColors.blueBase,
+            overlayColor: AppColors.white,
+          ),
+          onPressed: isDisabled ? null : onPressed,
           child: Text(
             title,
             style: FontStyleManager.robotoMedium(

@@ -6,17 +6,24 @@ class CustomTextField extends StatefulWidget {
     super.key,
     this.obscureText = false,
     required this.label,
+    required this.hintText,
     this.textFieldController,
     this.focusNode,
     this.keyboardType,
     this.width,
+    this.validator,
+    this.onChanged,
   });
   final bool obscureText;
   final String label;
+  final String hintText;
   final TextEditingController? textFieldController;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final double? width;
+  final String? Function(String?)? validator;
+  final void Function(String?)? onChanged;
+
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -29,9 +36,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
     textTheme = Theme.of(context).textTheme;
     return SizedBox(
       width: widget.width,
-      child: TextField(
+      child: TextFormField(
+        validator: widget.validator,
+        onChanged: widget.onChanged,
         style: textTheme.bodyLarge!.copyWith(color: AppColors.blackBase),
         obscureText: widget.obscureText,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: widget.textFieldController,
         focusNode: widget.focusNode,
         keyboardType: widget.keyboardType,
@@ -44,7 +54,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           FocusScope.of(context).unfocus();
         },
         decoration: InputDecoration(
-          hint: Text(widget.label, style: textTheme.bodyLarge),
+          hint: Text(widget.hintText, style: textTheme.bodyLarge),
           labelText: widget.label,
           constraints: BoxConstraints(minHeight: 56, maxWidth: 343),
           floatingLabelBehavior: FloatingLabelBehavior.always,
