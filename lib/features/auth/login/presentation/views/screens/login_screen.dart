@@ -1,7 +1,7 @@
 import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/config/utils/dialog_utils.dart';
 import 'package:exam_app/core/config/validation/app_validation.dart';
-import 'package:exam_app/core/shared/presentation/ui_%5Dstrings/ui_strings.dart';
+import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
 import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
 import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';

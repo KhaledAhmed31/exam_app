@@ -1,7 +1,7 @@
 import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/routes/route_manager.dart';
 import 'package:exam_app/core/routes/route_path.dart';
-import 'package:exam_app/core/shared/presentation/ui_%5Dstrings/ui_strings.dart';
+import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
