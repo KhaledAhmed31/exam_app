@@ -10,9 +10,13 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.keyboardType,
     this.width,
+    required this.hint,
+    this.validator,
   });
+  final String? Function(String? val)? validator;
   final bool obscureText;
   final String label;
+  final String hint;
   final TextEditingController? textFieldController;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
@@ -23,34 +27,37 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   late TextTheme textTheme;
-  bool isFocused = false;
   @override
   Widget build(BuildContext context) {
     textTheme = Theme.of(context).textTheme;
     return SizedBox(
       width: widget.width,
-      child: TextField(
+      child: TextFormField(
         style: textTheme.bodyLarge!.copyWith(color: AppColors.blackBase),
         obscureText: widget.obscureText,
         controller: widget.textFieldController,
         focusNode: widget.focusNode,
         keyboardType: widget.keyboardType,
         cursorColor: AppColors.blueBase,
-        onTap: () => setState(() {
-          isFocused = true;
-        }),
+        validator: widget.validator,
+
         onTapOutside: (event) {
-          isFocused = false;
           FocusScope.of(context).unfocus();
         },
         decoration: InputDecoration(
-          hint: Text(widget.label, style: textTheme.bodyLarge),
+          hint: Text(widget.hint, style: textTheme.bodyLarge),
           labelText: widget.label,
           constraints: BoxConstraints(minHeight: 56, maxWidth: 343),
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          labelStyle: textTheme.bodySmall!.copyWith(
-            color: isFocused ? AppColors.blueBase : AppColors.gray,
-          ),
+          labelStyle: WidgetStateTextStyle.resolveWith((states) {
+            if (states.contains(WidgetState.focused)) {
+              return textTheme.bodyLarge!.copyWith(color: AppColors.blueBase);
+            } else if (states.contains(WidgetState.error)) {
+              return textTheme.bodyLarge!.copyWith(color: AppColors.error);
+            }
+            return textTheme.bodyLarge!.copyWith(color: AppColors.gray);
+          }),
+
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: AppColors.error, width: 1),
