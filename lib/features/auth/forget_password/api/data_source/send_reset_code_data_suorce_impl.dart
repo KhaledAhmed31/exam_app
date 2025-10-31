@@ -1,8 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:exam_app/core/config/base_response/base_response.dart';
+import 'package:exam_app/core/config/error/error_handler.dart';
+import 'package:exam_app/features/auth/forget_password/api/clients/reset_password_client.dart';
 import 'package:exam_app/features/auth/forget_password/api/clients/send_reset_code_client.dart';
 import 'package:exam_app/features/auth/forget_password/api/clients/verify_reset_code_client.dart';
 import 'package:exam_app/features/auth/forget_password/data/data_source/forget_password_data_suorce.dart';
+import 'package:exam_app/features/auth/forget_password/data/models/reset_password_response.dart';
 import 'package:exam_app/features/auth/forget_password/data/models/send_reset_code_response.dart';
 import 'package:exam_app/features/auth/forget_password/data/models/verify_reset_code_response.dart';
 import 'package:injectable/injectable.dart';
@@ -11,7 +13,9 @@ import 'package:injectable/injectable.dart';
 class SendResetCodeDataSuorceImpl implements ForgetPassordDataSource {
   final SendResetCodeClient _sendResetCodeClient;
   final VerifyResetCodeClient _verifyResetCodeClient;
+  final ResetPasswordClient _resetPasswordClient;
   SendResetCodeDataSuorceImpl(
+    this._resetPasswordClient,
     this._sendResetCodeClient,
     this._verifyResetCodeClient,
   );
@@ -26,10 +30,7 @@ class SendResetCodeDataSuorceImpl implements ForgetPassordDataSource {
       });
       return SuccessResponse(response);
     } catch (e) {
-      if (e is DioException) {
-        return ErrorResponse(e.response!.data['message']);
-      }
-      return ErrorResponse("Something went wrong");
+      return ErrorResponse(error: ErrorHandler.handle(e));
     }
   }
 
@@ -42,19 +43,22 @@ class SendResetCodeDataSuorceImpl implements ForgetPassordDataSource {
           .verifyResetCode({"resetCode": code});
       return SuccessResponse(response);
     } catch (e) {
-      if (e is DioException) {
-        return ErrorResponse(e.response!.data['message']);
-      }
-      return ErrorResponse("Something went wrong");
+      return ErrorResponse(error: ErrorHandler.handle(e));
     }
   }
 
   @override
-  Future<BaseResponse<SendResetCodeResponse>> resetPassword(
+  Future<BaseResponse<ResetPasswordResponse>> resetPassword(
     String email,
     String passowrd,
   ) async {
-    throw UnimplementedError();
-    // return await _verifyResetCodeClient.verifyResetCode({"email": email, "password": passowrd});
+    try {
+      ResetPasswordResponse response = await _resetPasswordClient.resetPassword(
+        {"email": email, "newPassword": passowrd},
+      );
+      return SuccessResponse(response);
+    } catch (e) {
+      return ErrorResponse(error: ErrorHandler.handle(e));
+    }
   }
 }

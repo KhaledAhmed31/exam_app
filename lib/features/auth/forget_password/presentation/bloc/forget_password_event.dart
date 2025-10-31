@@ -8,6 +8,10 @@ class SendResetCodeEvent extends ForgetPasswordEvent {
   final String email;
   const SendResetCodeEvent({required this.email});
 }
+class ResendResetCodeEvent extends ForgetPasswordEvent {
+  final String email;
+  const ResendResetCodeEvent({required this.email});
+}
 
 class VerifyCodeEvent extends ForgetPasswordEvent {
   final String code;

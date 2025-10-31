@@ -42,7 +42,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return BlocProvider(
       create: (context) => _forgetPasswordBloc,
       child: LoaderOverlay(
-        child: BlocListener(
+        child: BlocListener<ForgetPasswordBloc, ForgetPasswordState>(
           listener: (context, state) {
             if (state is ForgetPasswordLoading) {
               context.loaderOverlay.show();
@@ -57,6 +57,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 textColor: AppColors.white,
                 fontSize: 16.0,
               );
+            } else if(state is ResendCodeSuccess){
+              context.loaderOverlay.hide();
+              Fluttertoast.showToast(
+                msg: "Code sent successfully",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 2,
+                backgroundColor: AppColors.blueBase,
+                textColor: AppColors.white,
+                fontSize: 16.0,
+              );
             } else if (state is ForgetPasswordSuccess) {
               context.loaderOverlay.hide();
               _pageController.nextPage(
@@ -64,6 +75,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 curve: Curves.linear,
               );
             }
+           
           },
           child: Scaffold(
             appBar: AppBar(

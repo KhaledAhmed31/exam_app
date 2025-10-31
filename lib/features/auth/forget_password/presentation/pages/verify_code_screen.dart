@@ -25,11 +25,12 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
           ),
           SizedBox(height: 32),
           EnterCodeSection(),
+          SizedBox(height: 24),
           ResendCodeSection(
-            message: "Didn't receive the code?",
+            message: "Didn't receive the code? ",
             buttonTitle: "Resend",
             onTap: () => context.read<ForgetPasswordBloc>().add(
-              SendResetCodeEvent(
+              ResendResetCodeEvent(
                 email: context.read<ForgetPasswordBloc>().email,
               ),
             ),

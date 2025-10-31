@@ -13,6 +13,8 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../../features/auth/forget_password/api/clients/reset_password_client.dart'
+    as _i672;
 import '../../../features/auth/forget_password/api/clients/send_reset_code_client.dart'
     as _i183;
 import '../../../features/auth/forget_password/api/clients/verify_reset_code_client.dart'
@@ -25,6 +27,8 @@ import '../../../features/auth/forget_password/data/repositories/forget_password
     as _i704;
 import '../../../features/auth/forget_password/domain/repositories/forgetpassword_repo.dart'
     as _i233;
+import '../../../features/auth/forget_password/domain/usecases/reset_password_use_case.dart'
+    as _i934;
 import '../../../features/auth/forget_password/domain/usecases/send_reset_code_use_case.dart'
     as _i484;
 import '../../../features/auth/forget_password/domain/usecases/verify_reset_code_use_case.dart'
@@ -42,6 +46,9 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
+    gh.lazySingleton<_i672.ResetPasswordClient>(
+      () => _i672.ResetPasswordClient(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i183.SendResetCodeClient>(
       () => _i183.SendResetCodeClient(gh<_i361.Dio>()),
     );
@@ -50,6 +57,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i126.ForgetPassordDataSource>(
       () => _i849.SendResetCodeDataSuorceImpl(
+        gh<_i672.ResetPasswordClient>(),
         gh<_i183.SendResetCodeClient>(),
         gh<_i779.VerifyResetCodeClient>(),
       ),
@@ -64,6 +72,9 @@ extension GetItInjectableX on _i174.GetIt {
         sendRestCodeRepo: gh<_i233.ForgetPawwordRepo>(),
       ),
     );
+    gh.lazySingleton<_i934.ResetPasswordUseCase>(
+      () => _i934.ResetPasswordUseCase(gh<_i233.ForgetPawwordRepo>()),
+    );
     gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
       () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
@@ -71,6 +82,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i588.ForgetPasswordBloc(
         gh<_i484.SendResetCodeUseCase>(),
         gh<_i614.VerifyResetCodeUseCase>(),
+        gh<_i934.ResetPasswordUseCase>(),
       ),
     );
     return this;

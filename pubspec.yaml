@@ -13,8 +13,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_svg: ^2.2.1
   fluttertoast: ^9.0.0
+  get_it: ^8.2.0
   injectable: ^2.5.2
-  
   json_annotation: ^4.9.0
   loader_overlay: ^5.0.0
   retrofit: ^4.8.0
