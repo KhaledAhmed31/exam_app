@@ -15,16 +15,20 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../../../features/auth/forget_password/api/clients/send_reset_code_client.dart'
     as _i183;
-import '../../../features/auth/forget_password/api/data_source/send_reset_code_data_suorce.dart'
-    as _i189;
-import '../../../features/auth/forget_password/data/data_source/send_reset_code_data_suorce.dart'
-    as _i334;
-import '../../../features/auth/forget_password/data/repositories/send_rest_code_impl.dart'
-    as _i409;
-import '../../../features/auth/forget_password/domain/repositories/send_rest_code_repo.dart'
-    as _i115;
+import '../../../features/auth/forget_password/api/clients/verify_reset_code_client.dart'
+    as _i779;
+import '../../../features/auth/forget_password/api/data_source/send_reset_code_data_suorce_impl.dart'
+    as _i849;
+import '../../../features/auth/forget_password/data/data_source/forget_password_data_suorce.dart'
+    as _i126;
+import '../../../features/auth/forget_password/data/repositories/forget_password_repo_impl.dart'
+    as _i704;
+import '../../../features/auth/forget_password/domain/repositories/forgetpassword_repo.dart'
+    as _i233;
 import '../../../features/auth/forget_password/domain/usecases/send_reset_code_use_case.dart'
     as _i484;
+import '../../../features/auth/forget_password/domain/usecases/verify_reset_code_use_case.dart'
+    as _i614;
 import '../../../features/auth/forget_password/presentation/bloc/forget_password_bloc.dart'
     as _i588;
 import 'di_modules.dart' as _i176;
@@ -41,21 +45,33 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i183.SendResetCodeClient>(
       () => _i183.SendResetCodeClient(gh<_i361.Dio>()),
     );
-    gh.lazySingleton<_i334.SendResetCodeDataSuorce>(
-      () => _i189.SendResetCodeDataSuorceImpl(gh<_i183.SendResetCodeClient>()),
+    gh.lazySingleton<_i779.VerifyResetCodeClient>(
+      () => _i779.VerifyResetCodeClient(gh<_i361.Dio>()),
     );
-    gh.lazySingleton<_i115.SendRestCodeRepo>(
-      () => _i409.SendRestCodeImpl(
-        sendResetCodeDataSuorce: gh<_i334.SendResetCodeDataSuorce>(),
+    gh.lazySingleton<_i126.ForgetPassordDataSource>(
+      () => _i849.SendResetCodeDataSuorceImpl(
+        gh<_i183.SendResetCodeClient>(),
+        gh<_i779.VerifyResetCodeClient>(),
+      ),
+    );
+    gh.lazySingleton<_i233.ForgetPawwordRepo>(
+      () => _i704.ForgetPasswordRepoImpl(
+        forgetPasswordDataSource: gh<_i126.ForgetPassordDataSource>(),
       ),
     );
     gh.lazySingleton<_i484.SendResetCodeUseCase>(
       () => _i484.SendResetCodeUseCase(
-        sendRestCodeRepo: gh<_i115.SendRestCodeRepo>(),
+        sendRestCodeRepo: gh<_i233.ForgetPawwordRepo>(),
       ),
     );
+    gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
+      () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
+    );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
-      () => _i588.ForgetPasswordBloc(gh<_i484.SendResetCodeUseCase>()),
+      () => _i588.ForgetPasswordBloc(
+        gh<_i484.SendResetCodeUseCase>(),
+        gh<_i614.VerifyResetCodeUseCase>(),
+      ),
     );
     return this;
   }

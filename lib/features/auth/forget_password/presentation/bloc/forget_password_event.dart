@@ -10,17 +10,13 @@ class SendResetCodeEvent extends ForgetPasswordEvent {
 }
 
 class VerifyCodeEvent extends ForgetPasswordEvent {
-  final String email;
   final String code;
-  const VerifyCodeEvent(this.email, this.code);
+  const VerifyCodeEvent({required this.code});
 }
 
 class ResetPasswordEvent extends ForgetPasswordEvent {
   final String email;
   final String password;
-  final String confirmPassword;
-
-
-  const ResetPasswordEvent(this.email, this.password, this.confirmPassword);
+  const ResetPasswordEvent({required this.email,required this.password});
 }
 
