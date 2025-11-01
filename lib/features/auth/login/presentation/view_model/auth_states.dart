@@ -1,3 +1,5 @@
+import 'package:exam_app/features/auth/login/domain/models/login_model.dart';
+
 abstract class AuthStates {}
 
 class LoginStates extends AuthStates {}
@@ -15,7 +17,10 @@ class LoginLoadingState extends LoginStates {
   LoginLoadingState(this.loadingMessage);
 }
 
-class LoginSuccessState extends LoginStates {}
+class LoginSuccessState extends LoginStates {
+  LoginModel? data;
+  LoginSuccessState({this.data});
+}
 
 class LoginErrorState extends LoginStates {
   final String errorMessage;

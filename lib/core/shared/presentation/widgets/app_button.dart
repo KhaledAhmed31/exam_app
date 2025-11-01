@@ -4,14 +4,14 @@ import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  AppButton({
+  const AppButton({
     super.key,
     required this.title,
     this.onPressed,
     this.isDisabled = false,
   });
   final String title;
-  bool isDisabled;
+  final bool isDisabled;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {

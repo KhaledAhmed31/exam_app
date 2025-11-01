@@ -1,6 +1,7 @@
 import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/config/utils/dialog_utils.dart';
 import 'package:exam_app/core/config/validation/app_validation.dart';
+import 'package:exam_app/core/routes/route_path.dart';
 import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
 import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
 import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
@@ -14,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  AuthViewModel viewModel = getIt<AuthViewModel>();
+  final AuthViewModel viewModel = getIt<AuthViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -117,19 +118,21 @@ class LoginScreen extends StatelessWidget {
                       );
                     } else if (state is LoginSuccessState) {
                       DialogUtils.hideLoading(context);
-                      // DialogUtils.showMessage(
-                      //     context,
-                      //     state.loginResponseEntity.user!.name ??
-                      //         "Login Successfully",
-                      //     titleMessage: 'Success',
-                      //     backgroundColor: MyTheme.mainColor,
-                      //     textColor: MyTheme.whiteColor,
-                      //     posActionName: 'OK',
-                      //     actionColor: MyTheme.whiteColor,
-                      //     posAction: () {
-                      //   Navigator.pushReplacementNamed(
-                      //       context, Routes.home);
-                      // });
+                      DialogUtils.showMessage(
+                        context,
+                        state.data?.userModel?.firstName ?? "",
+                        titleMessage: 'Success',
+                        backgroundColor: AppColors.blueBase,
+                        textColor: AppColors.white,
+                        posActionName: 'OK',
+                        actionColor: AppColors.white,
+                        posAction: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            RoutePath.home,
+                          );
+                        },
+                      );
                     } else if (state is LoginErrorState) {
                       DialogUtils.hideLoading(context);
                       DialogUtils.showMessage(
