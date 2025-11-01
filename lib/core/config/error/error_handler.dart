@@ -210,7 +210,45 @@ Failure _handleError(DioException error) {
     case DioExceptionType.receiveTimeout:
       return DataSource.receiveTimeout.getFailure();
     case DioExceptionType.badResponse:
-      return DataSource.badRequest.getFailure();
+     if (error.response != null &&
+          error.response?.statusCode != null &&
+          error.response?.data != null) {
+        String errorsMessage = "";
+        Map<String, dynamic> jsonObjectErrors = {};
+        dynamic jsonObject = error.response?.data;
+        int? statusCode = error.response?.statusCode;
+        if (jsonObject != null) {
+          if (jsonObject.containsKey("errors")) {
+            jsonObjectErrors = jsonObject['errors'];
+            if (jsonObjectErrors.isNotEmpty) {
+              Iterable<String> keys = jsonObjectErrors.keys;
+              for (String key in keys) {
+                if (errorsMessage.isNotEmpty) {
+                  errorsMessage =
+                      '$errorsMessage\n\n ${jsonObjectErrors[key][0]}';
+                } else {
+                  errorsMessage = " ${jsonObjectErrors[key][0].toString()}";
+                }
+              }
+            }
+          } else {
+            errorsMessage =
+                jsonObject['message'] ?? ApiResponseMessage.badRequestError;
+          }
+        }
+        return Failure(
+            statusCode: statusCode ??
+                jsonObject['statusCode'] ??
+                ApiResponseCode.badRequest,
+            status: ApiInternalStatus.failure,
+            message:
+                jsonObject['message'] ?? ApiResponseMessage.badRequestError,
+            success: false,
+            jsonErrorObject: jsonObjectErrors,
+            prettyMessage: errorsMessage);
+      } else {
+        return DataSource.badRequest.getFailure();
+      }
     case DioExceptionType.cancel:
       return DataSource.cancel.getFailure();
     case DioExceptionType.unknown:

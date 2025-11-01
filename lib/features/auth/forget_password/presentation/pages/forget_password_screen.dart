@@ -1,4 +1,5 @@
 import 'package:exam_app/core/config/di/di.dart';
+import 'package:exam_app/core/shared/presentation/widgets/app_toast.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
@@ -8,7 +9,6 @@ import 'package:exam_app/features/auth/forget_password/presentation/pages/reset_
 import 'package:exam_app/features/auth/forget_password/presentation/pages/verify_code_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -48,26 +48,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               context.loaderOverlay.show();
             } else if (state is ForgetPasswordError) {
               context.loaderOverlay.hide();
-              Fluttertoast.showToast(
-                msg: state.message,
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 2,
-                backgroundColor: AppColors.blueBase,
-                textColor: AppColors.white,
-                fontSize: 16.0,
-              );
-            } else if(state is ResendCodeSuccess){
+              showAppToast(state.message);
+            } else if (state is ResendCodeSuccess) {
               context.loaderOverlay.hide();
-              Fluttertoast.showToast(
-                msg: "Code sent successfully",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 2,
-                backgroundColor: AppColors.blueBase,
-                textColor: AppColors.white,
-                fontSize: 16.0,
-              );
+              showAppToast("Code sent successfully");
             } else if (state is ForgetPasswordSuccess) {
               context.loaderOverlay.hide();
               _pageController.nextPage(
@@ -75,7 +59,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 curve: Curves.linear,
               );
             }
-           
           },
           child: Scaffold(
             appBar: AppBar(
@@ -83,6 +66,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 highlightColor: Colors.transparent,
                 padding: EdgeInsets.only(left: 16),
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   (_currentIndex == 0)
                       ? Navigator.pop(context)
                       : _pageController.previousPage(
@@ -101,7 +85,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
             ),
             body: PageView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),   
               controller: _pageController,
               onPageChanged: (index) {
                 setState(() {

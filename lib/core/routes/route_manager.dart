@@ -26,7 +26,9 @@ class RouteManager {
           settings: settings,
         );
       default:
-        return MaterialPageRoute(builder: (_) => Container());
+        return MaterialPageRoute(builder: (_) => Scaffold(body: Text(
+          'No route defined for ${settings.name}',
+        ),));
     }
   }
 }

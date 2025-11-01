@@ -58,7 +58,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               label: "Confirm password",
               hint: "Confirm password",
               keyboardType: TextInputType.emailAddress,
-              validator: (val) => Validators.passwordValidator(val),
+              validator: (val) => Validators.confirmPasswordValidator(
+                val,
+                passwordController.text,
+              ),
               textFieldController: confirmPassowrdController,
             ),
             SizedBox(height: 48),
