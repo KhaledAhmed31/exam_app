@@ -26,3 +26,5 @@ class LoginErrorState extends LoginStates {
   final String errorMessage;
   LoginErrorState(this.errorMessage);
 }
+
+class IsLoggedInStates extends AuthStates {}

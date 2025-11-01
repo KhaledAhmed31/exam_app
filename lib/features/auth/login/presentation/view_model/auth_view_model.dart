@@ -50,4 +50,11 @@ class AuthViewModel extends Cubit<AuthStates> {
         emit(LoginErrorState('Something went wrong'));
     }
   }
+
+  Future<bool> checkIsLoggedIn() async {
+    emit(LoginLoadingState('Checking login status...'));
+    bool isLoggedIn = await loginUescase.loginRepo.isLoggedIn();
+    emit(IsLoggedInStates());
+    return isLoggedIn;
+  }
 }
