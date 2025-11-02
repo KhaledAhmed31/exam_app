@@ -8,6 +8,7 @@ import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
+import 'package:exam_app/features/auth/login/presentation/view_model/auth_events.dart';
 import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
 import 'package:exam_app/features/auth/login/presentation/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,9 @@ class LoginScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 14),
                 CustomTextField(
-                  onChanged: viewModel.onEmailChange,
+                  onChanged: (val) {
+                    viewModel.add(EmailOnChangedEvent(val));
+                  },
                   validator: (val) => Validators.emailValidator(val),
                   label: UiStrings.emailLabel,
                   hintText: UiStrings.emailHintText,
@@ -53,7 +56,9 @@ class LoginScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 24),
                 CustomTextField(
-                  onChanged: viewModel.onPasswordChange,
+                  onChanged: (val) {
+                    viewModel.add(PasswordOnChangedEvent(val));
+                  },
                   validator: (val) => Validators.passwordValidator(val),
                   label: UiStrings.passwordLabel,
                   hintText: UiStrings.passwordHintText,
@@ -72,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                               : WidgetStateProperty.all(Colors.transparent),
                           value: viewModel.rememberMe,
                           onChanged: (value) {
-                            viewModel.changeRememberMe(value);
+                            viewModel.add(ChangeRememberMeEvent(value));
                           },
                         );
                       },
@@ -102,10 +107,12 @@ class LoginScreen extends StatelessWidget {
                 BlocConsumer<AuthViewModel, AuthStates>(
                   builder: (context, state) {
                     return AppButton(
-                      isDisabled: viewModel.isLoginButtonDisabled(),
+                      isDisabled:
+                          !(Validators.emailValidator(viewModel.email) == null &&
+                              Validators.passwordValidator(viewModel.password,) == null),
                       title: UiStrings.login,
                       onPressed: () {
-                        viewModel.login();
+                        viewModel.add(LoginEvents());
                       },
                     );
                   },

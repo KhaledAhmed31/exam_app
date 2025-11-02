@@ -26,6 +26,8 @@ import '../../../features/auth/login/data/datasources/login_remote_datasource.da
     as _i1056;
 import '../../../features/auth/login/data/repos/login_repo_impl.dart' as _i226;
 import '../../../features/auth/login/domain/repos/login_repo.dart' as _i142;
+import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
+    as _i115;
 import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
 import '../../../features/auth/login/presentation/view_model/auth_view_model.dart'
@@ -61,11 +63,17 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i918.LoginLocalDatasource>(),
       ),
     );
+    gh.singleton<_i115.IsLoggedInUsecase>(
+      () => _i115.IsLoggedInUsecase(loginRepo: gh<_i142.LoginRepo>()),
+    );
     gh.singleton<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
-    gh.singleton<_i410.AuthViewModel>(
-      () => _i410.AuthViewModel(gh<_i442.LoginUescase>()),
+    gh.factory<_i410.AuthViewModel>(
+      () => _i410.AuthViewModel(
+        gh<_i442.LoginUescase>(),
+        gh<_i115.IsLoggedInUsecase>(),
+      ),
     );
     return this;
   }

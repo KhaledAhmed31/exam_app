@@ -1,45 +1,35 @@
 import 'package:exam_app/core/config/base_response/base_response.dart';
 import 'package:exam_app/core/config/validation/app_validation.dart';
 import 'package:exam_app/features/auth/login/domain/models/login_model.dart';
+import 'package:exam_app/features/auth/login/domain/usecases/is_loggedin_usecase.dart';
 import 'package:exam_app/features/auth/login/domain/usecases/login_uescase.dart';
+import 'package:exam_app/features/auth/login/presentation/view_model/auth_events.dart';
 import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-@singleton
-class AuthViewModel extends Cubit<AuthStates> {
-  LoginUescase loginUescase;
-  AuthViewModel(this.loginUescase) : super(LoginInitialState());
+@injectable
+class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
+  final LoginUescase _loginUescase;
+  final IsLoggedInUsecase _isLoggedInUsecase;
+  AuthViewModel(this._loginUescase, this._isLoggedInUsecase)
+    : super(LoginInitialState()) {
+    on<LoginEvents>(_login);
+    on<IsLoggedInEvent>(_isLoggedIn);
+    on<ChangeRememberMeEvent>(_changeRememberMe);
+    on<EmailOnChangedEvent>(_onEmailChange);
+    on<PasswordOnChangedEvent>(_onPasswordChange);
+  }
   final formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
   bool rememberMe = false;
 
-  void changeRememberMe(bool? value) {
-    rememberMe = value ?? false;
-    emit(ChangeRememberMeState());
-  }
-
-  void onEmailChange(String? email) {
-    if (Validators.notEmpty(email)) {
-      this.email = email!.trim();
-    }
-    emit(EmailOnChanged());
-  }
-
-  void onPasswordChange(String? password) {
-    if (password != null) this.password = password;
-    emit(PasswordOnChanged());
-  }
-
-  bool isLoginButtonDisabled() =>
-      !(Validators.emailValidator(email) == null &&
-          Validators.passwordValidator(password) == null);
-
-  void login() async {
+  void _login(LoginEvents event, Emitter<AuthStates> emit) async {
     emit(LoginLoadingState('Loading...'));
-    BaseResponse<LoginModel> response = await loginUescase.call(
+    BaseResponse<LoginModel> response = await _loginUescase.call(
       email: email,
       password: password,
     );
@@ -51,10 +41,34 @@ class AuthViewModel extends Cubit<AuthStates> {
     }
   }
 
-  Future<bool> checkIsLoggedIn() async {
+  Future<void> _isLoggedIn(
+    IsLoggedInEvent event,
+    Emitter<AuthStates> emit,
+  ) async {
     emit(LoginLoadingState('Checking login status...'));
-    bool isLoggedIn = await loginUescase.loginRepo.isLoggedIn();
-    emit(IsLoggedInStates());
-    return isLoggedIn;
+    emit(IsLoggedInState(isLoggedIn: await _isLoggedInUsecase.call()));
+  }
+
+  void _changeRememberMe(
+    ChangeRememberMeEvent event,
+    Emitter<AuthStates> emit,
+  ) {
+    rememberMe = event.value ?? false;
+    emit(ChangeRememberMeState());
+  }
+
+  void _onEmailChange(EmailOnChangedEvent event, Emitter<AuthStates> emit) {
+    if (Validators.notEmpty(event.email)) {
+      email = event.email!.trim();
+    }
+    emit(EmailOnChangedState());
+  }
+
+  void _onPasswordChange(
+    PasswordOnChangedEvent event,
+    Emitter<AuthStates> emit,
+  ) {
+    if (event.password != null) password = event.password!;
+    emit(PasswordOnChangedState());
   }
 }

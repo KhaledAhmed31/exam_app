@@ -6,12 +6,6 @@ class LoginStates extends AuthStates {}
 
 class LoginInitialState extends LoginStates {}
 
-class ChangeRememberMeState extends LoginStates {}
-
-class EmailOnChanged extends LoginStates {}
-
-class PasswordOnChanged extends LoginStates {}
-
 class LoginLoadingState extends LoginStates {
   String loadingMessage;
   LoginLoadingState(this.loadingMessage);
@@ -27,4 +21,13 @@ class LoginErrorState extends LoginStates {
   LoginErrorState(this.errorMessage);
 }
 
-class IsLoggedInStates extends AuthStates {}
+class IsLoggedInState extends AuthStates {
+  final bool isLoggedIn;
+  IsLoggedInState({required this.isLoggedIn});
+}
+
+class ChangeRememberMeState extends LoginStates {}
+
+class EmailOnChangedState extends LoginStates {}
+
+class PasswordOnChangedState extends LoginStates {}
