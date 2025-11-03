@@ -18,14 +18,14 @@ class _SendCodeScreenState extends State<SendCodeScreen> {
   late AppLocalizations local;
   late GlobalKey<FormState> _formkey;
   late TextEditingController emailController;
+  bool isDisabled = false;
+
   @override
   void initState() {
-
     _formkey = GlobalKey<FormState>();
     emailController = TextEditingController();
     super.initState();
   }
-
   @override
   void dispose() {
     emailController.dispose();
@@ -41,28 +41,40 @@ class _SendCodeScreenState extends State<SendCodeScreen> {
       child: Center(
         child: Column(
           children: [
-            SizedBox(height: 40),
+          const  SizedBox(height: 40),
             Description(
               title: local.forgetPasswordTitle,
               description: local.forgetPasswordDescription,
             ),
-
-            SizedBox(height: 32),
+          const  SizedBox(height: 32),
             CustomTextField(
               label: local.emailLabel,
               hint: local.emailHint,
               keyboardType: TextInputType.emailAddress,
               validator: (val) => Validators.emailValidator(val),
+              onChanged: (val) {
+                if (Validators.emailValidator(val) == null) {
+                  setState(() {
+                    isDisabled = false;
+                    _formkey.currentState!.validate();
+                  });
+                }
+              },
               textFieldController: emailController,
             ),
-            SizedBox(height: 48),
+           const SizedBox(height: 48),
             AppButton(
               title: local.continueButton,
+              isDisabled: isDisabled,
               onPressed: () {
                 if (_formkey.currentState!.validate()) {
                   context.read<ForgetPasswordBloc>().add(
                     SendResetCodeEvent(email: emailController.text),
                   );
+                } else {
+                  setState(() {
+                    isDisabled = true;
+                  });
                 }
               },
             ),

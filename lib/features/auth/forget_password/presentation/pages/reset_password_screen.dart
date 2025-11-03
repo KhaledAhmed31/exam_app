@@ -20,6 +20,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   late GlobalKey<FormState> _formkey;
   late TextEditingController confirmPassowrdController;
   late TextEditingController passwordController;
+  bool isDisabled = false;
   @override
   void initState() {
     _formkey = GlobalKey<FormState>();
@@ -56,6 +57,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               hint: local.passwordHint,
               keyboardType: TextInputType.emailAddress,
               validator: (val) => Validators.passwordValidator(val),
+              onChanged: (val) {
+                if (Validators.passwordValidator(val) == null) {
+                  setState(() {
+                    isDisabled = false;
+                    _formkey.currentState!.validate();
+                  });
+                }
+              },
               textFieldController: passwordController,
             ),
             SizedBox(height: 24),
@@ -67,22 +76,36 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 val,
                 passwordController.text,
               ),
+              onChanged: (val) {
+                if (Validators.confirmPasswordValidator(
+                      val,
+                      passwordController.text,
+                    ) ==
+                    null) {
+                  setState(() {
+                    isDisabled = false;
+                    _formkey.currentState!.validate();
+                  });
+                }
+              },
               textFieldController: confirmPassowrdController,
             ),
             SizedBox(height: 48),
             AppButton(
+              isDisabled: isDisabled,
               title: local.continueButton,
               onPressed: () {
                 if (_formkey.currentState!.validate()) {
-                  if (passwordController.text ==
-                      confirmPassowrdController.text) {
-                    context.read<ForgetPasswordBloc>().add(
-                      ResetPasswordEvent(
-                        email: context.read<ForgetPasswordBloc>().email,
-                        password: passwordController.text,
-                      ),
-                    );
-                  }
+                  context.read<ForgetPasswordBloc>().add(
+                    ResetPasswordEvent(
+                      email: context.read<ForgetPasswordBloc>().email,
+                      password: passwordController.text,
+                    ),
+                  );
+                } else {
+                  setState(() {
+                    isDisabled = true;
+                  });
                 }
               },
             ),

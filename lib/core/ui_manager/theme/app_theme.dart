@@ -7,10 +7,14 @@ import '../fonts/font_style_manager.dart';
 class AppTheme {
   static ThemeData light = ThemeData(
     primaryColor: AppColors.blueBase,
-    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.blueBase),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: AppColors.blueBase,
+      surface: AppColors.blue20,onSurface: AppColors.white
+    ),
     canvasColor: AppColors.blueBase,
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: AppBarTheme(
+      surfaceTintColor: Colors.transparent,
       backgroundColor: AppColors.white,
       elevation: 0,
       titleSpacing: 0,
@@ -20,7 +24,10 @@ class AppTheme {
         fontSize: FontSizesManager.s20,
       ),
     ),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: AppColors.blueBase),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.blueBase,
+      selectionHandleColor: AppColors.blueBase,
+    ),
     textTheme: TextTheme(
       bodyLarge: FontStyleManager.robotoRegular(
         color: AppColors.placholder,
