@@ -1,13 +1,13 @@
 import 'dart:developer';
 
-import 'package:exam_app/core/config/base_response/base_response.dart';
-import 'package:exam_app/core/config/error/error_handler.dart';
-import 'package:exam_app/features/auth/forget_password/data/models/reset_password_response.dart';
-import 'package:exam_app/features/auth/forget_password/data/models/send_reset_code_response.dart';
-import 'package:exam_app/features/auth/forget_password/data/models/verify_reset_code_response.dart';
-import 'package:exam_app/features/auth/forget_password/domain/usecases/reset_password_use_case.dart';
-import 'package:exam_app/features/auth/forget_password/domain/usecases/send_reset_code_use_case.dart';
-import 'package:exam_app/features/auth/forget_password/domain/usecases/verify_reset_code_use_case.dart';
+import '../../../../../core/config/base_response/base_response.dart';
+import '../../../../../core/config/error/error_handler.dart';
+import '../../data/models/reset_password_response.dart';
+import '../../data/models/send_reset_code_response.dart';
+import '../../data/models/verify_reset_code_response.dart';
+import '../../domain/usecases/reset_password_use_case.dart';
+import '../../domain/usecases/send_reset_code_use_case.dart';
+import '../../domain/usecases/verify_reset_code_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 

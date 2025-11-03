@@ -1,8 +1,10 @@
-import 'package:exam_app/core/config/validation/app_validation.dart';
-import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
-import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/bloc/forget_password_bloc.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/widgets/description.dart';
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+
+import '../../../../../core/config/validation/app_validation.dart';
+import '../../../../../core/shared/presentation/widgets/app_button.dart';
+import '../../../../../core/shared/presentation/widgets/custom_text_feild.dart';
+import '../bloc/forget_password_bloc.dart';
+import '../widgets/description.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,10 +15,12 @@ class SendCodeScreen extends StatefulWidget {
 }
 
 class _SendCodeScreenState extends State<SendCodeScreen> {
+  late AppLocalizations local;
   late GlobalKey<FormState> _formkey;
   late TextEditingController emailController;
   @override
   void initState() {
+
     _formkey = GlobalKey<FormState>();
     emailController = TextEditingController();
     super.initState();
@@ -30,6 +34,8 @@ class _SendCodeScreenState extends State<SendCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    local = AppLocalizations.of(context)!;
+
     return Form(
       key: _formkey,
       child: Center(
@@ -37,22 +43,21 @@ class _SendCodeScreenState extends State<SendCodeScreen> {
           children: [
             SizedBox(height: 40),
             Description(
-              title: "Forgot Password",
-              description:
-                  "Please enter your email associated to your account",
+              title: local.forgetPasswordTitle,
+              description: local.forgetPasswordDescription,
             ),
-            
+
             SizedBox(height: 32),
             CustomTextField(
-              label: "Email",
-              hint: "Enter your email",
+              label: local.emailLabel,
+              hint: local.emailHint,
               keyboardType: TextInputType.emailAddress,
               validator: (val) => Validators.emailValidator(val),
               textFieldController: emailController,
             ),
             SizedBox(height: 48),
             AppButton(
-              title: "Continue",
+              title: local.continueButton,
               onPressed: () {
                 if (_formkey.currentState!.validate()) {
                   context.read<ForgetPasswordBloc>().add(

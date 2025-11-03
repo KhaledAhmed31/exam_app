@@ -1,12 +1,15 @@
-import 'package:exam_app/core/config/di/di.dart';
-import 'package:exam_app/core/shared/presentation/widgets/app_toast.dart';
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/bloc/forget_password_bloc.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/pages/send_code_screen.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/pages/reset_password_screen.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/pages/verify_code_screen.dart';
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+
+import '../../../../../core/config/di/di.dart';
+import '../../../../../core/constants/ui_strings.dart';
+import '../../../../../core/shared/presentation/widgets/app_toast.dart';
+import '../../../../../core/ui_manager/colors/app_colors.dart';
+import '../../../../../core/ui_manager/fonts/font_sizes_manager.dart';
+import '../../../../../core/ui_manager/fonts/font_style_manager.dart';
+import '../bloc/forget_password_bloc.dart';
+import 'send_code_screen.dart';
+import 'reset_password_screen.dart';
+import 'verify_code_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -19,6 +22,7 @@ class ForgetPasswordScreen extends StatefulWidget {
 }
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  late AppLocalizations local;
   late ForgetPasswordBloc _forgetPasswordBloc;
   late PageController _pageController;
   int _currentIndex = 0;
@@ -39,6 +43,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    local = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (context) => _forgetPasswordBloc,
       child: LoaderOverlay(
@@ -51,7 +56,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               showAppToast(state.message);
             } else if (state is ResendCodeSuccess) {
               context.loaderOverlay.hide();
-              showAppToast("Code sent successfully");
+              showAppToast(UIStrings.resendCodeSuccessMessage);
             } else if (state is ForgetPasswordSuccess) {
               context.loaderOverlay.hide();
               _pageController.nextPage(
@@ -64,7 +69,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             appBar: AppBar(
               leading: IconButton(
                 highlightColor: Colors.transparent,
-                padding: EdgeInsets.only(left: 16),
+                padding: EdgeInsets.only(
+                 
+                  right:  local.localeName == 'ar'?16:0,
+                  left: local.localeName == 'en'?16:0),
                 onPressed: () {
                   FocusScope.of(context).unfocus();
                   (_currentIndex == 0)
@@ -77,7 +85,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 icon: Icon(Icons.arrow_back_ios),
               ),
               title: Text(
-                "Password",
+                local.forgetPasswordScreenTitle,
                 style: FontStyleManager.interMedium(
                   fontSize: FontSizesManager.s20,
                   color: AppColors.blackBase,
@@ -85,7 +93,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
             ),
             body: PageView.builder(
-              physics: const NeverScrollableScrollPhysics(),   
+              physics: const NeverScrollableScrollPhysics(),
               controller: _pageController,
               onPageChanged: (index) {
                 setState(() {

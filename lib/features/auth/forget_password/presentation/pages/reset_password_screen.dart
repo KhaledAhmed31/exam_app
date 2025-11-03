@@ -1,8 +1,10 @@
-import 'package:exam_app/core/config/validation/app_validation.dart';
-import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
-import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/bloc/forget_password_bloc.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/widgets/description.dart';
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+
+import '../../../../../core/config/validation/app_validation.dart';
+import '../../../../../core/shared/presentation/widgets/app_button.dart';
+import '../../../../../core/shared/presentation/widgets/custom_text_feild.dart';
+import '../bloc/forget_password_bloc.dart';
+import '../widgets/description.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +16,7 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  late AppLocalizations local;
   late GlobalKey<FormState> _formkey;
   late TextEditingController confirmPassowrdController;
   late TextEditingController passwordController;
@@ -34,6 +37,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    local = AppLocalizations.of(context)!;
+
     return Form(
       key: _formkey,
       child: Center(
@@ -41,22 +46,22 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           children: [
             SizedBox(height: 40),
             Description(
-              title: "Forgot Password",
-              description: "Please enter your email associated to your account",
+              title: local.resetPasswordTitle,
+              description: local.resetPasswordDescription,
             ),
 
             SizedBox(height: 32),
             CustomTextField(
-              label: "New password",
-              hint: "Enter your password",
+              label: local.passwordLabel,
+              hint: local.passwordHint,
               keyboardType: TextInputType.emailAddress,
               validator: (val) => Validators.passwordValidator(val),
               textFieldController: passwordController,
             ),
             SizedBox(height: 24),
             CustomTextField(
-              label: "Confirm password",
-              hint: "Confirm password",
+              label: local.confirmPassowrdLabel,
+              hint: local.confirmPasswordHint,
               keyboardType: TextInputType.emailAddress,
               validator: (val) => Validators.confirmPasswordValidator(
                 val,
@@ -66,7 +71,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
             SizedBox(height: 48),
             AppButton(
-              title: "Continue",
+              title: local.continueButton,
               onPressed: () {
                 if (_formkey.currentState!.validate()) {
                   if (passwordController.text ==

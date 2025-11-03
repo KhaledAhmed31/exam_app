@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:exam_app/core/config/api/api_const.dart';
-import 'package:exam_app/features/auth/forget_password/data/models/verify_reset_code_response.dart';
+import '../../../../../core/config/api/api_const.dart';
+import '../../data/models/verify_reset_code_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';

@@ -1,7 +1,9 @@
-import 'package:exam_app/features/auth/forget_password/presentation/bloc/forget_password_bloc.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/widgets/description.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/widgets/enter_code_section.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/widgets/resend_code_section.dart';
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+
+import '../bloc/forget_password_bloc.dart';
+import '../widgets/description.dart';
+import '../widgets/enter_code_section.dart';
+import '../widgets/resend_code_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,23 +14,27 @@ class VerifyCodeScreen extends StatefulWidget {
 }
 
 class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
+  late AppLocalizations local;
+  
   @override
   Widget build(BuildContext context) {
+    local = AppLocalizations.of(context)!;
+
     return Center(
       child: Column(
         children: [
           SizedBox(height: 40),
           Description(
-            title: "Verification Code",
+            title: local.verifyCodeTitle,
             description:
-                "Please enter the verification code sent to your email",
+                local.verifyCodeDescription,
           ),
           SizedBox(height: 32),
           EnterCodeSection(),
           SizedBox(height: 24),
           ResendCodeSection(
-            message: "Didn't receive the code? ",
-            buttonTitle: "Resend",
+            message: local.doNotReceiveCode,
+            buttonTitle: local.resendCode,
             onTap: () => context.read<ForgetPasswordBloc>().add(
               ResendResetCodeEvent(
                 email: context.read<ForgetPasswordBloc>().email,

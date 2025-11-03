@@ -1,5 +1,6 @@
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../../ui_manager/colors/app_colors.dart';
 
 void showAppToast(String message) {
   Fluttertoast.showToast(

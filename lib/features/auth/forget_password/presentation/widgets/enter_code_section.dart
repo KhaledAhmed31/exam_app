@@ -1,9 +1,10 @@
 import 'dart:developer';
 
-import 'package:exam_app/features/auth/forget_password/presentation/bloc/forget_password_bloc.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/widgets/enter_code_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/forget_password_bloc.dart';
+import 'enter_code_widget.dart';
 
 class EnterCodeSection extends StatefulWidget {
   const EnterCodeSection({super.key});

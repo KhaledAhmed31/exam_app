@@ -1,7 +1,8 @@
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
 import 'package:flutter/material.dart';
+
+import '../colors/app_colors.dart';
+import '../fonts/font_sizes_manager.dart';
+import '../fonts/font_style_manager.dart';
 
 class AppTheme {
   static ThemeData light = ThemeData(

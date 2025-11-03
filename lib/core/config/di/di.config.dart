@@ -35,6 +35,8 @@ import '../../../features/auth/forget_password/domain/usecases/verify_reset_code
     as _i614;
 import '../../../features/auth/forget_password/presentation/bloc/forget_password_bloc.dart'
     as _i588;
+import '../../shared/presentation/bloc/localization/localization_bloc.dart'
+    as _i556;
 import 'di_modules.dart' as _i176;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -46,6 +48,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
+    gh.lazySingleton<_i556.LocalizationBloc>(() => _i556.LocalizationBloc());
     gh.lazySingleton<_i672.ResetPasswordClient>(
       () => _i672.ResetPasswordClient(gh<_i361.Dio>()),
     );
