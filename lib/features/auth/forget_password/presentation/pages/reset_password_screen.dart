@@ -55,7 +55,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             CustomTextField(
               label: local.passwordLabel,
               hint: local.passwordHint,
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.visiblePassword,
               validator: (val) => Validators.passwordValidator(val),
               onChanged: (val) {
                 if (Validators.passwordValidator(val) == null) {
@@ -71,7 +71,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             CustomTextField(
               label: local.confirmPassowrdLabel,
               hint: local.confirmPasswordHint,
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.visiblePassword,
               validator: (val) => Validators.confirmPasswordValidator(
                 val,
                 passwordController.text,

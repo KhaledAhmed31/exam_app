@@ -14,6 +14,7 @@ class AppTheme {
     canvasColor: AppColors.blueBase,
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: AppBarTheme(
+      foregroundColor: AppColors.blackBase,
       surfaceTintColor: Colors.transparent,
       backgroundColor: AppColors.white,
       elevation: 0,

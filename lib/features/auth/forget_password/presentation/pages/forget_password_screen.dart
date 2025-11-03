@@ -70,7 +70,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               leading: IconButton(
                 highlightColor: Colors.transparent,
                 padding: EdgeInsets.only(
-                 
                   right:  local.localeName == 'ar'?16:0,
                   left: local.localeName == 'en'?16:0),
                 onPressed: () {
