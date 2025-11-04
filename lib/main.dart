@@ -1,10 +1,14 @@
-import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
-import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
+import 'package:exam_app/core/config/di/di.dart';
+import 'package:exam_app/core/routes/route_manager.dart';
+import 'package:exam_app/core/routes/route_path.dart';
+import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -14,21 +18,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Exam App",
+      title: UiStrings.examApp,
       theme: AppTheme.light,
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              
-              CustomTextField(label: "Email"),
-              AppButton(title: "Login", onPressed: () {}),
-            ],
-          ),
-        ),
-      ),
+      onGenerateRoute: RouteManager.generateRoute,
+      initialRoute: RoutePath.home,
     );
   }
 }
