@@ -18,3 +18,5 @@ class PasswordOnChangedEvent extends AuthEvents {
   final String? password;
   PasswordOnChangedEvent(this.password);
 }
+
+class AutoLoginEvent extends AuthEvents {}

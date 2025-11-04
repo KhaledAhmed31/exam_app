@@ -40,145 +40,148 @@ class LoginScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: BlocProvider<AuthViewModel>(
           create: (context) => viewModel,
-          child: Form(
-            key: viewModel.formKey,
-            child: Column(
-              children: [
-                SizedBox(height: 14),
-                CustomTextField(
-                  onChanged: (val) {
-                    viewModel.add(EmailOnChangedEvent(val));
+          child: BlocConsumer<AuthViewModel, AuthStates>(
+            listener: (context, state) {
+              if (state is LoginLoadingState) {
+                DialogUtils.showLoading(
+                  context,
+                  state.loadingMessage,
+                  AppColors.white,
+                );
+              } else if (state is LoginSuccessState) {
+                DialogUtils.hideLoading(context);
+                DialogUtils.showMessage(
+                  context,
+                  state.data?.userModel?.firstName ?? "",
+                  titleMessage: 'Success',
+                  backgroundColor: AppColors.blueBase,
+                  textColor: AppColors.white,
+                  posActionName: 'OK',
+                  actionColor: AppColors.white,
+                  posAction: () {
+                    Navigator.pushReplacementNamed(context, RoutePath.home);
                   },
-                  validator: (val) => Validators.emailValidator(val),
-                  label: UiStrings.emailLabel,
-                  hintText: UiStrings.emailHintText,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                SizedBox(height: 24),
-                CustomTextField(
-                  onChanged: (val) {
-                    viewModel.add(PasswordOnChangedEvent(val));
-                  },
-                  validator: (val) => Validators.passwordValidator(val),
-                  label: UiStrings.passwordLabel,
-                  hintText: UiStrings.passwordHintText,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                ),
-                Row(
+                );
+              } else if (state is LoginErrorState) {
+                DialogUtils.hideLoading(context);
+                DialogUtils.showMessage(
+                  context,
+                  state.errorMessage,
+                  titleMessage: 'Error',
+                  backgroundColor: AppColors.blueBase,
+                  textColor: AppColors.white,
+                  negActionName: 'OK',
+                  actionColor: AppColors.white,
+                );
+              } else if (state is ChangeRememberMeState) {
+                print('<<<<<<<<<LoginScreen: RememberMe state updated : ${viewModel.rememberMe}');
+              }
+            },
+            builder: (context, state) {
+              return Form(
+                key: viewModel.formKey,
+                child: Column(
                   children: [
-                    SizedBox(width: 20),
-                    BlocBuilder<AuthViewModel, AuthStates>(
-                      builder: (BuildContext context, AuthStates state) {
-                        return Checkbox(
+                    SizedBox(height: 14),
+                    CustomTextField(
+                      onChanged: (val) {
+                        viewModel.add(EmailOnChangedEvent(val));
+                      },
+                      validator: (val) => Validators.emailValidator(val),
+                      label: UiStrings.emailLabel,
+                      hintText: UiStrings.emailHintText,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 24),
+                    CustomTextField(
+                      onChanged: (val) {
+                        viewModel.add(PasswordOnChangedEvent(val));
+                      },
+                      validator: (val) => Validators.passwordValidator(val),
+                      label: UiStrings.passwordLabel,
+                      hintText: UiStrings.passwordHintText,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(width: 20),
+                        Checkbox(
                           checkColor: AppColors.white,
                           fillColor: viewModel.rememberMe
                               ? WidgetStateProperty.all(AppColors.gray)
                               : WidgetStateProperty.all(Colors.transparent),
                           value: viewModel.rememberMe,
                           onChanged: (value) {
+                            print(
+                              '<<<<<<<<<LoginScreen: Checkbox clicked, value=$value',
+                            );
                             viewModel.add(ChangeRememberMeEvent(value));
+                            // viewModel.add(LoginEvents());
                           },
-                        );
-                      },
-                    ),
-                    Text(
-                      UiStrings.rememberMe,
-                      style: FontStyleManager.interRegular(
-                        color: AppColors.blackBase,
-                        fontSize: FontSizesManager.s14,
-                      ),
-                    ),
-                    Spacer(),
-                    Text.rich(
-                      TextSpan(
-                        text: UiStrings.forgetPassword,
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          fontSize: FontSizesManager.s14,
-                          color: AppColors.blackBase,
                         ),
-                      ),
+                        Text(
+                          UiStrings.rememberMe,
+                          style: FontStyleManager.interRegular(
+                            color: AppColors.blackBase,
+                            fontSize: FontSizesManager.s14,
+                          ),
+                        ),
+                        Spacer(),
+                        Text.rich(
+                          TextSpan(
+                            text: UiStrings.forgetPassword,
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontSize: FontSizesManager.s14,
+                              color: AppColors.blackBase,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 6),
+                      ],
                     ),
-                    SizedBox(width: 6),
-                  ],
-                ),
-                SizedBox(height: 48),
-                BlocConsumer<AuthViewModel, AuthStates>(
-                  builder: (context, state) {
-                    return AppButton(
+                    SizedBox(height: 48),
+                    AppButton(
                       isDisabled:
-                          !(Validators.emailValidator(viewModel.email) == null &&
-                              Validators.passwordValidator(viewModel.password,) == null),
+                          !(Validators.emailValidator(viewModel.email) ==
+                                  null &&
+                              Validators.passwordValidator(
+                                    viewModel.password,
+                                  ) ==
+                                  null),
                       title: UiStrings.login,
                       onPressed: () {
                         viewModel.add(LoginEvents());
                       },
-                    );
-                  },
-                  listener: (context, state) {
-                    if (state is LoginLoadingState) {
-                      DialogUtils.showLoading(
-                        context,
-                        state.loadingMessage,
-                        AppColors.white,
-                      );
-                    } else if (state is LoginSuccessState) {
-                      DialogUtils.hideLoading(context);
-                      DialogUtils.showMessage(
-                        context,
-                        state.data?.userModel?.firstName ?? "",
-                        titleMessage: 'Success',
-                        backgroundColor: AppColors.blueBase,
-                        textColor: AppColors.white,
-                        posActionName: 'OK',
-                        actionColor: AppColors.white,
-                        posAction: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            RoutePath.home,
-                          );
-                        },
-                      );
-                    } else if (state is LoginErrorState) {
-                      DialogUtils.hideLoading(context);
-                      DialogUtils.showMessage(
-                        context,
-                        state.errorMessage,
-                        titleMessage: 'Error',
-                        backgroundColor: AppColors.blueBase,
-                        textColor: AppColors.white,
-                        negActionName: 'OK',
-                        actionColor: AppColors.white,
-                      );
-                    }
-                  },
-                ),
-                SizedBox(height: 16),
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      text: UiStrings.doNotHaveAccount,
-                      style: FontStyleManager.interRegular(
-                        color: AppColors.blackBase,
-                        fontSize: FontSizesManager.s16,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: UiStrings.signUp,
-                          style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: AppColors.blueBase,
-                            fontWeight: FontWeight.w500,
+                    ),
+                    SizedBox(height: 16),
+                    Center(
+                      child: RichText(
+                        text: TextSpan(
+                          text: UiStrings.doNotHaveAccount,
+                          style: FontStyleManager.interRegular(
+                            color: AppColors.blackBase,
                             fontSize: FontSizesManager.s16,
                           ),
+                          children: [
+                            TextSpan(
+                              text: UiStrings.signUp,
+                              style: const TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: AppColors.blueBase,
+                                fontWeight: FontWeight.w500,
+                                fontSize: FontSizesManager.s16,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),

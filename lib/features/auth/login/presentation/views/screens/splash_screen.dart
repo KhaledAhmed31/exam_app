@@ -18,11 +18,12 @@ class SplashScreen extends StatelessWidget {
         create: (context) => authViewModel..add(IsLoggedInEvent()),
         child: BlocListener<AuthViewModel, AuthStates>(
           listener: (context, state) {
-            if (state is IsLoggedInState) {
-              state.isLoggedIn
-                  ? Navigator.of(context).pushReplacementNamed(RoutePath.home)
-                  : Navigator.of(context).pushReplacementNamed(RoutePath.login);
-            }
+            // if (state is IsLoggedInState) {
+            //   state.isLoggedIn
+            //       ? Navigator.of(context).pushReplacementNamed(RoutePath.home)
+            //       : Navigator.of(context).pushReplacementNamed(RoutePath.login);
+            // }
+            Navigator.of(context).pushReplacementNamed(RoutePath.login);
           },
           child: Center(
             child: CircularProgressIndicator(color: AppColors.blueBase),
