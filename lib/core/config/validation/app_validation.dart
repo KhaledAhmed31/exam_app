@@ -12,6 +12,17 @@ class Validators {
     }
   }
 
+  static String? usernameValidator(String? val) {
+    RegExp nameRegExp = RegExp('[a-zA-Z]');
+    if (val == null || val.isEmpty) {
+      return "This user name is not valid";
+    } else if (!nameRegExp.hasMatch(val)) {
+      return "This user name is not valid";
+    } else {
+      return null;
+    }
+  }
+
   static String? phoneValidator(String? val) {
     RegExp phoneRegExp = RegExp(r'\d');
     if (val == null || val.isEmpty) {
@@ -53,9 +64,9 @@ class Validators {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
     );
     if (val == null || val.isEmpty) {
-      return "Enter your email";
+      return "This Email is not valid";
     } else if (!emailRegExp.hasMatch(val)) {
-      return "Enter valid email";
+      return "This Email is not valid";
     } else {
       return null;
     }

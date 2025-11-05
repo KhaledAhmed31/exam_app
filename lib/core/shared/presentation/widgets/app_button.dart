@@ -14,7 +14,12 @@ class AppButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: AppColors.blueBase,overlayColor: AppColors.white),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.blueBase,
+            overlayColor: AppColors.white,
+            disabledBackgroundColor: AppColors.gray,
+            disabledForegroundColor: AppColors.white,
+          ),
           onPressed: onPressed,
           child: Text(
             title,
