@@ -38,17 +38,17 @@ class LoginScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: BlocConsumer<AuthViewModel, AuthStates>(
           listener: (context, state) {
-            if (state is LoginLoadingState) {
+            if (state.loginState?.isLoading == true) {
               DialogUtils.showLoading(
                 context,
-                state.loadingMessage,
+                'Loading...',
                 AppColors.white,
               );
-            } else if (state is LoginSuccessState) {
+            } else if (state.loginState?.isLoading == false && state.loginState?.data != null) {
               DialogUtils.hideLoading(context);
               DialogUtils.showMessage(
                 context,
-                state.data?.userModel?.firstName ?? "",
+                state.loginState?.data?.userModel?.firstName ?? "",
                 titleMessage: 'Success',
                 backgroundColor: AppColors.blueBase,
                 textColor: AppColors.white,
@@ -58,11 +58,12 @@ class LoginScreen extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, RoutePath.home);
                 },
               );
-            } else if (state is LoginErrorState) {
+            } 
+            else if (state.loginState?.errorMessage?.isNotEmpty == true) {
               DialogUtils.hideLoading(context);
               DialogUtils.showMessage(
                 context,
-                state.errorMessage,
+                state.loginState?.errorMessage ?? "",
                 titleMessage: 'Error',
                 backgroundColor: AppColors.blueBase,
                 textColor: AppColors.white,

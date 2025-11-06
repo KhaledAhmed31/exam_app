@@ -16,7 +16,7 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
   final LoginUescase _loginUescase;
   final IsLoggedInUsecase _isLoggedInUsecase;
   AuthViewModel(this._loginUescase, this._isLoggedInUsecase)
-    : super(LoginInitialState()) {
+    : super(AuthStates()) {
     on<LoginEvents>(_login);
     on<IsLoggedInEvent>(_isLoggedIn);
     on<ChangeRememberMeEvent>(_changeRememberMe);
@@ -31,7 +31,7 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
   final _storage = FlutterSecureStorage();
 
   void _login(LoginEvents event, Emitter<AuthStates> emit) async {
-    emit(LoginLoadingState('Loading...'));
+    emit(state.copywith(loginStateCopywith: LoginState(isLoading: true)));
     BaseResponse<LoginModel> response = await _loginUescase.call(
       email: email,
       password: password,
@@ -42,9 +42,23 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
           await _storage.write(key: 'token', value: response.data.token);
           await _storage.write(key: 'remember_me', value: 'true');
         }
-        emit(LoginSuccessState(data: response.data));
+        emit(
+          state.copywith(
+            loginStateCopywith: LoginState(
+              isLoading: false,
+              data: response.data,
+            ),
+          ),
+        );
       case ErrorResponse<LoginModel>():
-        emit(LoginErrorState('Something went wrong'));
+        emit(
+          state.copywith(
+            loginStateCopywith: LoginState(
+              isLoading: false,
+              errorMessage: 'Something went wrong',
+            ),
+          ),
+        );
     }
   }
 
@@ -52,7 +66,13 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
     IsLoggedInEvent event,
     Emitter<AuthStates> emit,
   ) async {
-    emit(IsLoggedInState(isLoggedIn: await _isLoggedInUsecase.call()));
+    emit(
+      state.copywith(
+        loginStateCopywith: LoginState(
+          isLoggedIn: await _isLoggedInUsecase.call(),
+        ),
+      ),
+    );
   }
 
   void _changeRememberMe(
@@ -61,14 +81,16 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
   ) async {
     rememberMe = event.value ?? false;
     await _storage.write(key: 'remember_me', value: rememberMe.toString());
-    emit(ChangeRememberMeState());
+    emit(
+      state.copywith(loginStateCopywith: LoginState(changeRememberMe: true)),
+    );
   }
 
   void _onEmailChange(EmailOnChangedEvent event, Emitter<AuthStates> emit) {
     if (Validators.notEmpty(event.email)) {
       email = event.email!.trim();
     }
-    emit(EmailOnChangedState());
+    emit(state.copywith(loginStateCopywith: LoginState(changeOnEmail: true)));
   }
 
   void _onPasswordChange(
@@ -76,6 +98,8 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
     Emitter<AuthStates> emit,
   ) {
     if (event.password != null) password = event.password!;
-    emit(PasswordOnChangedState());
+    emit(
+      state.copywith(loginStateCopywith: LoginState(changeOnPassword: true)),
+    );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/routes/route_manager.dart';
 import 'package:exam_app/core/routes/route_path.dart';
@@ -34,10 +36,17 @@ class MainApp extends StatelessWidget {
       onGenerateRoute: RouteManager.generateRoute,
       home: BlocBuilder<AuthViewModel, AuthStates>(
         builder: (context, state) {
-          if (state is IsLoggedInState) {
-            initialRoute = state.isLoggedIn ? RoutePath.home : RoutePath.login;
-            // ignore: avoid_print
-            print('<<<<<< ${state.isLoggedIn} / initial route: $initialRoute');
+          if (state.loginState?.isLoggedIn == false) {
+            initialRoute = RoutePath.login;
+            print(
+              '<<<<<< ${state.loginState?.isLoggedIn} / initial route in false: $initialRoute',
+            );
+            FlutterNativeSplash.remove();
+          } else if (state.loginState?.isLoggedIn == true) {
+            initialRoute = RoutePath.home;
+            print(
+              '<<<<<< ${state.loginState?.isLoggedIn} / initial route in true: $initialRoute',
+            );
             FlutterNativeSplash.remove();
           }
           if (initialRoute == '/login') {
