@@ -1,27 +1,52 @@
 import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/routes/route_manager.dart';
 import 'package:exam_app/core/routes/route_path.dart';
-import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
+import 'package:exam_app/features/auth/login/presentation/view_model/auth_events.dart';
+import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
+import 'package:exam_app/features/auth/login/presentation/view_model/auth_view_model.dart';
+import 'package:exam_app/features/auth/login/presentation/views/screens/home_screen.dart';
+import 'package:exam_app/features/auth/login/presentation/views/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   configureDependencies();
-  runApp(MainApp());
+  runApp(
+    BlocProvider(
+      create: (context) => getIt<AuthViewModel>()..add(IsLoggedInEvent()),
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+  MainApp({super.key});
+  String? initialRoute;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: UiStrings.examApp,
       theme: AppTheme.light,
       onGenerateRoute: RouteManager.generateRoute,
-      initialRoute: RoutePath.splash,
+      home: BlocBuilder<AuthViewModel, AuthStates>(
+        builder: (context, state) {
+          if (state is IsLoggedInState) {
+            initialRoute = state.isLoggedIn ? RoutePath.home : RoutePath.login;
+            // ignore: avoid_print
+            print('<<<<<< ${state.isLoggedIn} / initial route: $initialRoute');
+            FlutterNativeSplash.remove();
+          }
+          if (initialRoute == '/login') {
+            return LoginScreen();
+          } else {
+            return HomeScreen();
+          }
+        },
+      ),
     );
   }
 }

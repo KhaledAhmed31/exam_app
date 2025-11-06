@@ -22,8 +22,8 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
     on<ChangeRememberMeEvent>(_changeRememberMe);
     on<EmailOnChangedEvent>(_onEmailChange);
     on<PasswordOnChangedEvent>(_onPasswordChange);
-    on<AutoLoginEvent>(_autoLogin);
   }
+
   final formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
@@ -38,7 +38,10 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
     );
     switch (response) {
       case SuccessResponse<LoginModel>():
-        await _saveData(response.data);
+        if (rememberMe) {
+          await _storage.write(key: 'token', value: response.data.token);
+          await _storage.write(key: 'remember_me', value: 'true');
+        }
         emit(LoginSuccessState(data: response.data));
       case ErrorResponse<LoginModel>():
         emit(LoginErrorState('Something went wrong'));
@@ -49,20 +52,16 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
     IsLoggedInEvent event,
     Emitter<AuthStates> emit,
   ) async {
-    emit(LoginLoadingState('Checking login status...'));
     emit(IsLoggedInState(isLoggedIn: await _isLoggedInUsecase.call()));
   }
 
   void _changeRememberMe(
     ChangeRememberMeEvent event,
     Emitter<AuthStates> emit,
-  ) {
+  ) async {
     rememberMe = event.value ?? false;
+    await _storage.write(key: 'remember_me', value: rememberMe.toString());
     emit(ChangeRememberMeState());
-
-    if (rememberMe) {
-      add(AutoLoginEvent());
-    }
   }
 
   void _onEmailChange(EmailOnChangedEvent event, Emitter<AuthStates> emit) {
@@ -78,65 +77,5 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
   ) {
     if (event.password != null) password = event.password!;
     emit(PasswordOnChangedState());
-  }
-
-  Future<void> _autoLogin(
-    AutoLoginEvent event,
-    Emitter<AuthStates> emit,
-  ) async {
-    emit(LoginLoadingState('Auto login loading...'));
-    try {
-      final savedEmail = await _storage.read(key: 'email');
-      final savedPassword = await _storage.read(key: 'password');
-      final savedRememberMe = await _storage.read(key: 'remember_me');
-      print(
-        '<<<<< AutoLogin: email=$savedEmail, password=$savedPassword, rememberMe=$savedRememberMe',
-      );
-      if (savedRememberMe == 'true' &&
-          savedEmail != null &&
-          savedPassword != null) {
-        final response = await _loginUescase.call(
-          email: savedEmail,
-          password: savedPassword,
-        );
-        switch (response) {
-          case SuccessResponse<LoginModel>():
-            await _saveData(response.data);
-            emit(LoginSuccessState(data: response.data));
-            break;
-          case ErrorResponse<LoginModel>():
-            emit(LoginErrorState(response.message));
-            break;
-        }
-      } else {
-        emit(LoginInitialState());
-      }
-    } catch (e) {
-      emit(LoginErrorState('Auto login catch: $e'));
-    }
-  }
-
-  Future<void> _saveData(LoginModel loginModel) async {
-    try {
-      if (rememberMe) {
-        await _storage.write(key: 'email', value: email);
-        await _storage.write(key: 'password', value: password);
-        await _storage.write(key: 'remember_me', value: 'true');
-
-        final storedEmail = await _storage.read(key: 'email');
-        final storedPassword = await _storage.read(key: 'password');
-        final storedRememberMe = await _storage.read(key: 'remember_me');
-        print(
-          '<<<<<< Stored data: email=$storedEmail, password=$storedPassword, rememberMe=$storedRememberMe',
-        );
-      } else {
-        await _storage.delete(key: 'email');
-        await _storage.delete(key: 'password');
-        await _storage.write(key: 'remember_me', value: 'false');
-        print('<<<<<< Cleared saved data');
-      }
-    } catch (e) {
-      print('<<<<<< Error saving data: $e');
-    }
   }
 }

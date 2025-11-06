@@ -1,10 +1,10 @@
 class LoginModel {
   String? email;
   String? password;
+  String? token;
   UserModel? userModel;
-  LoginModel({this.email, this.password, this.userModel});
+  LoginModel({this.email, this.password, this.token, this.userModel});
 }
-
 
 class UserModel {
   String? firstName;
