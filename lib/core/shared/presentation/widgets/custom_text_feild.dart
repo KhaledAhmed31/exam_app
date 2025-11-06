@@ -14,7 +14,6 @@ class CustomTextField extends StatefulWidget {
     required this.hint,
     this.validator,
   });
-  final String? Function(String? val)? validator;
   final bool obscureText;
   final String label;
   final String hint;
