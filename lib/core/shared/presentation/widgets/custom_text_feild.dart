@@ -1,4 +1,4 @@
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
+import '../../../ui_manager/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -13,6 +13,7 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     required this.hint,
     this.validator,
+    this.onChanged,
   });
   final bool obscureText;
   final String label;

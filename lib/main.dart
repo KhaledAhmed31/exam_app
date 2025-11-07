@@ -18,8 +18,13 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   configureDependencies();
   runApp(
-    BlocProvider(
-      create: (context) => getIt<AuthViewModel>()..add(IsLoggedInEvent()),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthViewModel>(
+          create: (context) => getIt<AuthViewModel>()..add(IsLoggedInEvent()),
+        ),
+        // BlocProvider(create: (context) => getIt<LocalizationBloc>(),)
+      ],
       child: MainApp(),
     ),
   );
@@ -30,32 +35,41 @@ class MainApp extends StatelessWidget {
   String? initialRoute;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      onGenerateRoute: RouteManager.generateRoute,
-      home: BlocBuilder<AuthViewModel, AuthStates>(
-        builder: (context, state) {
-          if (state.loginState?.isLoggedIn == false) {
-            initialRoute = RoutePath.login;
-            print(
-              '<<<<<< ${state.loginState?.isLoggedIn} / initial route in false: $initialRoute',
-            );
-            FlutterNativeSplash.remove();
-          } else if (state.loginState?.isLoggedIn == true) {
-            initialRoute = RoutePath.home;
-            print(
-              '<<<<<< ${state.loginState?.isLoggedIn} / initial route in true: $initialRoute',
-            );
-            FlutterNativeSplash.remove();
-          }
-          if (initialRoute == '/login') {
-            return LoginScreen();
-          } else {
-            return HomeScreen();
-          }
-        },
-      ),
+    return BlocBuilder<LocalizationBloc, LocalizationState>(
+      builder: (context, state) {
+        if (state is LocalizationLoadedState) {
+          return MaterialApp(
+             locale: Locale(state.langCode),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            onGenerateRoute: RouteManager.generateRoute,
+            home: BlocBuilder<AuthViewModel, AuthStates>(
+              builder: (context, state) {
+                if (state.loginState?.isLoggedIn == false) {
+                  initialRoute = RoutePath.login;
+                  print(
+                    '<<<<<< ${state.loginState?.isLoggedIn} / initial route in false: $initialRoute',
+                  );
+                  FlutterNativeSplash.remove();
+                } else if (state.loginState?.isLoggedIn == true) {
+                  initialRoute = RoutePath.home;
+                  print(
+                    '<<<<<< ${state.loginState?.isLoggedIn} / initial route in true: $initialRoute',
+                  );
+                  FlutterNativeSplash.remove();
+                }
+                if (initialRoute == '/login') {
+                  return LoginScreen();
+                } else {
+                  return HomeScreen();
+                }
+              },
+            ),
+          );
+        }
+      },
     );
   }
 }
