@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class AppButton extends StatelessWidget {
   const AppButton({super.key, required this.title, this.onPressed, this.isDisabled = false});
   final String title;
+  final bool isDisabled;
   final void Function()? onPressed;
   final bool isDisabled;
   @override
@@ -15,6 +16,7 @@ class AppButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
+          onPressed: isDisabled ? null : onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor:isDisabled
                 ? AppColors.black30

@@ -39,5 +39,14 @@ class AppTheme {
         fontSize: FontSizesManager.s12,
       ),
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.blueBase, 
+        foregroundColor: AppColors.white, 
+        disabledBackgroundColor: AppColors.black30, 
+        disabledForegroundColor:
+            AppColors.white, 
+      ),
+    ),
   );
 }

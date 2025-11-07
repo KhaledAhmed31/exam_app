@@ -10,12 +10,11 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.keyboardType,
     this.width,
+    this.onChanged,
     required this.hint,
     this.validator,
     this.onChanged,
   });
-  final String? Function(String? val)? validator;
-  final void Function(String)? onChanged;
   final bool obscureText;
   final String label;
   final String hint;
@@ -23,6 +22,9 @@ class CustomTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final double? width;
+  final String? Function(String?)? validator;
+  final void Function(String?)? onChanged;
+
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -38,6 +40,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onChanged: widget.onChanged,
         style: textTheme.bodyLarge!.copyWith(color: AppColors.blackBase),
         obscureText: widget.obscureText,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: widget.textFieldController,
         focusNode: widget.focusNode,
         keyboardType: widget.keyboardType,
