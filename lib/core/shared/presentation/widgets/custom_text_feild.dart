@@ -1,4 +1,4 @@
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
+import '../../../ui_manager/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -12,8 +12,10 @@ class CustomTextField extends StatefulWidget {
     this.width,
     required this.hint,
     this.validator,
+    this.onChanged,
   });
   final String? Function(String? val)? validator;
+  final void Function(String)? onChanged;
   final bool obscureText;
   final String label;
   final String hint;
@@ -33,6 +35,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       width: widget.width,
       child: TextFormField(
+        onChanged: widget.onChanged,
         style: textTheme.bodyLarge!.copyWith(color: AppColors.blackBase),
         obscureText: widget.obscureText,
         controller: widget.textFieldController,
