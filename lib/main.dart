@@ -1,3 +1,5 @@
+
+import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
 // ignore_for_file: avoid_print
 
 import 'package:exam_app/core/config/di/di.dart';
@@ -23,7 +25,7 @@ void main() async {
         BlocProvider<AuthViewModel>(
           create: (context) => getIt<AuthViewModel>()..add(IsLoggedInEvent()),
         ),
-        // BlocProvider(create: (context) => getIt<LocalizationBloc>(),)
+        BlocProvider(create: (context) => getIt<LocalizationBloc>(),)
       ],
       child: MainApp(),
     ),

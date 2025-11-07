@@ -1,5 +1,5 @@
 import 'package:exam_app/core/routes/route_path.dart';
-import 'package:exam_app/features/auth/login/presentation/views/screens/home_screen.dart';
+import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
 import 'package:exam_app/features/auth/login/presentation/views/screens/login_screen.dart';
 import 'route_path.dart';
 import '../../features/auth/forget_password/presentation/pages/forget_password_screen.dart';

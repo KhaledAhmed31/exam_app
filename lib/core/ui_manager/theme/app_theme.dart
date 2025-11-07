@@ -39,6 +39,13 @@ class AppTheme {
         fontSize: FontSizesManager.s12,
       ),
     ),
+
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      elevation: 0,
+      selectedItemColor: AppColors.blueBase,
+      unselectedItemColor: AppColors.black30,
+      selectedIconTheme: IconThemeData(size: 24, color: AppColors.blueBase),
+      unselectedIconTheme: IconThemeData(size: 24, color: AppColors.black30),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.blueBase, 

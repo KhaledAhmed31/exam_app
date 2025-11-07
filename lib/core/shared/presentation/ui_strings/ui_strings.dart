@@ -9,4 +9,7 @@ class UiStrings {
   static const String forgetPassword = 'Forgot Password?';
   static const String doNotHaveAccount = "Don't have an account? ";
   static const String signUp = 'Sign up';
+  static const String explore = 'Explore';
+  static const String result = 'Result';
+  static const String profile = 'Profile';
 }
