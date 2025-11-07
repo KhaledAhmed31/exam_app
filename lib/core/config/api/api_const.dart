@@ -3,7 +3,7 @@ class ApiConsts {
   static const String baseUrl = "https://exam.elevateegy.com/api/v1/auth";
 
   // Auth EndPoints
-  static const String loginEndPoint = "/login";
+  static const String loginEndPoint = "/signin";
   static const String registerEndPoint = "/signup";
   static const String logoutEndPoint = "/logout";
   static const String forgetPasswordEndPoint = "/forgotPassword";
