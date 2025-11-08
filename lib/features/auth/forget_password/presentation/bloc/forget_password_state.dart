@@ -12,6 +12,5 @@ class ForgetPasswordError extends ForgetPasswordState {
   final String message;
   const ForgetPasswordError(this.message);
 }
-class ResendCodeSuccess extends ForgetPasswordState {
-
-}
+class ResendCodeSuccess extends ForgetPasswordState {}
+class ResetPasswordSuccess extends ForgetPasswordState {}

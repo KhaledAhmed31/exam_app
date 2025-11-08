@@ -100,7 +100,7 @@ class ForgetPasswordBloc
     switch (result) {
       case SuccessResponse<ResetPasswordResponse>():
         log("Success");
-        emit(ForgetPasswordSuccess());
+        emit(ResetPasswordSuccess());
       case ErrorResponse<ResetPasswordResponse, Failure>():
         log(result.error.message);
         emit(ForgetPasswordError(result.error.message));

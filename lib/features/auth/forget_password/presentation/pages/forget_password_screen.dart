@@ -43,8 +43,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     local = AppLocalizations.of(context)!;
-    return BlocProvider(
-      create: (context) => _forgetPasswordBloc,
+    return BlocProvider.value(
+      value: _forgetPasswordBloc,
       child: LoaderOverlay(
         child: BlocListener<ForgetPasswordBloc, ForgetPasswordState>(
           listener: (context, state) {
@@ -62,6 +62,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
               );
+            }
+            else if(state is ResetPasswordSuccess){
+              context.loaderOverlay.hide();
+              Navigator.pop(context);
             }
           },
           child: Scaffold(
