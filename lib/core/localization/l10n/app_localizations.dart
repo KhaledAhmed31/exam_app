@@ -199,6 +199,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm password'**
   String get confirmPassowrdLabel;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginTitle;
+
+  /// No description provided for @rememberMeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember Me'**
+  String get rememberMeTitle;
+
+  /// No description provided for @doNotHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get doNotHaveAccount;
+
+  /// No description provided for @signUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'sign Up'**
+  String get signUpTitle;
+
+  /// No description provided for @exploreTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get exploreTabLabel;
+
+  /// No description provided for @resultTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Result'**
+  String get resultTabLabel;
+
+  /// No description provided for @profileTabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTabLabel;
+
+  /// No description provided for @successTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get successTitle;
+
+  /// No description provided for @errorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get errorTitle;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @loadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loadingTitle;
 }
 
 class _AppLocalizationsDelegate

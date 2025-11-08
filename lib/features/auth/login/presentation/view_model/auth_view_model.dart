@@ -1,4 +1,5 @@
 import 'package:exam_app/core/config/base_response/base_response.dart';
+import 'package:exam_app/core/config/error/error_handler.dart';
 import 'package:exam_app/core/config/validation/app_validation.dart';
 import 'package:exam_app/features/auth/login/domain/models/login_model.dart';
 import 'package:exam_app/features/auth/login/domain/usecases/is_loggedin_usecase.dart';
@@ -50,12 +51,12 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
             ),
           ),
         );
-      case ErrorResponse<LoginModel>():
+      case ErrorResponse<LoginModel, Failure>():
         emit(
           state.copywith(
             loginStateCopywith: LoginState(
               isLoading: false,
-              errorMessage: 'Something went wrong',
+              errorMessage: response.error.message,
             ),
           ),
         );

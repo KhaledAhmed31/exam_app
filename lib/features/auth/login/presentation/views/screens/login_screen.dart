@@ -1,7 +1,7 @@
 import 'package:exam_app/core/config/utils/dialog_utils.dart';
 import 'package:exam_app/core/config/validation/app_validation.dart';
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
 import 'package:exam_app/core/routes/route_path.dart';
-import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
 import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
 import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
@@ -18,17 +18,18 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: AppColors.black,
-          ),
-          onPressed: () {},
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(
+        //     Icons.arrow_back_ios_new_outlined,
+        //     color: AppColors.black,
+        //   ),
+        //   onPressed: () {},
+        // ),
         title: Text(
-          UiStrings.login,
+          local.loginTitle,
           style: FontStyleManager.interMedium(
             color: AppColors.black,
             fontSize: 25,
@@ -41,36 +42,36 @@ class LoginScreen extends StatelessWidget {
             if (state.loginState?.isLoading == true) {
               DialogUtils.showLoading(
                 context,
-                'Loading...',
+                local.loadingTitle,
                 AppColors.white,
               );
-            } else if (state.loginState?.isLoading == false && state.loginState?.data != null) {
+            } else if (state.loginState?.isLoading == false &&
+                state.loginState?.data != null) {
               DialogUtils.hideLoading(context);
               DialogUtils.showMessage(
                 context,
                 state.loginState?.data?.userModel?.firstName ?? "",
-                titleMessage: 'Success',
+                titleMessage: local.successTitle,
                 backgroundColor: AppColors.blueBase,
                 textColor: AppColors.white,
-                posActionName: 'OK',
+                posActionName: local.ok,
                 actionColor: AppColors.white,
                 posAction: () {
                   Navigator.pushReplacementNamed(context, RoutePath.home);
                 },
               );
-            } 
-            else if (state.loginState?.errorMessage?.isNotEmpty == true) {
+            } else if (state.loginState?.errorMessage?.isNotEmpty == true) {
               DialogUtils.hideLoading(context);
               DialogUtils.showMessage(
                 context,
                 state.loginState?.errorMessage ?? "",
-                titleMessage: 'Error',
+                titleMessage: local.errorTitle,
                 backgroundColor: AppColors.blueBase,
                 textColor: AppColors.white,
-                negActionName: 'OK',
+                negActionName: local.ok,
                 actionColor: AppColors.white,
-              );  
-              }
+              );
+            }
           },
           builder: (context, state) {
             return Form(
@@ -80,21 +81,25 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 14),
                   CustomTextField(
                     onChanged: (val) {
-                      BlocProvider.of<AuthViewModel>(context).add(EmailOnChangedEvent(val));
+                      BlocProvider.of<AuthViewModel>(
+                        context,
+                      ).add(EmailOnChangedEvent(val));
                     },
                     validator: (val) => Validators.emailValidator(val),
-                    label: UiStrings.emailLabel,
-                    hint: UiStrings.emailHintText,
+                    label: local.emailLabel,
+                    hint: local.emailHint,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 24),
                   CustomTextField(
                     onChanged: (val) {
-                      BlocProvider.of<AuthViewModel>(context).add(PasswordOnChangedEvent(val));
+                      BlocProvider.of<AuthViewModel>(
+                        context,
+                      ).add(PasswordOnChangedEvent(val));
                     },
                     validator: (val) => Validators.passwordValidator(val),
-                    label: UiStrings.passwordLabel,
-                    hint: UiStrings.passwordHintText,
+                    label: local.forgetPasswordScreenTitle,
+                    hint: local.passwordHint,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                   ),
@@ -103,25 +108,36 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(width: 20),
                       Checkbox(
                         checkColor: AppColors.white,
-                        fillColor: BlocProvider.of<AuthViewModel>(context).rememberMe
+                        fillColor:
+                            BlocProvider.of<AuthViewModel>(context).rememberMe
                             ? WidgetStateProperty.all(AppColors.gray)
                             : WidgetStateProperty.all(Colors.transparent),
-                        value: BlocProvider.of<AuthViewModel>(context).rememberMe,
+                        value: BlocProvider.of<AuthViewModel>(
+                          context,
+                        ).rememberMe,
                         onChanged: (value) {
-                          BlocProvider.of<AuthViewModel>(context).add(ChangeRememberMeEvent(value));
+                          BlocProvider.of<AuthViewModel>(
+                            context,
+                          ).add(ChangeRememberMeEvent(value));
                         },
                       ),
                       Text(
-                        UiStrings.rememberMe,
+                        local.rememberMeTitle,
                         style: FontStyleManager.interRegular(
                           color: AppColors.blackBase,
                           fontSize: FontSizesManager.s14,
                         ),
                       ),
                       Spacer(),
-                      Text.rich(
-                        TextSpan(
-                          text: UiStrings.forgetPassword,
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutePath.forgetPassword,
+                          );
+                        },
+                        child: Text(
+                          local.forgetPasswordTitle,
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: FontSizesManager.s14,
@@ -135,29 +151,35 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 48),
                   AppButton(
                     isDisabled:
-                        !(Validators.emailValidator(BlocProvider.of<AuthViewModel>(context).email) ==
+                        !(Validators.emailValidator(
+                                  BlocProvider.of<AuthViewModel>(context).email,
+                                ) ==
                                 null &&
                             Validators.passwordValidator(
-                                  BlocProvider.of<AuthViewModel>(context).password,
+                                  BlocProvider.of<AuthViewModel>(
+                                    context,
+                                  ).password,
                                 ) ==
                                 null),
-                    title: UiStrings.login,
+                    title: local.loginTitle,
                     onPressed: () {
-                      BlocProvider.of<AuthViewModel>(context).add(LoginEvents());
+                      BlocProvider.of<AuthViewModel>(
+                        context,
+                      ).add(LoginEvents());
                     },
                   ),
                   SizedBox(height: 16),
                   Center(
                     child: RichText(
                       text: TextSpan(
-                        text: UiStrings.doNotHaveAccount,
+                        text: local.doNotHaveAccount,
                         style: FontStyleManager.interRegular(
                           color: AppColors.blackBase,
                           fontSize: FontSizesManager.s16,
                         ),
                         children: [
                           TextSpan(
-                            text: UiStrings.signUp,
+                            text: local.signUpTitle,
                             style: const TextStyle(
                               decoration: TextDecoration.underline,
                               color: AppColors.blueBase,

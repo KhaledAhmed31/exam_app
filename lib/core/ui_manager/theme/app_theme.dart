@@ -9,7 +9,8 @@ class AppTheme {
     primaryColor: AppColors.blueBase,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.blueBase,
-      surface: AppColors.blue20,onSurface: AppColors.white
+      surface: AppColors.blue20,
+      onSurface: AppColors.white,
     ),
     canvasColor: AppColors.blueBase,
     scaffoldBackgroundColor: AppColors.white,
@@ -18,7 +19,7 @@ class AppTheme {
       surfaceTintColor: Colors.transparent,
       backgroundColor: AppColors.white,
       elevation: 0,
-      titleSpacing: 0,
+      titleSpacing: 12,
       leadingWidth: 44,
       titleTextStyle: FontStyleManager.interMedium(
         color: AppColors.blackBase,
@@ -46,13 +47,14 @@ class AppTheme {
       unselectedItemColor: AppColors.black30,
       selectedIconTheme: IconThemeData(size: 24, color: AppColors.blueBase),
       unselectedIconTheme: IconThemeData(size: 24, color: AppColors.black30),
+    ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.blueBase, 
-        foregroundColor: AppColors.white, 
-        disabledBackgroundColor: AppColors.black30, 
-        disabledForegroundColor:
-            AppColors.white, 
+        backgroundColor: AppColors.blueBase,
+        foregroundColor: AppColors.white,
+        disabledBackgroundColor: AppColors.black30,
+        disabledForegroundColor: AppColors.white,
       ),
     ),
   );

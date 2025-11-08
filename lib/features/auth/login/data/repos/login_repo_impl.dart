@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:exam_app/core/config/base_response/base_response.dart';
+import 'package:exam_app/core/config/error/error_handler.dart';
 import 'package:exam_app/features/auth/login/data/datasources/login_local_datasource.dart';
 import 'package:exam_app/features/auth/login/data/datasources/login_remote_datasource.dart';
 import 'package:exam_app/features/auth/login/data/mappers/login_dto_mapper.dart';
@@ -29,13 +30,16 @@ class LoginRepoImpl implements LoginRepo {
       case SuccessResponse<LoginDto>():
         LoginDto dto = loginResponse.data;
         LoginModel loginModel = dto.toLoginModel();
-        // save token only when login succeeded and token is available
         if (dto.token != null) {
           await loginLocalDatasource.saveToken(dto.token!);
         }
         return SuccessResponse<LoginModel>(loginModel);
-      case ErrorResponse<LoginDto>():
-        return ErrorResponse<LoginModel>(loginResponse.message);
+      case ErrorResponse<LoginDto, ErrorHandler>():
+        return ErrorResponse<LoginModel, Failure>(
+          error: loginResponse.error.failure,
+        );
+      default:
+        throw Exception('Unexpected response type from loginRemoteDatasource');
     }
   }
 

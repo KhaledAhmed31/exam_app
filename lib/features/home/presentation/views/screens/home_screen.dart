@@ -1,5 +1,5 @@
 import 'package:exam_app/core/constants/app_icons.dart';
-import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
@@ -44,15 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: MediaQuery.of(context).size.height * 0.15,
         title: Text(
           (selectedIndex == 0
-              ? UiStrings.explore
+              ? local.exploreTabLabel
               : selectedIndex == 1
-              ? UiStrings.result
-              : UiStrings.profile),
+              ? local.resultTabLabel
+              : local.profileTabLabel),
           style: FontStyleManager.interMedium(
             color: AppColors.blackBase,
             fontSize: FontSizesManager.s20,
@@ -72,15 +73,15 @@ class _HomeScreenState extends State<HomeScreen> {
           items: [
             BottomNavigationBarItem(
               icon: _buildIcon(0),
-              label: UiStrings.explore,
+              label: local.exploreTabLabel,
             ),
             BottomNavigationBarItem(
               icon: _buildIcon(1),
-              label: UiStrings.result,
+              label: local.resultTabLabel,
             ),
             BottomNavigationBarItem(
               icon: _buildIcon(2),
-              label: UiStrings.profile,
+              label: local.profileTabLabel,
             ),
           ],
         ),
