@@ -3,9 +3,9 @@ import 'package:exam_app/core/localization/l10n/app_localizations.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
-import 'package:exam_app/features/home/presentation/views/screens/explore_screen.dart';
-import 'package:exam_app/features/home/presentation/views/screens/profile_screen.dart';
-import 'package:exam_app/features/home/presentation/views/screens/result_screen.dart';
+import 'package:exam_app/features/home/presentation/screens/explore_screen.dart';
+import 'package:exam_app/features/home/presentation/screens/profile_screen.dart';
+import 'package:exam_app/features/home/presentation/screens/result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

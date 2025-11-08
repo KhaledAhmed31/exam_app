@@ -52,11 +52,11 @@ import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
     as _i115;
 import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
-import '../../../features/auth/login/presentation/view_model/auth_view_model.dart'
+import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
     as _i410;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
-import 'di_modules.dart' as _i176;
+import 'dio_modules.dart' as _i176;
 import 'secure_storage_module.dart' as _i319;
 
 extension GetItInjectableX on _i174.GetIt {

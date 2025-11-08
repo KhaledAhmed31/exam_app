@@ -7,9 +7,9 @@ import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_events.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_view_model.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
