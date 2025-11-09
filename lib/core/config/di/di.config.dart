@@ -54,10 +54,12 @@ import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
 import '../../../features/auth/login/presentation/view_model/auth_view_model.dart'
     as _i410;
+import '../../../features/exams_page/presentation/bloc/exam_page_bloc.dart'
+    as _i563;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
 import 'di_modules.dart' as _i176;
-import 'secure_storage_module.dart' as _i319;
+import 'secure_storage_module.dart' as _i897;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -68,6 +70,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     final secureStorageModule = _$SecureStorageModule();
+    gh.factory<_i563.ExamPageBloc>(() => _i563.ExamPageBloc());
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => secureStorageModule.secureStorage,
@@ -145,4 +148,4 @@ extension GetItInjectableX on _i174.GetIt {
 
 class _$RegisterModule extends _i176.RegisterModule {}
 
-class _$SecureStorageModule extends _i319.SecureStorageModule {}
+class _$SecureStorageModule extends _i897.SecureStorageModule {}

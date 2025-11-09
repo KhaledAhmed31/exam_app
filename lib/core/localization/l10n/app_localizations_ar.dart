@@ -94,4 +94,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loadingTitle => 'تحميل';
+
+  @override
+  String get examTitle => 'الامتحان';
+
+  @override
+  String get selectCorrectAnswer => 'اختار الجملة الصحيحة.';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get back => 'رجوع';
+
+  @override
+  String get viewScoreTitle => 'عرض النتيجة';
+
+  @override
+  String get timeOut => 'انتهى الوقت!!';
+
+  @override
+  String get questionText => 'سؤال';
+
+  @override
+  String get ofText => 'من';
+
+  @override
+  String get finish => 'الانتهاء';
 }

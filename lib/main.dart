@@ -11,6 +11,7 @@ import 'package:exam_app/features/auth/login/presentation/view_model/auth_events
 import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
 import 'package:exam_app/features/auth/login/presentation/view_model/auth_view_model.dart';
 import 'package:exam_app/features/auth/login/presentation/views/screens/login_screen.dart';
+import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
 import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,7 +71,7 @@ class MainApp extends StatelessWidget {
               if (initialRoute == '/login') {
                 return LoginScreen();
               } else {
-                return HomeScreen();
+                return ExamPageScreen();
               }
             },
           ),

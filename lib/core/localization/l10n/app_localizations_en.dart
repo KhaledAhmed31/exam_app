@@ -94,4 +94,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loadingTitle => 'Loading...';
+
+  @override
+  String get examTitle => 'Exam';
+
+  @override
+  String get selectCorrectAnswer => 'Select the correctly punctuated sentence.';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get viewScoreTitle => 'View Score';
+
+  @override
+  String get timeOut => 'Time Out!!';
+
+  @override
+  String get questionText => 'Questions';
+
+  @override
+  String get ofText => 'of';
+
+  @override
+  String get finish => 'Finish';
 }
