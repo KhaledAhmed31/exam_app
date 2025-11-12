@@ -7,12 +7,22 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class LinearPercentIndicatorWidget extends StatelessWidget {
   const LinearPercentIndicatorWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExamPageBloc, ExamPageStates>(
       builder: (context, state) {
-        double progress = state.currentQuestion! / state.totalQuestions!;
+        double progress = 0.0;
+
+        if (state.currentQuestion != null &&
+            state.getQuestionsState?.data != null &&
+            state.getQuestionsState!.data!.isNotEmpty) {
+          var numberOfQuestions =
+              state.getQuestionsState!.data![0].exam?.numberOfQuestions ??
+              0;
+          if (numberOfQuestions > 0) {
+            progress = state.currentQuestion! / numberOfQuestions.toDouble();
+          }
+        }
         return LinearPercentIndicator(
           padding: EdgeInsets.symmetric(horizontal: 16),
           lineHeight: 4.0,

@@ -12,7 +12,6 @@ import 'package:exam_app/features/auth/login/presentation/view_model/auth_states
 import 'package:exam_app/features/auth/login/presentation/view_model/auth_view_model.dart';
 import 'package:exam_app/features/auth/login/presentation/views/screens/login_screen.dart';
 import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
-import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -62,7 +61,7 @@ class MainApp extends StatelessWidget {
                 );
                 FlutterNativeSplash.remove();
               } else if (authState.loginState?.isLoggedIn == true) {
-                initialRoute = RoutePath.home;
+                initialRoute = RoutePath.examPage;
                 print(
                   '<<<<<< ${authState.loginState?.isLoggedIn} / initial route in true: $initialRoute',
                 );

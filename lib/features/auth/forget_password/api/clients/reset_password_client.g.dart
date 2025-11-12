@@ -30,7 +30,7 @@ class _ResetPasswordClient implements ResetPasswordClient {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/resetPassword',
+            '/auth/resetPassword',
             queryParameters: queryParameters,
             data: _data,
           )

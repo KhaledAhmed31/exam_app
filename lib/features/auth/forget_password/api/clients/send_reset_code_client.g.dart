@@ -30,7 +30,7 @@ class _SendResetCodeClient implements SendResetCodeClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/forgotPassword',
+            '/auth/forgotPassword',
             queryParameters: queryParameters,
             data: _data,
           )

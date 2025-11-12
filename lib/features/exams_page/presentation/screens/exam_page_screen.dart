@@ -1,13 +1,10 @@
 import 'package:exam_app/core/config/di/di.dart';
-import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
 import 'package:exam_app/features/exams_page/presentation/bloc/exam_page_bloc.dart';
 import 'package:exam_app/features/exams_page/presentation/bloc/exam_page_events.dart';
 import 'package:exam_app/features/exams_page/presentation/bloc/exam_page_states.dart';
-import 'package:exam_app/features/exams_page/presentation/widgets/alert_dialog_widget.dart';
-import 'package:exam_app/features/exams_page/presentation/widgets/linear_percent_indicator_widget.dart';
 import 'package:exam_app/features/exams_page/presentation/widgets/timer_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:exam_app/core/localization/l10n/app_localizations.dart';
@@ -56,20 +53,12 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
         ],
       ),
       body: BlocProvider<ExamPageBloc>(
-        create: (context) => examPageBloc,
+        create: (context) => examPageBloc..add(GetExamQuestionsEvent()),
         child: BlocBuilder<ExamPageBloc, ExamPageStates>(
           builder: (context, state) {
             return Column(
               children: [
-                Text(
-                  '${local.questionText} ${state.currentQuestion} ${local.ofText} ${state.totalQuestions}',
-                  style: FontStyleManager.robotoMedium(
-                    fontSize: FontSizesManager.s14,
-                    color: AppColors.gray,
-                  ),
-                ),
                 SizedBox(height: 3),
-                LinearPercentIndicatorWidget(),
                 SizedBox(height: 28),
                 Text(
                   local.selectCorrectAnswer,
@@ -77,40 +66,6 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                     color: AppColors.blackBase,
                     fontSize: FontSizesManager.s18,
                   ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: AppButton(
-                        title: local.back,
-                        isDisabled: state.currentQuestion == 1,
-                        onPressed: () {
-                          examPageBloc.add(PreviousQuestionEvent());
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: AppButton(
-                        title: state.currentQuestion != state.totalQuestions!
-                            ? local.next
-                            : local.finish,
-                        onPressed: () {
-                          state.currentQuestion != state.totalQuestions
-                              ? examPageBloc.add(NextQuestionEvent())
-                              : showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialogWidget();
-                                  },
-                                );
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                  ],
                 ),
               ],
             );
