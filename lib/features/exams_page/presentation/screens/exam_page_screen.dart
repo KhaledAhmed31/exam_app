@@ -29,7 +29,7 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
     return BlocProvider<ExamPageBloc>(
       create: (context) =>
           examPageBloc
-            ..add(GetExamQuestionsEvent(examId: '670070a830a3c3c1944a9c63')),
+            ..add(GetExamQuestionsEvent(examId: '6700707030a3c3c1944a9c5d')),
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.1,
@@ -55,14 +55,12 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                   SizedBox(width: 8),
                   BlocBuilder<ExamPageBloc, ExamPageStates>(
                     builder: (context, state) {
-                      if (state
-                              .getQuestionsState
-                              ?.data?[state.index]
-                              .exam
-                              ?.duration ==
-                          null) {
-                        return CircularProgressIndicator(
-                          color: AppColors.blueBase,
+                      if (state.getQuestionsState == null ||
+                          state.getQuestionsState!.data == null) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.blueBase,
+                          ),
                         );
                       }
                       return TimerAppBar();

@@ -16,20 +16,19 @@ class TimerAppBar extends StatefulWidget {
 
 class TimerAppBarState extends State<TimerAppBar> {
   Color timerColor = AppColors.success;
+  late DateTime endTime;
+
+  @override
+  void initState() {
+    super.initState();
+    final state = BlocProvider.of<ExamPageBloc>(context).state;
+    final int? time =
+        state.getQuestionsState?.data?[state.index].exam?.duration;
+    endTime = DateTime.now().add(Duration(minutes: time ?? 30));
+  }
+
   @override
   Widget build(BuildContext context) {
-    int? time = BlocProvider.of<ExamPageBloc>(context)
-        .state
-        .getQuestionsState
-        ?.data?[BlocProvider.of<ExamPageBloc>(context).state.index]
-        .exam
-        ?.duration;
-    late final DateTime endTime;
-    if (time != null) {
-      endTime = DateTime.now().add(Duration(minutes: time));
-    } else {
-      endTime = DateTime.now().add(const Duration(minutes: 30));
-    }
     return TimerCountdown(
       enableDescriptions: false,
       endTime: endTime,
