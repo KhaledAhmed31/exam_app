@@ -5,7 +5,9 @@ extension QuestionDtoMapper on QuestionDto {
   QuestionModel toQuestionsModel() {
     return QuestionModel(
       type: type,
+      question: question,
       id: id,
+      correct: correct,
       exam: exam?.toExamModel(),
       answers: answers?.map((answer) => answer.toAnswerModel()).toList(),
     );

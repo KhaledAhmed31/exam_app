@@ -16,7 +16,7 @@ class ExamPageBloc extends Bloc<ExamPageEvents, ExamPageStates> {
   GetExamQuestionsUsecase usecase;
   final FlutterSecureStorage storage = getIt<FlutterSecureStorage>();
 
-  ExamPageBloc(this.usecase) : super(ExamPageStates(currentQuestion: 1)) {
+  ExamPageBloc(this.usecase) : super(ExamPageStates()) {
     on<PreviousQuestionEvent>(_previousQuestion);
     on<NextQuestionEvent>(_nextQuestion);
     on<GetExamQuestionsEvent>(_getExamQuestions);
@@ -26,22 +26,22 @@ class ExamPageBloc extends Bloc<ExamPageEvents, ExamPageStates> {
     PreviousQuestionEvent event,
     Emitter<ExamPageStates> emit,
   ) {
-    if (state.currentQuestion! > 1) {
+    if (state.currentQuestion > 1) {
       emit(
-        ExamPageStates(
-          currentQuestion: state.currentQuestion! - 1,
-          totalQuestions: state.totalQuestions,
+        state.copywith(
+          currentQuestion: state.currentQuestion - 1,
+          index: state.index - 1,
         ),
       );
     }
   }
 
   void _nextQuestion(NextQuestionEvent event, Emitter<ExamPageStates> emit) {
-    if (state.currentQuestion! < state.totalQuestions!) {
+    if (state.currentQuestion < state.getQuestionsState!.totalQuestions) {
       emit(
-        ExamPageStates(
-          currentQuestion: state.currentQuestion! + 1,
-          totalQuestions: state.totalQuestions,
+        state.copywith(
+           currentQuestion: state.currentQuestion + 1,
+          index: state.index + 1,
         ),
       );
     }
@@ -52,7 +52,6 @@ class ExamPageBloc extends Bloc<ExamPageEvents, ExamPageStates> {
     Emitter<ExamPageStates> emit,
   ) async {
     final token = await storage.read(key: 'auth_token');
-
     emit(
       state.copywith(
         getQuestionStateCopywith: GetQuestionsState(isLoading: true),
@@ -60,15 +59,17 @@ class ExamPageBloc extends Bloc<ExamPageEvents, ExamPageStates> {
     );
     BaseResponse<List<QuestionModel>> response = await usecase.call(
       token: token.toString(),
+      examId: event.examId.toString(),
     );
-
     switch (response) {
       case SuccessResponse<List<QuestionModel>>():
+        print('<<<<<<<<<<< response : ${response.data[2].exam?.title}');
         emit(
           state.copywith(
             getQuestionStateCopywith: GetQuestionsState(
               isLoading: false,
               data: response.data,
+              totalQuestions: response.data.length,
             ),
           ),
         );

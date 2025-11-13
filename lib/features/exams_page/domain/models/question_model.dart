@@ -5,9 +5,10 @@ class QuestionModel {
   String? id;
   String? question;
   ExamModel? exam;
+  Correct? correct;
   List<AnswerModel>? answers;
 
-  QuestionModel({this.type, this.id, this.exam, this.question, this.answers});
+  QuestionModel({this.type, this.id, this.exam, this.question, this.answers, this.correct});
 }
 
 class ExamModel {

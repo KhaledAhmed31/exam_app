@@ -14,10 +14,14 @@ class GetExamQuestionsRepoImpl implements GetExamQuestionsRepo {
 
   @override
   Future<BaseResponse<List<QuestionModel>>> getExamQuestions({
-    required String token
+    required String token,
+    required String examId,
   }) async {
     BaseResponse<List<QuestionDto>> questionsResponse =
-        await getExamQuestionsRemoteDatasourse.getExamQuestions(token: token);
+        await getExamQuestionsRemoteDatasourse.getExamQuestions(
+          token: token,
+          examId: examId,
+        );
 
     switch (questionsResponse) {
       case SuccessResponse<List<QuestionDto>>():

@@ -14,6 +14,7 @@ abstract class ExamQuestionsApiClient {
 
   @GET(ApiConsts.getAllQuestionsOnExamEndPoint)
   Future<ExamQuestionsResponse> getExamQuestions(
-    @Header('token') String token
+    @Header('token') String token,
+    @Query('exam') String examId,
   );
 }

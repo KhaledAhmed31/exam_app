@@ -13,14 +13,11 @@ class LinearPercentIndicatorWidget extends StatelessWidget {
       builder: (context, state) {
         double progress = 0.0;
 
-        if (state.currentQuestion != null &&
-            state.getQuestionsState?.data != null &&
+        if (state.getQuestionsState?.data != null &&
             state.getQuestionsState!.data!.isNotEmpty) {
-          var numberOfQuestions =
-              state.getQuestionsState!.data![0].exam?.numberOfQuestions ??
-              0;
-          if (numberOfQuestions > 0) {
-            progress = state.currentQuestion! / numberOfQuestions.toDouble();
+          var numberOfQuestions = state.getQuestionsState?.data?.length;
+          if (numberOfQuestions != 0) {
+            progress = state.currentQuestion / numberOfQuestions!.toDouble();
           }
         }
         return LinearPercentIndicator(

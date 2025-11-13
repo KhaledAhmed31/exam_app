@@ -17,12 +17,12 @@ class GetExamQuestionsRemoteDatasourseImpl
   @override
   Future<BaseResponse<List<QuestionDto>>> getExamQuestions({
     required String token,
+    required String examId,
   }) async {
     print('<<<<<< DATE SOUSRCE $token');
     try {
       ExamQuestionsResponse questionsResponse = await apiClient
-          .getExamQuestions(token);
-      print('<<<<<<<<< Data Source ${questionsResponse.questions}');
+          .getExamQuestions(token, examId);
       List<QuestionDto> list = questionsResponse.questions ?? [];
 
       return SuccessResponse<List<QuestionDto>>(list);

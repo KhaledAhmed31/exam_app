@@ -22,9 +22,12 @@ class _ExamQuestionsApiClient implements ExamQuestionsApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ExamQuestionsResponse> getExamQuestions(String token) async {
+  Future<ExamQuestionsResponse> getExamQuestions(
+    String token,
+    String examId,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'exam': examId};
     final _headers = <String, dynamic>{r'token': token};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;

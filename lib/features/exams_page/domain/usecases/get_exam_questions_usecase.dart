@@ -8,6 +8,8 @@ class GetExamQuestionsUsecase {
   GetExamQuestionsRepo getExamQuestionsRepo;
   GetExamQuestionsUsecase(this.getExamQuestionsRepo);
 
-  Future<BaseResponse<List<QuestionModel>>> call({required String token}) =>
-      getExamQuestionsRepo.getExamQuestions(token: token);
+  Future<BaseResponse<List<QuestionModel>>> call({
+    required String token,
+    required String examId,
+  }) => getExamQuestionsRepo.getExamQuestions(token: token, examId: examId);
 }
