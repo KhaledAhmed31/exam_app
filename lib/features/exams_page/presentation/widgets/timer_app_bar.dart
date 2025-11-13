@@ -52,7 +52,7 @@ class TimerAppBarState extends State<TimerAppBar> {
         );
       },
       onTick: (remainingTime) {
-        if (remainingTime.inMinutes <= 10) {
+        if (remainingTime.inMinutes <= 9) {
           setState(() {
             timerColor = AppColors.error;
           });

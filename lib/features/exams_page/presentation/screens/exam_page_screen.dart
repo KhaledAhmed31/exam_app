@@ -29,16 +29,24 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
     return BlocProvider<ExamPageBloc>(
       create: (context) =>
           examPageBloc
-            ..add(GetExamQuestionsEvent(examId: '6700707030a3c3c1944a9c5d')),
+            ..add(GetExamQuestionsEvent(examId: '670070a830a3c3c1944a9c63')),
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.1,
-          title: Text(
-            local.examTitle,
-            style: FontStyleManager.interMedium(
-              color: AppColors.blackBase,
-              fontSize: FontSizesManager.s20,
-            ),
+          title: BlocBuilder<ExamPageBloc, ExamPageStates>(
+            builder: (context, state) {
+              if (state.getQuestionsState?.data?[state.index].exam?.title ==
+                  null) {
+                return const Text('');
+              }
+              return Text(
+                '${state.getQuestionsState?.data?[state.index].exam?.title}',
+                style: FontStyleManager.interMedium(
+                  color: AppColors.blackBase,
+                  fontSize: FontSizesManager.s20,
+                ),
+              );
+            },
           ),
           leading: IconButton(
             onPressed: () {
