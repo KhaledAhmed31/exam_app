@@ -5,20 +5,24 @@ class ExamPageStates {
   int currentQuestion;
   int index;
   GetQuestionsState? getQuestionsState;
+  final Map<int, int> selectedAnswers;
   ExamPageStates({
     this.currentQuestion = 1,
     this.getQuestionsState,
     this.index = 0,
+    this.selectedAnswers = const {},
   });
   ExamPageStates copywith({
     GetQuestionsState? getQuestionStateCopywith,
     int? currentQuestion,
     int? index,
+    Map<int, int>? selectedAnswers,
   }) {
     return ExamPageStates(
       currentQuestion: currentQuestion ?? this.currentQuestion,
       getQuestionsState: getQuestionStateCopywith ?? getQuestionsState,
       index: index ?? this.index,
+      selectedAnswers: selectedAnswers ?? this.selectedAnswers,
     );
   }
 }

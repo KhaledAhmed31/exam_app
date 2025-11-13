@@ -1,26 +1,32 @@
-import 'package:exam_app/features/exams_page/data/models/enums.dart';
-
 class QuestionModel {
-  Type? type;
+  String? type;
   String? id;
   String? question;
   ExamModel? exam;
-  Correct? correct;
+  String? correct;
   List<AnswerModel>? answers;
 
-  QuestionModel({this.type, this.id, this.exam, this.question, this.answers, this.correct});
+  QuestionModel({
+    this.type,
+    this.id,
+    this.exam,
+    this.question,
+    this.answers,
+    this.correct,
+  });
 }
 
 class ExamModel {
-  Id? id;
-  Title? title;
+  String? id;
+  String? title;
   int? numberOfQuestions;
-  Subject? subject;
-  ExamModel({this.id, this.title, this.numberOfQuestions, this.subject});
+  String? subject;
+  int? duration;
+  ExamModel({this.id, this.title, this.numberOfQuestions, this.subject, this.duration});
 }
 
 class AnswerModel {
   String? answer;
-  Correct? key;
+  String? key;
   AnswerModel({this.answer, this.key});
 }

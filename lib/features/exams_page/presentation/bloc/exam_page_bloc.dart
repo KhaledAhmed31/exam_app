@@ -20,6 +20,7 @@ class ExamPageBloc extends Bloc<ExamPageEvents, ExamPageStates> {
     on<PreviousQuestionEvent>(_previousQuestion);
     on<NextQuestionEvent>(_nextQuestion);
     on<GetExamQuestionsEvent>(_getExamQuestions);
+    on<SelectAnswer>(_onSelectedAnswer);
   }
 
   void _previousQuestion(
@@ -40,11 +41,17 @@ class ExamPageBloc extends Bloc<ExamPageEvents, ExamPageStates> {
     if (state.currentQuestion < state.getQuestionsState!.totalQuestions) {
       emit(
         state.copywith(
-           currentQuestion: state.currentQuestion + 1,
+          currentQuestion: state.currentQuestion + 1,
           index: state.index + 1,
         ),
       );
     }
+  }
+
+  void _onSelectedAnswer(SelectAnswer event, Emitter<ExamPageStates> emit) {
+    final updatedAnswers = Map<int, int>.from(state.selectedAnswers);
+    updatedAnswers[event.questionIndex] = event.answerIndex;
+    emit(state.copywith(selectedAnswers: updatedAnswers));
   }
 
   Future<void> _getExamQuestions(

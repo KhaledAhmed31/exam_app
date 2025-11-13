@@ -21,6 +21,7 @@ extension ExamDtoMapper on ExamDto {
       subject: subject,
       title: title,
       numberOfQuestions: numberOfQuestions,
+      duration: duration
     );
   }
 }

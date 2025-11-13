@@ -15,7 +15,9 @@ class AlertDialogWidget extends StatelessWidget {
     AppLocalizations local = AppLocalizations.of(context)!;
 
     return AlertDialog(
-      actions: [AppButton(onPressed: () {}, title: local.viewScoreTitle)],
+      actions: [AppButton(onPressed: () {
+          /// navigate to score page with correct answers
+      }, title: local.viewScoreTitle)],
       content: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

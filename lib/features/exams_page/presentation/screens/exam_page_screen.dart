@@ -26,53 +26,63 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations local = AppLocalizations.of(context)!;
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: MediaQuery.of(context).size.height * 0.1,
-        title: Text(
-          local.examTitle,
-          style: FontStyleManager.interMedium(
-            color: AppColors.blackBase,
-            fontSize: FontSizesManager.s20,
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_new),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Row(
-              children: [
-                Image.asset("assets/images/alarm_pic.png"),
-                SizedBox(width: 8),
-                TimerAppBar(),
-              ],
+    return BlocProvider<ExamPageBloc>(
+      create: (context) =>
+          examPageBloc
+            ..add(GetExamQuestionsEvent(examId: '670070a830a3c3c1944a9c63')),
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: MediaQuery.of(context).size.height * 0.1,
+          title: Text(
+            local.examTitle,
+            style: FontStyleManager.interMedium(
+              color: AppColors.blackBase,
+              fontSize: FontSizesManager.s20,
             ),
           ),
-        ],
-      ),
-      body: BlocProvider<ExamPageBloc>(
-        create: (context) =>
-            examPageBloc
-              ..add(GetExamQuestionsEvent(examId: '670070a830a3c3c1944a9c63')),
-        child: BlocConsumer<ExamPageBloc, ExamPageStates>(
-          listener: (context, state) {
-            if (state.getQuestionsState?.isLoading == true) {
-              CircularProgressIndicator(color: AppColors.blueBase);
-            }
-          },
-          
-
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios_new),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Row(
+                children: [
+                  Image.asset("assets/images/alarm_pic.png"),
+                  SizedBox(width: 8),
+                  BlocBuilder<ExamPageBloc, ExamPageStates>(
+                    builder: (context, state) {
+                      if (state
+                              .getQuestionsState
+                              ?.data?[state.index]
+                              .exam
+                              ?.duration ==
+                          null) {
+                        return CircularProgressIndicator(
+                          color: AppColors.blueBase,
+                        );
+                      }
+                      return TimerAppBar();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        body: BlocBuilder<ExamPageBloc, ExamPageStates>(
           builder: (context, state) {
             int? totalQuestions = state.getQuestionsState?.data?.length;
             // ignore: avoid_print
             print(
               '<<<<<<< current ${state.currentQuestion} total $totalQuestions index ${state.index} ',
             );
+            if (state.getQuestionsState?.data == null) {
+              return Center(child: CircularProgressIndicator());
+            }
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(

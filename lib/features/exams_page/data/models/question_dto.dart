@@ -1,4 +1,3 @@
-import 'package:exam_app/features/exams_page/data/models/enums.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'question_dto.g.dart';
@@ -8,13 +7,13 @@ class QuestionDto {
   @JsonKey(name: "answers")
   List<AnswerDto>? answers;
   @JsonKey(name: "type")
-  Type? type;
+  String? type;
   @JsonKey(name: "_id")
   String? id;
   @JsonKey(name: "question")
   String? question;
   @JsonKey(name: "correct")
-  Correct? correct;
+  String? correct;
   @JsonKey(name: "subject")
   dynamic subject;
   @JsonKey(name: "exam")
@@ -44,7 +43,7 @@ class AnswerDto {
   @JsonKey(name: "answer")
   String? answer;
   @JsonKey(name: "key")
-  Correct? key;
+  String? key;
 
   AnswerDto({this.answer, this.key});
 
@@ -54,17 +53,16 @@ class AnswerDto {
   Map<String, dynamic> toJson() => _$AnswerDtoToJson(this);
 }
 
-
 @JsonSerializable()
 class ExamDto {
   @JsonKey(name: "_id")
-  Id? id;
+  String? id;
   @JsonKey(name: "title")
-  Title? title;
+  String? title;
   @JsonKey(name: "duration")
   int? duration;
   @JsonKey(name: "subject")
-  Subject? subject;
+  String? subject;
   @JsonKey(name: "numberOfQuestions")
   int? numberOfQuestions;
   @JsonKey(name: "active")
