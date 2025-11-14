@@ -60,7 +60,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             } else if (states.contains(WidgetState.error)) {
               return textTheme.bodyLarge!.copyWith(color: AppColors.error);
             }
-            return textTheme.bodyLarge!.copyWith(color: AppColors.gray);
+            return textTheme.bodyLarge!.copyWith(color: AppColors.grey);
           }),
 
           errorBorder: OutlineInputBorder(
@@ -73,7 +73,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: AppColors.gray, width: 1),
+            borderSide: BorderSide(color: AppColors.grey, width: 1),
           ),
         ),
       ),

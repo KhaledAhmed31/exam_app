@@ -53,11 +53,13 @@ import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
 import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
 import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
-    as _i410;
+    as _i946;
+import '../../../features/explore/api/clients/get_all_subject_client.dart'
+    as _i473;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
-import 'dio_modules.dart' as _i176;
-import 'secure_storage_module.dart' as _i319;
+import 'dio_modules.dart' as _i291;
+import 'secure_storage_module.dart' as _i897;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -68,7 +70,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     final secureStorageModule = _$SecureStorageModule();
-    gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
+    gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => secureStorageModule.secureStorage,
     );
@@ -84,6 +86,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i779.VerifyResetCodeClient>(
       () => _i779.VerifyResetCodeClient(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i473.GetAllSubjectClient>(
+      () => _i473.GetAllSubjectClient(gh<_i361.Dio>()),
     );
     gh.singleton<_i463.LoginApiClient>(
       () => _i463.LoginApiClient(gh<_i361.Dio>()),
@@ -115,8 +120,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
-    gh.factory<_i410.AuthViewModel>(
-      () => _i410.AuthViewModel(
+    gh.factory<_i946.AuthViewModel>(
+      () => _i946.AuthViewModel(
         gh<_i442.LoginUescase>(),
         gh<_i115.IsLoggedInUsecase>(),
       ),
@@ -143,6 +148,6 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$RegisterModule extends _i176.RegisterModule {}
+class _$RegisterModule extends _i291.RegisterModule {}
 
-class _$SecureStorageModule extends _i319.SecureStorageModule {}
+class _$SecureStorageModule extends _i897.SecureStorageModule {}

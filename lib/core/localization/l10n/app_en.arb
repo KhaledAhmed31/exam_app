@@ -43,7 +43,7 @@
      "@doNotHaveAccount" : {},
      "signUpTitle" : "sign Up",
      "@signUpTitle" : {},
-     "exploreTabLabel" : "Explore",
+     "exploreTabLabel" : "Survay",
      "@exploreTabLabel" : {},
      "resultTabLabel" : "Result",
      "@resultTabLabel" : {},
@@ -56,5 +56,7 @@
      "ok" : "OK",
      "@ok" : {},
      "loadingTitle" : "Loading...",
-     "@loadingTitle" : {}
+     "@loadingTitle" : {},
+     "subjectListTitle" : "Browse by subject",
+     "@subjectListTitle" : {}
 }

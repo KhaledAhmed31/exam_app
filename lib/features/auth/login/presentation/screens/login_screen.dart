@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                         checkColor: AppColors.white,
                         fillColor:
                             BlocProvider.of<AuthViewModel>(context).rememberMe
-                            ? WidgetStateProperty.all(AppColors.gray)
+                            ? WidgetStateProperty.all(AppColors.grey)
                             : WidgetStateProperty.all(Colors.transparent),
                         value: BlocProvider.of<AuthViewModel>(
                           context,

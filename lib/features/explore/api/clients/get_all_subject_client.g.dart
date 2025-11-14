@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_api_client.dart';
+part of 'get_all_subject_client.dart';
 
 // dart format off
 
@@ -10,10 +10,8 @@ part of 'login_api_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _LoginApiClient implements LoginApiClient {
-  _LoginApiClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://exam.elevateegy.com/api/v1';
-  }
+class _GetAllSubjectClient implements GetAllSubjectClient {
+  _GetAllSubjectClient(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -22,26 +20,25 @@ class _LoginApiClient implements LoginApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<LoginDto> login(Map<String, dynamic> loginBody) async {
+  Future<GetAllSubjectsResponse> getAllSubjects() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(loginBody);
-    final _options = _setStreamType<LoginDto>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<GetAllSubjectsResponse>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/auth/signin',
+            '/subjects',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late LoginDto _value;
+    late GetAllSubjectsResponse _value;
     try {
-      _value = LoginDto.fromJson(_result.data!);
+      _value = GetAllSubjectsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

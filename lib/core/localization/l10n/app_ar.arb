@@ -55,5 +55,7 @@
      "ok" : "تم",
      "@ok" : {},
      "loadingTitle" : "تحميل",
-     "@loadingTitle" : {}
+     "@loadingTitle" : {},
+     "subjectListTitle" : "تصفح حسب الموضوع",
+     "@subjectListTitle" : {}
 }
