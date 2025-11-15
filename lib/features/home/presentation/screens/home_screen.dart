@@ -1,3 +1,6 @@
+import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
+import 'package:flutter/services.dart';
+
 import '../../../../core/constants/app_icons.dart';
 import '../../../../core/localization/l10n/app_localizations.dart';
 import '../../../explore/presentation/pages/explore_screen.dart';
@@ -36,8 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: AppColors.lightBlue,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarColor: AppColors.lightBlue,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
     local = AppLocalizations.of(context)!;
-
     return Scaffold(
       body: PageView(
         controller: _pageController,
@@ -45,7 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
         onPageChanged: (value) => setState(() => selectedIndex = value),
         children: tabs,
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
         onTap: (value) {
