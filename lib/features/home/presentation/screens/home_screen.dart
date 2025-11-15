@@ -1,13 +1,13 @@
-import 'package:exam_app/core/constants/app_icons.dart';
-import 'package:exam_app/core/localization/l10n/app_localizations.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
-import 'package:exam_app/features/home/presentation/screens/explore_screen.dart';
-import 'package:exam_app/features/home/presentation/screens/profile_screen.dart';
-import 'package:exam_app/features/home/presentation/screens/result_screen.dart';
+import 'package:flutter/services.dart';
+
+import '../../../../core/constants/app_icons.dart';
+import '../../../../core/localization/l10n/app_localizations.dart';
+import '../../../explore/presentation/pages/explore_screen.dart';
+import 'profile_screen.dart';
+import 'result_screen.dart';
+import '../widgets/nav_bar_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,76 +17,68 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late PageController _pageController;
+  late AppLocalizations local;
   int selectedIndex = 0;
-  List<Widget> tabs = [ExploreScreen(), ResultScreen(), ProfileScreen()];
+  final List<Widget> tabs = const [
+    ExploreScreen(),
+    ResultScreen(),
+    ProfileScreen(),
+  ];
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: selectedIndex);
+    super.initState();
+  }
 
-  Widget _buildIcon(int index) {
-    return selectedIndex == index
-        ? Container(
-            padding: EdgeInsets.symmetric(vertical: 6, horizontal: 25),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: AppColors.blue10,
-            ),
-            child: SvgPicture.asset(
-              AppIcons.assetsIconsHome,
-              colorFilter: ColorFilter.mode(
-                AppColors.blueBase,
-                BlendMode.srcIn,
-              ),
-            ),
-          )
-        : SvgPicture.asset(
-            AppIcons.assetsIconsHome,
-            colorFilter: ColorFilter.mode(AppColors.black30, BlendMode.srcIn),
-          );
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context)!;
-
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: AppColors.lightBlue,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarColor: AppColors.lightBlue,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+    local = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          (selectedIndex == 0
-              ? local.exploreTabLabel
-              : selectedIndex == 1
-              ? local.resultTabLabel
-              : local.profileTabLabel),
-          style: FontStyleManager.interMedium(
-            color: AppColors.blackBase,
-            fontSize: FontSizesManager.s20,
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        onPageChanged: (value) => setState(() => selectedIndex = value),
+        children: tabs,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex,
+        onTap: (value) {
+          _pageController.animateToPage(
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            value,
+          );
+        },
+        items: [
+          NavBarItem(
+            icon: AppIcons.assetsIconsHome,
+            label: local.exploreNavigationTitle,
           ),
-        ),
-
-        automaticallyImplyLeading: false,
+          NavBarItem(
+            icon: AppIcons.assetsIconsCarbonResultDraft,
+            label: local.resultTabLabel,
+          ),
+          NavBarItem(
+            icon: AppIcons.assetsIconsPerson,
+            label: local.profileTabLabel,
+          ),
+        ],
       ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: AppColors.black10),
-        child: BottomNavigationBar(
-          currentIndex: selectedIndex,
-          onTap: (value) {
-            selectedIndex = value;
-            setState(() {});
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: _buildIcon(0),
-              label: local.exploreTabLabel,
-            ),
-            BottomNavigationBarItem(
-              icon: _buildIcon(1),
-              label: local.resultTabLabel,
-            ),
-            BottomNavigationBarItem(
-              icon: _buildIcon(2),
-              label: local.profileTabLabel,
-            ),
-          ],
-        ),
-      ),
-      body: tabs[selectedIndex],
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
+import '../../ui_manager/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DialogUtils {

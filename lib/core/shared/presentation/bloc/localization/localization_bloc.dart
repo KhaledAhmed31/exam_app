@@ -1,5 +1,5 @@
-import 'package:exam_app/core/shared/presentation/bloc/localization/localization_events.dart';
-import 'package:exam_app/core/shared/presentation/bloc/localization/localization_states.dart';
+import 'localization_events.dart';
+import 'localization_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 @lazySingleton

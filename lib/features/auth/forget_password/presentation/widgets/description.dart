@@ -1,10 +1,15 @@
+import 'package:flutter/material.dart';
+
 import '../../../../../core/ui_manager/colors/app_colors.dart';
 import '../../../../../core/ui_manager/fonts/font_sizes_manager.dart';
 import '../../../../../core/ui_manager/fonts/font_style_manager.dart';
-import 'package:flutter/material.dart';
 
 class Description extends StatelessWidget {
-  const Description({super.key, required this.title, required this.description});
+  const Description({
+    super.key,
+    required this.title,
+    required this.description,
+  });
   final String title;
   final String description;
   @override
@@ -26,7 +31,7 @@ class Description extends StatelessWidget {
             description,
             style: FontStyleManager.interRegular(
               fontSize: FontSizesManager.s14,
-              color: AppColors.gray,
+              color: AppColors.grey,
             ),
             textAlign: TextAlign.center,
           ),

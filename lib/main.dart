@@ -19,7 +19,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  configureDependencies();
+  
+  await configureDependencies();
+  
   runApp(
     MultiBlocProvider(
       providers: [
@@ -33,9 +35,15 @@ void main() async {
   );
 }
 
-class MainApp extends StatelessWidget {
- MainApp({super.key});
- String? initialRoute;
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  String? initialRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -56,18 +64,12 @@ class MainApp extends StatelessWidget {
             builder: (context, authState) {
               if (authState.loginState?.isLoggedIn == false) {
                 initialRoute = RoutePath.login;
-                print(
-                  '<<<<<< ${authState.loginState?.isLoggedIn} / initial route in false: $initialRoute',
-                );
                 FlutterNativeSplash.remove();
               } else if (authState.loginState?.isLoggedIn == true) {
-                initialRoute = RoutePath.home;
-                print(
-                  '<<<<<< ${authState.loginState?.isLoggedIn} / initial route in true: $initialRoute',
-                );
+                initialRoute = RoutePath.home;             
                 FlutterNativeSplash.remove();
               }
-              if (initialRoute == '/login') {
+              if (initialRoute == RoutePath.login) {
                 return LoginScreen();
               } else {
                 return HomeScreen();

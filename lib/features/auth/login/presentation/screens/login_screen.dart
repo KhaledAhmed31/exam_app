@@ -1,15 +1,15 @@
-import 'package:exam_app/core/config/utils/dialog_utils.dart';
-import 'package:exam_app/core/config/validation/app_validation.dart';
-import 'package:exam_app/core/localization/l10n/app_localizations.dart';
-import 'package:exam_app/core/routes/route_path.dart';
-import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
-import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
+import '../../../../../core/config/utils/dialog_utils.dart';
+import '../../../../../core/config/validation/app_validation.dart';
+import '../../../../../core/localization/l10n/app_localizations.dart';
+import '../../../../../core/routes/route_path.dart';
+import '../../../../../core/shared/presentation/widgets/app_button.dart';
+import '../../../../../core/shared/presentation/widgets/custom_text_feild.dart';
+import '../../../../../core/ui_manager/colors/app_colors.dart';
+import '../../../../../core/ui_manager/fonts/font_sizes_manager.dart';
+import '../../../../../core/ui_manager/fonts/font_style_manager.dart';
+import '../bloc/auth_events.dart';
+import '../bloc/auth_states.dart';
+import '../bloc/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                         checkColor: AppColors.white,
                         fillColor:
                             BlocProvider.of<AuthViewModel>(context).rememberMe
-                            ? WidgetStateProperty.all(AppColors.gray)
+                            ? WidgetStateProperty.all(AppColors.grey)
                             : WidgetStateProperty.all(Colors.transparent),
                         value: BlocProvider.of<AuthViewModel>(
                           context,

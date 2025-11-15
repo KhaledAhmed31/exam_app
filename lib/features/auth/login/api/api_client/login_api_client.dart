@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:exam_app/core/config/api/api_const.dart';
-import 'package:exam_app/features/auth/login/data/models/login_dto.dart';
+import '../../../../../core/config/api/api_const.dart';
+import '../../data/models/login_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 

@@ -1,6 +1,6 @@
-import 'package:exam_app/core/routes/route_path.dart';
-import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
-import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
+import 'route_path.dart';
+import '../../features/home/presentation/screens/home_screen.dart';
+import '../../features/auth/login/presentation/screens/login_screen.dart';
 import '../../features/auth/forget_password/presentation/pages/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 
