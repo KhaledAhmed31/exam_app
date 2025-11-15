@@ -1,4 +1,4 @@
-import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+import '../../../../../core/localization/l10n/app_localizations.dart';
 
 import '../../../../../core/config/di/di.dart';
 import '../../../../../core/shared/presentation/widgets/app_toast.dart';

@@ -1,8 +1,8 @@
-import 'package:exam_app/core/config/base_response/base_response.dart';
-import 'package:exam_app/core/config/error/error_handler.dart';
-import 'package:exam_app/features/auth/login/api/api_client/login_api_client.dart';
-import 'package:exam_app/features/auth/login/data/datasources/login_remote_datasource.dart';
-import 'package:exam_app/features/auth/login/data/models/login_dto.dart';
+import '../../../../../core/config/base_response/base_response.dart';
+import '../../../../../core/config/error/error_handler.dart';
+import '../api_client/login_api_client.dart';
+import '../../data/datasources/login_remote_datasource.dart';
+import '../../data/models/login_dto.dart';
 import 'package:injectable/injectable.dart';
 
 @Singleton(as: LoginRemoteDatasource)

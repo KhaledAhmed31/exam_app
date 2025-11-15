@@ -1,8 +1,10 @@
 part of 'explore_bloc.dart';
 
-abstract class ExploreEvent extends Equatable {
-  const ExploreEvent();
+class ExploreEvent {}
 
-  @override
-  List<Object> get props => [];
+class GetAllSubjectsEvent extends ExploreEvent {}
+
+class GetSpecificSubjectsEvent extends ExploreEvent {
+  final String query;
+  GetSpecificSubjectsEvent({required this.query});
 }

@@ -57,5 +57,8 @@
      "loadingTitle" : "تحميل",
      "@loadingTitle" : {},
      "subjectListTitle" : "تصفح حسب الموضوع",
-     "@subjectListTitle" : {}
+     "@subjectListTitle" : {},
+     "noSubjectsFound":"لا يوجد نتايج",
+     "@noSubjectsFound":{},"exploreNavigationTitle" : "استكشاف",
+     "@exploreNavigationTitle" : {}
 }

@@ -1,4 +1,4 @@
-import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+import '../../../../../core/localization/l10n/app_localizations.dart';
 
 import '../bloc/forget_password_bloc.dart';
 import '../widgets/description.dart';

@@ -1,10 +1,9 @@
-import 'package:exam_app/core/constants/app_icons.dart';
-import 'package:exam_app/core/localization/l10n/app_localizations.dart';
-import 'package:exam_app/features/explore/presentation/pages/explore_screen.dart';
-import 'package:exam_app/features/home/presentation/screens/profile_screen.dart';
-import 'package:exam_app/features/home/presentation/screens/result_screen.dart';
-import 'package:exam_app/features/home/presentation/widgets/custom_nav_bar.dart';
-import 'package:exam_app/features/home/presentation/widgets/nav_bar_item.dart';
+import '../../../../core/constants/app_icons.dart';
+import '../../../../core/localization/l10n/app_localizations.dart';
+import '../../../explore/presentation/pages/explore_screen.dart';
+import 'profile_screen.dart';
+import 'result_screen.dart';
+import '../widgets/nav_bar_item.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,8 +15,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late PageController _pageController;
+  late AppLocalizations local;
   int selectedIndex = 0;
-  final List<Widget> tabs =const [ExploreScreen(), ResultScreen(), ProfileScreen()];
+  final List<Widget> tabs = const [
+    ExploreScreen(),
+    ResultScreen(),
+    ProfileScreen(),
+  ];
   @override
   void initState() {
     _pageController = PageController(initialPage: selectedIndex);
@@ -25,8 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context)!;
+    local = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: PageView(
@@ -36,19 +46,19 @@ class _HomeScreenState extends State<HomeScreen> {
         children: tabs,
       ),
 
-      bottomNavigationBar: CustomNavBar(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
         onTap: (value) {
           _pageController.animateToPage(
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeIn,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
             value,
           );
         },
         items: [
           NavBarItem(
             icon: AppIcons.assetsIconsHome,
-            label: local.exploreTabLabel,
+            label: local.exploreNavigationTitle,
           ),
           NavBarItem(
             icon: AppIcons.assetsIconsCarbonResultDraft,

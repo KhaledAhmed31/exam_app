@@ -97,4 +97,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get subjectListTitle => 'تصفح حسب الموضوع';
+
+  @override
+  String get noSubjectsFound => 'لا يوجد نتايج';
+
+  @override
+  String get exploreNavigationTitle => 'استكشاف';
 }

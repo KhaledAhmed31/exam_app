@@ -227,7 +227,7 @@ abstract class AppLocalizations {
   /// No description provided for @exploreTabLabel.
   ///
   /// In en, this message translates to:
-  /// **'Survay'**
+  /// **'Survey'**
   String get exploreTabLabel;
 
   /// No description provided for @resultTabLabel.
@@ -271,6 +271,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Browse by subject'**
   String get subjectListTitle;
+
+  /// No description provided for @noSubjectsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No subjects found'**
+  String get noSubjectsFound;
+
+  /// No description provided for @exploreNavigationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get exploreNavigationTitle;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,4 @@
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
+import '../../../../core/ui_manager/colors/app_colors.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 

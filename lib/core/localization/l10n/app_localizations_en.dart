@@ -75,7 +75,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpTitle => 'sign Up';
 
   @override
-  String get exploreTabLabel => 'Survay';
+  String get exploreTabLabel => 'Survey';
 
   @override
   String get resultTabLabel => 'Result';
@@ -97,4 +97,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subjectListTitle => 'Browse by subject';
+
+  @override
+  String get noSubjectsFound => 'No subjects found';
+
+  @override
+  String get exploreNavigationTitle => 'Explore';
 }

@@ -1,4 +1,4 @@
-import 'package:exam_app/features/auth/login/data/models/user_dto.dart';
+import 'user_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
