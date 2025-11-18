@@ -1,7 +1,8 @@
-import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
-import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
+import 'package:exam_app/features/explore/presentation/pages/explore_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:exam_app/core/routes/route_manager.dart';
+import 'package:exam_app/core/routes/route_path.dart';
 
 void main() {
   runApp(const MainApp());
@@ -16,19 +17,11 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Exam App",
       theme: AppTheme.light,
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              
-              CustomTextField(label: "Email"),
-              AppButton(title: "Login", onPressed: () {}),
-            ],
-          ),
-        ),
-      ),
+      // Force named startup at /home which maps to ExploreScreen.
+      initialRoute: RoutePath.home,
+      onGenerateRoute: RouteManager.generateRoute,
+      // Force ExploreScreen as the app entry for this phase.
+      home: const ExploreScreen(),
     );
   }
 }
