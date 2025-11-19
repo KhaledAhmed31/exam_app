@@ -27,8 +27,8 @@ class AppImages {
   static const String assetsImagesMicroscope = "assets/images/Microscope.svg";
 
   /// Assets for assetsImagesProfit
-  /// assets/images/Profit.svg
-  static const String assetsImagesProfit = "assets/images/Profit.svg";
+  /// assets/images/Profit.png
+  static const String assetsImagesProfit = "assets/images/Profit.png";
 
   /// Assets for assetsImagesSandClock
   /// assets/images/sand-clock.svg

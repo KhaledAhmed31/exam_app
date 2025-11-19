@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exam_app/core/routes/route_path.dart';
 import '../../../../core/ui_manager/colors/app_colors.dart';
 import '../../../../core/ui_manager/fonts/font_sizes_manager.dart';
 import '../../../../core/ui_manager/fonts/font_style_manager.dart';
@@ -17,7 +18,7 @@ class SubjectCard extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 11),
         onTap: () {
-          //TODO: Navigate to subject screen
+          Navigator.pushNamed(context, RoutePath.subjectDetails, arguments: entity);
         },
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
