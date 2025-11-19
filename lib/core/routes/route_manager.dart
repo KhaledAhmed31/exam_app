@@ -1,4 +1,5 @@
 import 'package:exam_app/core/routes/route_path.dart';
+import 'package:exam_app/features/signup/presentation/screens/signup_screen.dart';
 import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
 import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
 import '../../features/auth/forget_password/presentation/pages/forget_password_screen.dart';
@@ -19,7 +20,7 @@ class RouteManager {
         );
       case RoutePath.signup:
         return MaterialPageRoute(
-          builder: (_) => Container(),
+          builder: (_) => SignupScreen.withDependencies(),
           settings: settings,
         );
       case RoutePath.forgetPassword:

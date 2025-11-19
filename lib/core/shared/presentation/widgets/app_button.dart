@@ -13,6 +13,7 @@ class AppButton extends StatelessWidget {
   final String title;
   final bool isDisabled;
   final void Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -21,12 +22,12 @@ class AppButton extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: isDisabled
-                ? AppColors.black30
-                : AppColors.blueBase,
+            backgroundColor: AppColors.blueBase,
             overlayColor: AppColors.white,
+            disabledBackgroundColor: AppColors.gray,
+            disabledForegroundColor: AppColors.white,
           ),
-          onPressed: isDisabled ? () {} : onPressed,
+          onPressed: isDisabled ? null : onPressed,
           child: Text(
             title,
             style: FontStyleManager.robotoMedium(
