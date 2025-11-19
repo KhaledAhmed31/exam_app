@@ -2,6 +2,8 @@ import 'package:exam_app/core/config/validation/app_validation.dart';
 import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
 import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
+import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
+import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
 import 'package:exam_app/features/signup/view_model/signup_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:exam_app/core/config/api/api_const.dart';
@@ -228,23 +230,32 @@ class _SignupScreenState extends State<SignupScreen> {
                           : () => _handleSignup(context),
                     ),
                     const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('Already have an account?'),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            'Login',
-                            style: TextStyle(
-                              color: AppColors.blueBase,
-                              fontWeight: FontWeight.bold,
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'Already have an account? ',
+                            style: FontStyleManager.interRegular(
+                              color: AppColors.blackBase,
+                              fontSize: FontSizesManager.s16,
                             ),
+                            children: [
+                              TextSpan(
+                                text: 'Login',
+                                style: const TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: AppColors.blueBase,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: FontSizesManager.s16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
