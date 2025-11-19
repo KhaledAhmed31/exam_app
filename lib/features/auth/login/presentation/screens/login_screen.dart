@@ -170,24 +170,29 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: local.doNotHaveAccount,
-                        style: FontStyleManager.interRegular(
-                          color: AppColors.blackBase,
-                          fontSize: FontSizesManager.s16,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: local.signUpTitle,
-                            style: const TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: AppColors.blueBase,
-                              fontWeight: FontWeight.w500,
-                              fontSize: FontSizesManager.s16,
-                            ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutePath.signup);
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          text: local.doNotHaveAccount,
+                          style: FontStyleManager.interRegular(
+                            color: AppColors.blackBase,
+                            fontSize: FontSizesManager.s16,
                           ),
-                        ],
+                          children: [
+                            TextSpan(
+                              text: local.signUpTitle,
+                              style: const TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: AppColors.blueBase,
+                                fontWeight: FontWeight.w500,
+                                fontSize: FontSizesManager.s16,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
