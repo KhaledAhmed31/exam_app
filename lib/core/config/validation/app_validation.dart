@@ -50,6 +50,14 @@ class Validators {
     }
     return null;
   }
+  static String? confirmPasswordValidator(String? val, String? confirmPassowrd) {
+    if (val == null || val.isEmpty) {
+      return "Password is required";
+    }else if(val != confirmPassowrd){
+      return "Password doesn't match";
+    }
+    return null;
+  }
 
   static String? signInPasswordValidator(String? val) {
     if (val == null || val.isEmpty) {

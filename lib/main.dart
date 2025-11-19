@@ -1,70 +1,81 @@
+// ignore_for_file: avoid_print
+
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+import 'package:exam_app/core/shared/presentation/bloc/localization/localization_bloc.dart';
+import 'package:exam_app/core/shared/presentation/bloc/localization/localization_states.dart';
+import 'package:exam_app/core/config/di/di.dart';
+import 'package:exam_app/core/routes/route_manager.dart';
+import 'package:exam_app/core/routes/route_path.dart';
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
-import 'package:exam_app/features/signup/data/repositories/signup_repository_impl.dart';
-import 'package:exam_app/features/signup/domain/usecases/signup_usecase.dart';
-import 'package:exam_app/features/signup/presentation/screens/signup_screen.dart';
-import 'package:dio/dio.dart';
-import 'package:exam_app/features/signup/data/datasources/signup_remote_data_source.dart';
-import 'package:exam_app/features/signup/view_model/signup_cubit.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
+import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  configureDependencies();
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthViewModel>(
+          create: (context) => getIt<AuthViewModel>()..add(IsLoggedInEvent()),
+        ),
+        BlocProvider(create: (context) => getIt<LocalizationBloc>()),
+      ],
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+ MainApp({super.key});
+ String? initialRoute;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Exam App",
-      theme: AppTheme.light,
-      home: const HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(onPressed: () {}, child: const Text('Login')),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                      create: (context) {
-                        final dio = Dio();
-                        final remoteDataSource = SignupRemoteDataSourceImpl(
-                          dio: dio,
-                        );
-                        final repository = SignupRepositoryImpl(
-                          remoteDataSource: remoteDataSource,
-                        );
-                        final useCase = SignupUseCase(repository: repository);
-                        return SignupCubit(useCase);
-                      },
-                      child: const SignupScreen(),
-                    ),
-                  ),
+    return BlocBuilder<LocalizationBloc, LocalizationState>(
+      builder: (context, localizationState) {
+        Locale currentLocale = AppLocalizations.supportedLocales.first;
+        if (localizationState is LocalizationLoadedState) {
+          currentLocale = Locale(localizationState.langCode);
+        }
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light,
+          onGenerateRoute: RouteManager.generateRoute,
+          locale: currentLocale,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: BlocBuilder<AuthViewModel, AuthStates>(
+            builder: (context, authState) {
+              if (authState.loginState?.isLoggedIn == false) {
+                initialRoute = RoutePath.login;
+                print(
+                  '<<<<<< ${authState.loginState?.isLoggedIn} / initial route in false: $initialRoute',
                 );
-              },
-              child: const Text('Test Signup'),
-            ),
-          ],
-        ),
-      ),
+                FlutterNativeSplash.remove();
+              } else if (authState.loginState?.isLoggedIn == true) {
+                initialRoute = RoutePath.home;
+                print(
+                  '<<<<<< ${authState.loginState?.isLoggedIn} / initial route in true: $initialRoute',
+                );
+                FlutterNativeSplash.remove();
+              }
+              if (initialRoute == '/login') {
+                return LoginScreen();
+              } else {
+                return HomeScreen();
+              }
+            },
+          ),
+        );
+      },
     );
   }
 }
