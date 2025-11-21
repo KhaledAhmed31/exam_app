@@ -7,10 +7,10 @@ import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/routes/route_manager.dart';
 import 'package:exam_app/core/routes/route_path.dart';
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_events.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_view_model.dart';
-import 'package:exam_app/features/auth/login/presentation/views/screens/login_screen.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
+import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,8 +34,8 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
-  MainApp({super.key});
-  String? initialRoute;
+ MainApp({super.key});
+ String? initialRoute;
 
   @override
   Widget build(BuildContext context) {

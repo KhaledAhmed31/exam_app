@@ -52,8 +52,8 @@ import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
     as _i115;
 import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
-import '../../../features/auth/login/presentation/view_model/auth_view_model.dart'
-    as _i410;
+import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
+    as _i946;
 import '../../../features/exams_page/api/api_client/exam_questions_api_client.dart'
     as _i184;
 import '../../../features/exams_page/api/datasources/get_exam_questions_remote_datasourse_impl.dart'
@@ -70,7 +70,7 @@ import '../../../features/exams_page/presentation/bloc/exam_page_bloc.dart'
     as _i563;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
-import 'di_modules.dart' as _i176;
+import 'dio_modules.dart' as _i291;
 import 'secure_storage_module.dart' as _i897;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -144,8 +144,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
-    gh.factory<_i410.AuthViewModel>(
-      () => _i410.AuthViewModel(
+    gh.factory<_i946.AuthViewModel>(
+      () => _i946.AuthViewModel(
         gh<_i442.LoginUescase>(),
         gh<_i115.IsLoggedInUsecase>(),
       ),
@@ -178,6 +178,6 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$RegisterModule extends _i176.RegisterModule {}
+class _$RegisterModule extends _i291.RegisterModule {}
 
 class _$SecureStorageModule extends _i897.SecureStorageModule {}
