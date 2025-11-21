@@ -53,11 +53,25 @@ import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
 import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
 import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
-    as _i410;
+    as _i946;
+import '../../../features/exams_page/api/api_client/exam_questions_api_client.dart'
+    as _i184;
+import '../../../features/exams_page/api/datasources/get_exam_questions_remote_datasourse_impl.dart'
+    as _i139;
+import '../../../features/exams_page/data/datasources/get_exam_questions_remote_datasourse.dart'
+    as _i631;
+import '../../../features/exams_page/data/repos/get_exam_questions_repo_impl.dart'
+    as _i58;
+import '../../../features/exams_page/domain/repos/get_exam_questions_repo.dart'
+    as _i366;
+import '../../../features/exams_page/domain/usecases/get_exam_questions_usecase.dart'
+    as _i971;
+import '../../../features/exams_page/presentation/bloc/exam_page_bloc.dart'
+    as _i563;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
-import 'dio_modules.dart' as _i176;
-import 'secure_storage_module.dart' as _i319;
+import 'dio_modules.dart' as _i291;
+import 'secure_storage_module.dart' as _i897;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -73,9 +87,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => secureStorageModule.secureStorage,
     );
     gh.lazySingleton<_i556.LocalizationBloc>(() => _i556.LocalizationBloc());
-    gh.singleton<_i918.LoginLocalDatasource>(
-      () => _i670.LoginLocalDatasourceImpl(gh<_i558.FlutterSecureStorage>()),
-    );
     gh.lazySingleton<_i672.ResetPasswordClient>(
       () => _i672.ResetPasswordClient(gh<_i361.Dio>()),
     );
@@ -88,14 +99,32 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i463.LoginApiClient>(
       () => _i463.LoginApiClient(gh<_i361.Dio>()),
     );
+    gh.singleton<_i184.ExamQuestionsApiClient>(
+      () => _i184.ExamQuestionsApiClient(gh<_i361.Dio>()),
+    );
     gh.singleton<_i1056.LoginRemoteDatasource>(
       () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),
+    );
+    gh.singleton<_i631.GetExamQuestionsRemoteDatasourse>(
+      () => _i139.GetExamQuestionsRemoteDatasourseImpl(
+        gh<_i184.ExamQuestionsApiClient>(),
+      ),
+    );
+    gh.singleton<_i918.LoginLocalDatasource>(
+      () => _i670.LoginLocalDatasourceImpl(
+        secureStorage: gh<_i558.FlutterSecureStorage>(),
+      ),
     );
     gh.lazySingleton<_i126.ForgetPassordDataSource>(
       () => _i849.SendResetCodeDataSuorceImpl(
         gh<_i672.ResetPasswordClient>(),
         gh<_i183.SendResetCodeClient>(),
         gh<_i779.VerifyResetCodeClient>(),
+      ),
+    );
+    gh.singleton<_i366.GetExamQuestionsRepo>(
+      () => _i58.GetExamQuestionsRepoImpl(
+        gh<_i631.GetExamQuestionsRemoteDatasourse>(),
       ),
     );
     gh.lazySingleton<_i233.ForgetPawwordRepo>(
@@ -115,8 +144,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
-    gh.factory<_i410.AuthViewModel>(
-      () => _i410.AuthViewModel(
+    gh.factory<_i946.AuthViewModel>(
+      () => _i946.AuthViewModel(
         gh<_i442.LoginUescase>(),
         gh<_i115.IsLoggedInUsecase>(),
       ),
@@ -129,8 +158,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i934.ResetPasswordUseCase>(
       () => _i934.ResetPasswordUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
+    gh.singleton<_i971.GetExamQuestionsUsecase>(
+      () => _i971.GetExamQuestionsUsecase(gh<_i366.GetExamQuestionsRepo>()),
+    );
     gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
       () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
+    );
+    gh.factory<_i563.ExamPageBloc>(
+      () => _i563.ExamPageBloc(gh<_i971.GetExamQuestionsUsecase>()),
     );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
       () => _i588.ForgetPasswordBloc(
@@ -143,6 +178,6 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$RegisterModule extends _i176.RegisterModule {}
+class _$RegisterModule extends _i291.RegisterModule {}
 
-class _$SecureStorageModule extends _i319.SecureStorageModule {}
+class _$SecureStorageModule extends _i897.SecureStorageModule {}

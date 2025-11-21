@@ -1,4 +1,5 @@
 import 'package:exam_app/core/config/base_response/base_response.dart';
+import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/config/error/error_handler.dart';
 import 'package:exam_app/core/config/validation/app_validation.dart';
 import 'package:exam_app/features/auth/login/domain/models/login_model.dart';
@@ -29,7 +30,7 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
   String email = '';
   String password = '';
   bool rememberMe = false;
-  final _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = getIt<FlutterSecureStorage>();
 
   void _login(LoginEvents event, Emitter<AuthStates> emit) async {
     emit(state.copywith(loginStateCopywith: LoginState(isLoading: true)));

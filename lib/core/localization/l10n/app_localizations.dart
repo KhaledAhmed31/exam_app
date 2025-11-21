@@ -265,6 +265,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading...'**
   String get loadingTitle;
+
+  /// No description provided for @examTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam'**
+  String get examTitle;
+
+  /// No description provided for @selectCorrectAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the correctly punctuated sentence.'**
+  String get selectCorrectAnswer;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @viewScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View Score'**
+  String get viewScoreTitle;
+
+  /// No description provided for @timeOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Out!!'**
+  String get timeOut;
+
+  /// No description provided for @questionText.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions'**
+  String get questionText;
+
+  /// No description provided for @ofText.
+  ///
+  /// In en, this message translates to:
+  /// **'of'**
+  String get ofText;
+
+  /// No description provided for @finish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finish;
 }
 
 class _AppLocalizationsDelegate
