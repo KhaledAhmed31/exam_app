@@ -31,10 +31,11 @@ class StartExamScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(
-                  AppImages.assetsImagesProfit,
+                Image.asset(
+                  AppImages.assetsImagesProfitPng,
                   width: 42,
                   height: 47,
+                  fit: BoxFit.contain,
                 ),
                 const SizedBox(width: 8),
                 Expanded(

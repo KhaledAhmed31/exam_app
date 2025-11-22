@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:exam_app/core/constants/assets.dart';
-
 import '../../../../core/ui_manager/colors/app_colors.dart';
 import '../../../../core/ui_manager/fonts/font_sizes_manager.dart';
 import '../../../../core/ui_manager/fonts/font_style_manager.dart';
@@ -29,10 +27,11 @@ class ExamCard extends StatelessWidget {
         leading: SizedBox(
           width: 60,
           height: 71,
-          child: SvgPicture.asset(
-            AppImages.assetsImagesProfit,
+          child: Image.asset(
+            AppImages.assetsImagesProfitPng,
             width: 60,
             height: 71,
+            fit: BoxFit.contain,
           ),
         ),
         title: Text(

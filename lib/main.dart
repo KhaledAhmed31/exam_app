@@ -34,8 +34,8 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
- MainApp({super.key});
- String? initialRoute;
+  MainApp({super.key});
+  String? initialRoute;
 
   @override
   Widget build(BuildContext context) {
