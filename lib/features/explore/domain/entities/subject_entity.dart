@@ -3,9 +3,5 @@ class SubjectEntity {
   final String name;
   final String icon;
 
-  const SubjectEntity({
-    required this.id,
-    required this.name,
-    required this.icon,
-  });
+  SubjectEntity({required this.id, required this.name, required this.icon});
 }

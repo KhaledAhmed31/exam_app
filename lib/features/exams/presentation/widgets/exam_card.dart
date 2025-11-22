@@ -42,7 +42,7 @@ class ExamCard extends StatelessWidget {
           ).copyWith(height: 1.0),
         ),
         trailing: Text(
-          '${exam.durationMinutes} Minutes',
+          '${exam.duration} Minutes',
           style: FontStyleManager.interRegular(
             color: AppColors.blueBase,
             fontSize: FontSizesManager.s14,
@@ -52,7 +52,7 @@ class ExamCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${exam.questionsCount} Question',
+              '${exam.numberOfQuestions} Question',
               style: FontStyleManager.interRegular(
                 color: AppColors.black30,
                 fontSize: FontSizesManager.s12,

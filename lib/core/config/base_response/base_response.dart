@@ -1,4 +1,6 @@
-abstract class BaseResponse<T> {}
+abstract class BaseResponse<T> {
+  get error => null;
+}
 
 class SuccessResponse<T> extends BaseResponse<T> {
   final T data;
@@ -6,6 +8,7 @@ class SuccessResponse<T> extends BaseResponse<T> {
 }
 
 class ErrorResponse<T, E>extends BaseResponse<T> {
+  @override
   final E error;
   ErrorResponse({required this.error});
 }

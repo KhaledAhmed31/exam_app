@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:exam_app/core/routes/route_path.dart';
 import '../../../../core/ui_manager/colors/app_colors.dart';
 import '../../../../core/ui_manager/fonts/font_sizes_manager.dart';
 import '../../../../core/ui_manager/fonts/font_style_manager.dart';
 import '../../domain/entities/subject_entity.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/routes/route_path.dart';
 
 class SubjectCard extends StatelessWidget {
   const SubjectCard({super.key, required this.entity});
@@ -17,26 +18,15 @@ class SubjectCard extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 11),
         onTap: () {
-          Navigator.pushNamed(
-            context,
-            RoutePath.subjectExams,
-            arguments: entity,
-          );
+          Navigator.pushNamed(context, RoutePath.subjectDetails, arguments: entity);
         },
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            entity.icon,
+          child: CachedNetworkImage(
+            imageUrl: entity.icon,
             height: 48,
             width: 48,
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Container(
-              height: 48,
-              width: 48,
-              color: AppColors.blue20,
-              child: const Icon(Icons.image_not_supported,
-                  color: AppColors.blueBase),
-            ),
           ),
         ),
         title: Text(

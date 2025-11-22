@@ -48,7 +48,7 @@ class StartExamScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${exam.durationMinutes} Minutes',
+                  '${exam.duration} Minutes',
                   style: FontStyleManager.interRegular(
                     color: AppColors.blueBase,
                     fontSize: FontSizesManager.s14,
@@ -68,7 +68,7 @@ class StartExamScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '${exam.questionsCount} Question',
+                  '${exam.numberOfQuestions} Question',
                   style: FontStyleManager.interRegular(
                     color: AppColors.black30,
                     fontSize: FontSizesManager.s14,

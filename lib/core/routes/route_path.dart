@@ -7,4 +7,6 @@ class RoutePath {
   static const String subjectExams = '/subjectExams';
   static const String startExam = '/startExam';
   static const String questions = '/questions';
+
+  static const String subjectDetails = '/subjectDetails';
 }

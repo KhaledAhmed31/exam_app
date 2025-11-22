@@ -19,7 +19,7 @@ class AppTheme {
       surfaceTintColor: Colors.transparent,
       backgroundColor: AppColors.white,
       elevation: 0,
-      titleSpacing: 12,
+      titleSpacing: 0,
       leadingWidth: 44,
       titleTextStyle: FontStyleManager.interMedium(
         color: AppColors.blackBase,
@@ -36,17 +36,17 @@ class AppTheme {
         fontSize: FontSizesManager.s14,
       ),
       bodySmall: FontStyleManager.robotoRegular(
-        color: AppColors.gray,
+        color: AppColors.grey,
         fontSize: FontSizesManager.s12,
       ),
     ),
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      elevation: 0,
+      backgroundColor: AppColors.lightBlue,
       selectedItemColor: AppColors.blueBase,
-      unselectedItemColor: AppColors.black30,
+      unselectedItemColor: AppColors.blueBase,
       selectedIconTheme: IconThemeData(size: 24, color: AppColors.blueBase),
-      unselectedIconTheme: IconThemeData(size: 24, color: AppColors.black30),
+      unselectedIconTheme: IconThemeData(size: 24, color: AppColors.blueBase),
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -57,5 +57,6 @@ class AppTheme {
         disabledForegroundColor: AppColors.white,
       ),
     ),
+    
   );
 }

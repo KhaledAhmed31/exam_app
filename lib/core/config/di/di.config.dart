@@ -53,11 +53,38 @@ import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
 import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
 import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
-    as _i410;
+    as _i946;
+import '../../../features/explore/api/clients/get_all_subject_client.dart'
+    as _i473;
+import '../../../features/explore/api/data_source/get_all_subjects_data_source_impl.dart'
+    as _i323;
+import '../../../features/explore/data/datasources/get_all_subjects_data_source.dart'
+    as _i460;
+import '../../../features/explore/data/repositories/get_all_subjects_repo_impl.dart'
+    as _i311;
+import '../../../features/explore/domain/repositories/get_all_subjects_repo.dart'
+    as _i234;
+import '../../../features/explore/domain/usecases/get_all_subjects_use_case.dart'
+    as _i109;
+import '../../../features/explore/presentation/bloc/explore_bloc.dart' as _i376;
+import '../../../features/subject%20details/api/clients/get_exams_on_subjects_client.dart'
+    as _i822;
+import '../../../features/subject%20details/api/data_source/get_exams_on_subject_data_source_imp.dart'
+    as _i64;
+import '../../../features/subject%20details/data/datasources/get_exams_on_subject_remote_data_source.dart'
+    as _i88;
+import '../../../features/subject%20details/data/repositories/get_exams_on_subject_repo_impl.dart'
+    as _i576;
+import '../../../features/subject%20details/domain/repositories/get_exams_on_subject_repo.dart'
+    as _i478;
+import '../../../features/subject%20details/domain/usecases/get_exams_on_subjects_use_case.dart'
+    as _i517;
+import '../../../features/subject%20details/presentation/bloc/subject_details_bloc.dart'
+    as _i1044;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
-import 'dio_modules.dart' as _i176;
-import 'secure_storage_module.dart' as _i319;
+import 'dio_modules.dart' as _i291;
+import 'secure_storage_module.dart' as _i897;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -68,7 +95,7 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     final secureStorageModule = _$SecureStorageModule();
-    gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
+    gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => secureStorageModule.secureStorage,
     );
@@ -85,6 +112,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i779.VerifyResetCodeClient>(
       () => _i779.VerifyResetCodeClient(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i473.GetAllSubjectClient>(
+      () => _i473.GetAllSubjectClient(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i822.GetExamsOnSubjectsClient>(
+      () => _i822.GetExamsOnSubjectsClient(gh<_i361.Dio>()),
+    );
     gh.singleton<_i463.LoginApiClient>(
       () => _i463.LoginApiClient(gh<_i361.Dio>()),
     );
@@ -98,15 +131,26 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i779.VerifyResetCodeClient>(),
       ),
     );
+    gh.lazySingleton<_i460.GetAllSubjectsDataSource>(
+      () => _i323.GetAllSubjectsDataSourceImpl(gh<_i473.GetAllSubjectClient>()),
+    );
     gh.lazySingleton<_i233.ForgetPawwordRepo>(
       () => _i704.ForgetPasswordRepoImpl(
         forgetPasswordDataSource: gh<_i126.ForgetPassordDataSource>(),
       ),
     );
+    gh.lazySingleton<_i234.GetAllSubjectsRepo>(
+      () => _i311.GetAllSubjectsRepoImpl(gh<_i460.GetAllSubjectsDataSource>()),
+    );
     gh.singleton<_i142.LoginRepo>(
       () => _i226.LoginRepoImpl(
         gh<_i1056.LoginRemoteDatasource>(),
         gh<_i918.LoginLocalDatasource>(),
+      ),
+    );
+    gh.lazySingleton<_i88.GetExamsOnSubjectRemoteDataSource>(
+      () => _i64.GetExamsOnSubjectDataSourceImp(
+        gh<_i822.GetExamsOnSubjectsClient>(),
       ),
     );
     gh.singleton<_i115.IsLoggedInUsecase>(
@@ -115,8 +159,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
-    gh.factory<_i410.AuthViewModel>(
-      () => _i410.AuthViewModel(
+    gh.lazySingleton<_i478.GetExamsOnSubjectRepo>(
+      () => _i576.GetExamsOnSubjectRepoImpl(
+        gh<_i88.GetExamsOnSubjectRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i946.AuthViewModel>(
+      () => _i946.AuthViewModel(
         gh<_i442.LoginUescase>(),
         gh<_i115.IsLoggedInUsecase>(),
       ),
@@ -132,6 +181,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
       () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
+    gh.lazySingleton<_i109.GetAllSubjectsUseCase>(
+      () => _i109.GetAllSubjectsUseCase(gh<_i234.GetAllSubjectsRepo>()),
+    );
+    gh.lazySingleton<_i376.GetallSubjectsBloc>(
+      () => _i376.GetallSubjectsBloc(gh<_i109.GetAllSubjectsUseCase>()),
+    );
+    gh.lazySingleton<_i517.GetExamsOnSubjectsUseCase>(
+      () => _i517.GetExamsOnSubjectsUseCase(
+        getExamsOnSubjectRepo: gh<_i478.GetExamsOnSubjectRepo>(),
+      ),
+    );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
       () => _i588.ForgetPasswordBloc(
         gh<_i484.SendResetCodeUseCase>(),
@@ -139,10 +199,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i934.ResetPasswordUseCase>(),
       ),
     );
+    gh.lazySingleton<_i1044.SubjectDetailsBloc>(
+      () => _i1044.SubjectDetailsBloc(gh<_i517.GetExamsOnSubjectsUseCase>()),
+    );
     return this;
   }
 }
 
-class _$RegisterModule extends _i176.RegisterModule {}
+class _$RegisterModule extends _i291.RegisterModule {}
 
-class _$SecureStorageModule extends _i319.SecureStorageModule {}
+class _$SecureStorageModule extends _i897.SecureStorageModule {}
