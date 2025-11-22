@@ -1,13 +1,11 @@
-sealed class BaseResponse<T> {}
+abstract class BaseResponse<T> {}
 
 class SuccessResponse<T> extends BaseResponse<T> {
   final T data;
-
   SuccessResponse(this.data);
 }
 
-class ErrorResponse<T> extends BaseResponse<T> {
-  final String message;
-
-  ErrorResponse(this.message);
+class ErrorResponse<T, E>extends BaseResponse<T> {
+  final E error;
+  ErrorResponse({required this.error});
 }

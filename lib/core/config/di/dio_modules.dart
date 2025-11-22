@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:exam_app/core/config/api/api_const.dart';
 import 'package:injectable/injectable.dart';
+
+import '../api/api_const.dart';
 
 @module
 abstract class RegisterModule {
