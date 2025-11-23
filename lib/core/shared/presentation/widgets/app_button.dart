@@ -8,7 +8,6 @@ class AppButton extends StatelessWidget {
   final String title;
   final bool isDisabled;
   final void Function()? onPressed;
-  final bool isDisabled;
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -16,7 +15,6 @@ class AppButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: isDisabled ? null : onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor:isDisabled
                 ? AppColors.black30

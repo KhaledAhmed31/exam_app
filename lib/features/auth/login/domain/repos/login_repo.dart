@@ -5,4 +5,8 @@ abstract class LoginRepo {
   Future<BaseResponse<LoginModel>> login({String? email, String? password});
 
   Future<bool> isLoggedIn();
+
+  Future<void> storeToken(String token);
+
+  Future<void> saveRememberMe(bool value);
 }

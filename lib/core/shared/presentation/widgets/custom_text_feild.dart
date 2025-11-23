@@ -13,7 +13,6 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     required this.hint,
     this.validator,
-    this.onChanged,
   });
   final bool obscureText;
   final String label;

@@ -18,20 +18,17 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var viewModel = BlocProvider.of<AuthViewModel>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: AppColors.black,
-          ),
-          onPressed: () {},
-        ),
-        title: Text(
-          UiStrings.login,
-          style: FontStyleManager.interMedium(
-            color: AppColors.black,
-            fontSize: 25,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Text(
+            UiStrings.login,
+            style: FontStyleManager.interMedium(
+              color: AppColors.black,
+              fontSize: 25,
+            ),
           ),
         ),
       ),
@@ -39,12 +36,9 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<AuthViewModel, AuthStates>(
           listener: (context, state) {
             if (state.loginState?.isLoading == true) {
-              DialogUtils.showLoading(
-                context,
-                'Loading...',
-                AppColors.white,
-              );
-            } else if (state.loginState?.isLoading == false && state.loginState?.data != null) {
+              DialogUtils.showLoading(context, 'Loading...', AppColors.white);
+            } else if (state.loginState?.isLoading == false &&
+                state.loginState?.data != null) {
               DialogUtils.hideLoading(context);
               DialogUtils.showMessage(
                 context,
@@ -58,8 +52,7 @@ class LoginScreen extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, RoutePath.home);
                 },
               );
-            } 
-            else if (state.loginState?.errorMessage?.isNotEmpty == true) {
+            } else if (state.loginState?.errorMessage?.isNotEmpty == true) {
               DialogUtils.hideLoading(context);
               DialogUtils.showMessage(
                 context,
@@ -69,18 +62,18 @@ class LoginScreen extends StatelessWidget {
                 textColor: AppColors.white,
                 negActionName: 'OK',
                 actionColor: AppColors.white,
-              );  
-              }
+              );
+            }
           },
           builder: (context, state) {
             return Form(
-              key: BlocProvider.of<AuthViewModel>(context).formKey,
+              key: viewModel.formKey,
               child: Column(
                 children: [
                   SizedBox(height: 14),
                   CustomTextField(
                     onChanged: (val) {
-                      BlocProvider.of<AuthViewModel>(context).add(EmailOnChangedEvent(val));
+                      viewModel.add(EmailOnChangedEvent(val));
                     },
                     validator: (val) => Validators.emailValidator(val),
                     label: UiStrings.emailLabel,
@@ -90,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 24),
                   CustomTextField(
                     onChanged: (val) {
-                      BlocProvider.of<AuthViewModel>(context).add(PasswordOnChangedEvent(val));
+                      viewModel.add(PasswordOnChangedEvent(val));
                     },
                     validator: (val) => Validators.passwordValidator(val),
                     label: UiStrings.passwordLabel,
@@ -103,12 +96,12 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(width: 20),
                       Checkbox(
                         checkColor: AppColors.white,
-                        fillColor: BlocProvider.of<AuthViewModel>(context).rememberMe
+                        fillColor: viewModel.rememberMe
                             ? WidgetStateProperty.all(AppColors.gray)
                             : WidgetStateProperty.all(Colors.transparent),
-                        value: BlocProvider.of<AuthViewModel>(context).rememberMe,
+                        value: viewModel.rememberMe,
                         onChanged: (value) {
-                          BlocProvider.of<AuthViewModel>(context).add(ChangeRememberMeEvent(value));
+                          viewModel.add(ChangeRememberMeEvent(value));
                         },
                       ),
                       Text(
@@ -135,15 +128,12 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 48),
                   AppButton(
                     isDisabled:
-                        !(Validators.emailValidator(BlocProvider.of<AuthViewModel>(context).email) ==
-                                null &&
-                            Validators.passwordValidator(
-                                  BlocProvider.of<AuthViewModel>(context).password,
-                                ) ==
+                        !(Validators.emailValidator(viewModel.email) == null &&
+                            Validators.passwordValidator(viewModel.password) ==
                                 null),
                     title: UiStrings.login,
                     onPressed: () {
-                      BlocProvider.of<AuthViewModel>(context).add(LoginEvents());
+                      viewModel.add(LoginEvents());
                     },
                   ),
                   SizedBox(height: 16),
