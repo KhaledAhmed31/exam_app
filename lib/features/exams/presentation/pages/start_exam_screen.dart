@@ -1,6 +1,5 @@
 import 'package:exam_app/core/routes/route_path.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:exam_app/core/constants/assets.dart';
 import '../../../../core/ui_manager/colors/app_colors.dart';
 import '../../../../core/ui_manager/fonts/font_style_manager.dart';

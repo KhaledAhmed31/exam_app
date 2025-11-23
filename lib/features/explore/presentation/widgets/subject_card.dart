@@ -18,7 +18,11 @@ class SubjectCard extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 11),
         onTap: () {
-          Navigator.pushNamed(context, RoutePath.subjectDetails, arguments: entity);
+          Navigator.pushNamed(
+            context,
+            RoutePath.subjectExams,
+            arguments: entity,
+          );
         },
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),

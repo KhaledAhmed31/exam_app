@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/features/explore/domain/entities/subject_entity.dart';
-import 'package:exam_app/features/subject%20details/presentation/bloc/subject_details_bloc.dart';
+import 'package:exam_app/features/subject details/presentation/bloc/subject_details_bloc.dart';
 import 'package:exam_app/features/exams/domain/entities/exam_entity.dart';
 import '../widgets/exam_card.dart';
 import '../../../../core/ui_manager/colors/app_colors.dart';
 import '../../../../core/ui_manager/fonts/font_style_manager.dart';
 import '../../../../core/ui_manager/fonts/font_sizes_manager.dart';
+import 'package:exam_app/features/subject details/domain/usecases/get_exams_on_subjects_use_case.dart';
 
 class SubjectExamsScreen extends StatelessWidget {
   const SubjectExamsScreen({super.key, required this.subject});
@@ -30,8 +31,11 @@ class SubjectExamsScreen extends StatelessWidget {
         ),
       ),
       body: BlocProvider(
-        create: (_) =>
-            getIt<SubjectDetailsBloc>()..add(GetExamsOnSubjectEvent(subject)),
+        create: (_) {
+          final useCase = getIt<GetExamsOnSubjectsUseCase>();
+          return SubjectDetailsBloc(useCase)
+            ..add(GetExamsOnSubjectEvent(subject));
+        },
         child: BlocBuilder<SubjectDetailsBloc, SubjectDetailsState>(
           builder: (context, state) {
             if (state.isLoading) {

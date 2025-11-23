@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:exam_app/core/localization/l10n/app_localizations.dart';
 import 'package:exam_app/core/shared/presentation/bloc/localization/localization_bloc.dart';
 import 'package:exam_app/core/shared/presentation/bloc/localization/localization_states.dart';
@@ -19,9 +17,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  
+
   await configureDependencies();
-  
+
   runApp(
     MultiBlocProvider(
       providers: [
@@ -66,7 +64,7 @@ class _MainAppState extends State<MainApp> {
                 initialRoute = RoutePath.login;
                 FlutterNativeSplash.remove();
               } else if (authState.loginState?.isLoggedIn == true) {
-                initialRoute = RoutePath.home;             
+                initialRoute = RoutePath.home;
                 FlutterNativeSplash.remove();
               }
               if (initialRoute == RoutePath.login) {
