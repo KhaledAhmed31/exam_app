@@ -3,15 +3,16 @@ class SignupEntity {
   final String lastName;
   final String email;
   final String password;
+  final String rePassword;
   final String phone;
   final String userName;
-  // Removed gender and grade to simplify payload
 
   SignupEntity({
     required this.firstName,
     required this.lastName,
     required this.email,
     required this.password,
+    required this.rePassword,
     required this.phone,
     required this.userName,
   });
@@ -25,6 +26,7 @@ class SignupEntity {
         other.lastName == lastName &&
         other.email == email &&
         other.password == password &&
+        other.rePassword == rePassword &&
         other.phone == phone &&
         other.userName == userName;
   }
@@ -35,6 +37,7 @@ class SignupEntity {
         lastName.hashCode ^
         email.hashCode ^
         password.hashCode ^
+        rePassword.hashCode ^
         phone.hashCode ^
         userName.hashCode;
   }

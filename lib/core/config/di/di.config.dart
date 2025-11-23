@@ -53,11 +53,19 @@ import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
 import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
 import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
-    as _i410;
+    as _i946;
+import '../../../features/signup/data/datasources/signup_remote_data_source.dart'
+    as _i739;
+import '../../../features/signup/data/repositories/signup_repository_impl.dart'
+    as _i527;
+import '../../../features/signup/domain/repositories/signup_repository.dart'
+    as _i901;
+import '../../../features/signup/domain/usecases/signup_usecase.dart' as _i974;
+import '../../../features/signup/view_model/signup_cubit.dart' as _i393;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
-import 'dio_modules.dart' as _i176;
-import 'secure_storage_module.dart' as _i319;
+import 'dio_modules.dart' as _i291;
+import 'secure_storage_module.dart' as _i897;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -91,6 +99,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i1056.LoginRemoteDatasource>(
       () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),
     );
+    gh.factory<_i739.SignupRemoteDataSource>(
+      () => _i739.SignupRemoteDataSourceImpl(dio: gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i126.ForgetPassordDataSource>(
       () => _i849.SendResetCodeDataSuorceImpl(
         gh<_i672.ResetPasswordClient>(),
@@ -115,8 +126,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
-    gh.factory<_i410.AuthViewModel>(
-      () => _i410.AuthViewModel(
+    gh.factory<_i946.AuthViewModel>(
+      () => _i946.AuthViewModel(
         gh<_i442.LoginUescase>(),
         gh<_i115.IsLoggedInUsecase>(),
       ),
@@ -126,11 +137,22 @@ extension GetItInjectableX on _i174.GetIt {
         sendRestCodeRepo: gh<_i233.ForgetPawwordRepo>(),
       ),
     );
+    gh.factory<_i901.SignupRepository>(
+      () => _i527.SignupRepositoryImpl(
+        remoteDataSource: gh<_i739.SignupRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i974.SignupUseCase>(
+      () => _i974.SignupUseCase(repository: gh<_i901.SignupRepository>()),
+    );
     gh.lazySingleton<_i934.ResetPasswordUseCase>(
       () => _i934.ResetPasswordUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
     gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
       () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
+    );
+    gh.factory<_i393.SignupCubit>(
+      () => _i393.SignupCubit(gh<_i974.SignupUseCase>()),
     );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
       () => _i588.ForgetPasswordBloc(
@@ -143,6 +165,6 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$RegisterModule extends _i176.RegisterModule {}
+class _$RegisterModule extends _i291.RegisterModule {}
 
-class _$SecureStorageModule extends _i319.SecureStorageModule {}
+class _$SecureStorageModule extends _i897.SecureStorageModule {}

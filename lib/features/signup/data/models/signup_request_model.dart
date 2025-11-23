@@ -5,27 +5,29 @@ class SignupRequestModel {
   final String lastName;
   final String email;
   final String password;
+  final String rePassword;
   final String phone;
-  final String userName;
-  // Removed gender and grade to match simplified entity
+  final String username;
 
   SignupRequestModel({
     required this.firstName,
     required this.lastName,
     required this.email,
     required this.password,
+    required this.rePassword,
     required this.phone,
-    required this.userName,
+    required this.username,
   });
 
   Map<String, dynamic> toJson() {
     return {
+      'username': username,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
       'password': password,
+      'rePassword': rePassword,
       'phone': phone,
-      'userName': userName,
     };
   }
 
@@ -35,8 +37,9 @@ class SignupRequestModel {
       lastName: entity.lastName,
       email: entity.email,
       password: entity.password,
+      rePassword: entity.rePassword,
       phone: entity.phone,
-      userName: entity.userName,
+      username: entity.userName,
     );
   }
 
@@ -46,8 +49,9 @@ class SignupRequestModel {
       lastName: json['lastName'],
       email: json['email'],
       password: json['password'],
+      rePassword: json['rePassword'],
       phone: json['phone'],
-      userName: json['userName'],
+      username: json['username'],
     );
   }
 }
