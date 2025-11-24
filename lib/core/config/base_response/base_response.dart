@@ -1,6 +1,4 @@
-abstract class BaseResponse<T> {
-  get error => null;
-}
+abstract class BaseResponse<T> {}
 
 class SuccessResponse<T> extends BaseResponse<T> {
   final T data;
