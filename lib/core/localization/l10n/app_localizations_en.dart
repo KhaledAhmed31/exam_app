@@ -61,4 +61,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmPassowrdLabel => 'Confirm password';
+
+  @override
+  String get loginTitle => 'Login';
+
+  @override
+  String get rememberMeTitle => 'Remember Me';
+
+  @override
+  String get doNotHaveAccount => 'Don\'t have an account? ';
+
+  @override
+  String get signUpTitle => 'sign Up';
+
+  @override
+  String get exploreTabLabel => 'Explore';
+
+  @override
+  String get resultTabLabel => 'Result';
+
+  @override
+  String get profileTabLabel => 'Profile';
+
+  @override
+  String get successTitle => 'Success';
+
+  @override
+  String get errorTitle => 'Error';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get loadingTitle => 'Loading...';
 }

@@ -1,15 +1,15 @@
 import 'package:exam_app/core/config/utils/dialog_utils.dart';
 import 'package:exam_app/core/config/validation/app_validation.dart';
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
 import 'package:exam_app/core/routes/route_path.dart';
-import 'package:exam_app/core/shared/presentation/ui_strings/ui_strings.dart';
 import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
 import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
 import 'package:exam_app/features/auth/login/presentation/view_model/auth_events.dart';
 import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,34 +19,38 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewModel = BlocProvider.of<AuthViewModel>(context);
+        AppLocalizations local = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 12.0),
           child: Text(
-            UiStrings.login,
+            local.loginTitle,
             style: FontStyleManager.interMedium(
               color: AppColors.black,
               fontSize: 25,
             ),
-          ),
-        ),
-      ),
+          ),),),
       body: SingleChildScrollView(
         child: BlocConsumer<AuthViewModel, AuthStates>(
           listener: (context, state) {
             if (state.loginState?.isLoading == true) {
-              DialogUtils.showLoading(context, 'Loading...', AppColors.white);
+              DialogUtils.showLoading(
+                context,
+                local.loadingTitle,
+                AppColors.white,
+              );
             } else if (state.loginState?.isLoading == false &&
                 state.loginState?.data != null) {
               DialogUtils.hideLoading(context);
               DialogUtils.showMessage(
                 context,
                 state.loginState?.data?.userModel?.firstName ?? "",
-                titleMessage: 'Success',
+                titleMessage: local.successTitle,
                 backgroundColor: AppColors.blueBase,
                 textColor: AppColors.white,
-                posActionName: 'OK',
+                posActionName: local.ok,
                 actionColor: AppColors.white,
                 posAction: () {
                   Navigator.pushReplacementNamed(context, RoutePath.home);
@@ -57,10 +61,10 @@ class LoginScreen extends StatelessWidget {
               DialogUtils.showMessage(
                 context,
                 state.loginState?.errorMessage ?? "",
-                titleMessage: 'Error',
+                titleMessage: local.errorTitle,
                 backgroundColor: AppColors.blueBase,
                 textColor: AppColors.white,
-                negActionName: 'OK',
+                negActionName: local.ok,
                 actionColor: AppColors.white,
               );
             }
@@ -76,8 +80,8 @@ class LoginScreen extends StatelessWidget {
                       viewModel.add(EmailOnChangedEvent(val));
                     },
                     validator: (val) => Validators.emailValidator(val),
-                    label: UiStrings.emailLabel,
-                    hint: UiStrings.emailHintText,
+                    label: local.emailLabel,
+                    hint: local.emailHint,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 24),
@@ -86,8 +90,8 @@ class LoginScreen extends StatelessWidget {
                       viewModel.add(PasswordOnChangedEvent(val));
                     },
                     validator: (val) => Validators.passwordValidator(val),
-                    label: UiStrings.passwordLabel,
-                    hint: UiStrings.passwordHintText,
+                    label: local.forgetPasswordScreenTitle,
+                    hint: local.passwordHint,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                   ),
@@ -105,16 +109,22 @@ class LoginScreen extends StatelessWidget {
                         },
                       ),
                       Text(
-                        UiStrings.rememberMe,
+                        local.rememberMeTitle,
                         style: FontStyleManager.interRegular(
                           color: AppColors.blackBase,
                           fontSize: FontSizesManager.s14,
                         ),
                       ),
                       Spacer(),
-                      Text.rich(
-                        TextSpan(
-                          text: UiStrings.forgetPassword,
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutePath.forgetPassword,
+                          );
+                        },
+                        child: Text(
+                          local.forgetPasswordTitle,
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: FontSizesManager.s14,
@@ -131,7 +141,7 @@ class LoginScreen extends StatelessWidget {
                         !(Validators.emailValidator(viewModel.email) == null &&
                             Validators.passwordValidator(viewModel.password) ==
                                 null),
-                    title: UiStrings.login,
+                    title: local.loginTitle,
                     onPressed: () {
                       viewModel.add(LoginEvents());
                     },
@@ -140,14 +150,14 @@ class LoginScreen extends StatelessWidget {
                   Center(
                     child: RichText(
                       text: TextSpan(
-                        text: UiStrings.doNotHaveAccount,
+                        text: local.doNotHaveAccount,
                         style: FontStyleManager.interRegular(
                           color: AppColors.blackBase,
                           fontSize: FontSizesManager.s16,
                         ),
                         children: [
                           TextSpan(
-                            text: UiStrings.signUp,
+                            text: local.signUpTitle,
                             style: const TextStyle(
                               decoration: TextDecoration.underline,
                               color: AppColors.blueBase,

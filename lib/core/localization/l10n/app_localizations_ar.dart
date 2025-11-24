@@ -61,4 +61,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get confirmPassowrdLabel => 'تأكيد كلمة المرور';
+
+  @override
+  String get loginTitle => 'تسجيل الدخول';
+
+  @override
+  String get rememberMeTitle => 'تذكرني';
+
+  @override
+  String get doNotHaveAccount => 'ليس لديك حساب؟ ';
+
+  @override
+  String get signUpTitle => 'انشاء حساب';
+
+  @override
+  String get exploreTabLabel => 'استكشفاف';
+
+  @override
+  String get resultTabLabel => 'النتيجة';
+
+  @override
+  String get profileTabLabel => 'الحساب الشخصي';
+
+  @override
+  String get successTitle => 'تم بنجاح';
+
+  @override
+  String get errorTitle => 'خطأ';
+
+  @override
+  String get ok => 'تم';
+
+  @override
+  String get loadingTitle => 'تحميل';
 }

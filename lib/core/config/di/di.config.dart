@@ -52,8 +52,8 @@ import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
     as _i115;
 import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
-import '../../../features/auth/login/presentation/view_model/auth_view_model.dart'
-    as _i410;
+import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
+    as _i946;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
 import 'di_modules.dart' as _i176;
@@ -115,8 +115,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
-    gh.factory<_i410.AuthViewModel>(
-      () => _i410.AuthViewModel(
+    gh.factory<_i946.AuthViewModel>(
+      () => _i946.AuthViewModel(
         gh<_i442.LoginUescase>(),
         gh<_i115.IsLoggedInUsecase>(),
       ),

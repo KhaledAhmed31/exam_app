@@ -10,9 +10,9 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.keyboardType,
     this.width,
-    this.onChanged,
     required this.hint,
     this.validator,
+    this.onChanged,
   });
   final bool obscureText;
   final String label;

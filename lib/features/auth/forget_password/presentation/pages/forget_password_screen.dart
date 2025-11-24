@@ -1,7 +1,6 @@
 import 'package:exam_app/core/localization/l10n/app_localizations.dart';
 
 import '../../../../../core/config/di/di.dart';
-import '../../../../../core/constants/ui_strings.dart';
 import '../../../../../core/shared/presentation/widgets/app_toast.dart';
 import '../../../../../core/ui_manager/colors/app_colors.dart';
 import '../../../../../core/ui_manager/fonts/font_sizes_manager.dart';
@@ -44,8 +43,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     local = AppLocalizations.of(context)!;
-    return BlocProvider(
-      create: (context) => _forgetPasswordBloc,
+    return BlocProvider.value(
+      value: _forgetPasswordBloc,
       child: LoaderOverlay(
         child: BlocListener<ForgetPasswordBloc, ForgetPasswordState>(
           listener: (context, state) {
@@ -56,13 +55,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               showAppToast(state.message);
             } else if (state is ResendCodeSuccess) {
               context.loaderOverlay.hide();
-              showAppToast(UIStrings.resendCodeSuccessMessage);
+              showAppToast(local.resendCodeSuccessMessage);
             } else if (state is ForgetPasswordSuccess) {
               context.loaderOverlay.hide();
               _pageController.nextPage(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
               );
+            }
+            else if(state is ResetPasswordSuccess){
+              context.loaderOverlay.hide();
+              Navigator.pop(context);
             }
           },
           child: Scaffold(
