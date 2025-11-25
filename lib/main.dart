@@ -17,9 +17,9 @@ import 'package:logger/logger.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  
+
   await configureDependencies();
-  
+
   runApp(
     MultiBlocProvider(
       providers: [
@@ -62,7 +62,7 @@ class MainApp extends StatelessWidget {
                 );
                 FlutterNativeSplash.remove();
                 return const LoginScreen();
-                  } else if (state.loginState?.isLoggedIn == true) {
+              } else if (state.loginState?.isLoggedIn == true) {
                 logger.d(
                   '<<<<<< ${state.loginState?.isLoggedIn} / initial route in true: home screen',
                 );

@@ -74,7 +74,7 @@
      "ofText" : "of",
      "@ofText" : {},
      "finish" : "Finish",
-     "@finish" : {}
+     "@finish" : {},
      "subjectListTitle" : "Browse by subject",
      "@subjectListTitle" : {},
      "noSubjectsFound":"No subjects found",

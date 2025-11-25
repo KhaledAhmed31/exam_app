@@ -73,7 +73,7 @@
      "ofText" : "من",
      "@ofText" : {},
      "finish" : "الانتهاء",
-     "@finish" : {}
+     "@finish" : {},
      "subjectListTitle" : "تصفح حسب الموضوع",
      "@subjectListTitle" : {},
      "noSubjectsFound":"لا يوجد نتايج",

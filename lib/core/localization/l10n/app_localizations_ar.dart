@@ -121,6 +121,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get finish => 'الانتهاء';
+
+  @override
   String get subjectListTitle => 'تصفح حسب الموضوع';
 
   @override

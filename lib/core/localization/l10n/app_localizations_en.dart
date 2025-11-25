@@ -121,6 +121,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finish => 'Finish';
+
+  @override
   String get subjectListTitle => 'Browse by subject';
 
   @override

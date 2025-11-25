@@ -319,6 +319,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Finish'**
   String get finish;
+
   /// No description provided for @subjectListTitle.
   ///
   /// In en, this message translates to:
