@@ -6,7 +6,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'exam_questions_api_client.g.dart';
 
-@singleton
+@injectable
 @RestApi(baseUrl: ApiConsts.baseUrl)
 abstract class ExamQuestionsApiClient {
   @factoryMethod
@@ -14,7 +14,6 @@ abstract class ExamQuestionsApiClient {
 
   @GET(ApiConsts.getAllQuestionsOnExamEndPoint)
   Future<ExamQuestionsResponse> getExamQuestions(
-    @Header('token') String token,
     @Query('exam') String examId,
   );
 }

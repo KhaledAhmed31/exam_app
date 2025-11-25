@@ -3,13 +3,12 @@ import 'package:exam_app/features/exams_page/domain/models/question_model.dart';
 import 'package:exam_app/features/exams_page/domain/repos/get_exam_questions_repo.dart';
 import 'package:injectable/injectable.dart';
 
-@singleton
+@injectable
 class GetExamQuestionsUsecase {
   GetExamQuestionsRepo getExamQuestionsRepo;
   GetExamQuestionsUsecase(this.getExamQuestionsRepo);
 
   Future<BaseResponse<List<QuestionModel>>> call({
-    required String token,
     required String examId,
-  }) => getExamQuestionsRepo.getExamQuestions(token: token, examId: examId);
+  }) => getExamQuestionsRepo.getExamQuestions(examId: examId);
 }

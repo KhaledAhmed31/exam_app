@@ -9,29 +9,39 @@ import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
 class TimerAppBar extends StatefulWidget {
   const TimerAppBar({super.key});
-
   @override
   State<TimerAppBar> createState() => TimerAppBarState();
 }
 
 class TimerAppBarState extends State<TimerAppBar> {
   Color timerColor = AppColors.success;
-  late DateTime endTime;
+  DateTime? endTime;
 
   @override
   void initState() {
     super.initState();
-    final state = BlocProvider.of<ExamPageBloc>(context).state;
-    final int? time =
-        state.getQuestionsState?.data?[state.index].exam?.duration;
-    endTime = DateTime.now().add(Duration(minutes: time ?? 30));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final state = BlocProvider.of<ExamPageBloc>(context).state;
+      if (state.getQuestionsState?.data != null &&
+          state.index < state.getQuestionsState!.data!.length) {
+        final int? time =
+            state.getQuestionsState?.data?[state.index].exam?.duration;
+        endTime = DateTime.now().add(Duration(minutes: time ?? 30));
+        setState(() {});
+      } else {
+        endTime = DateTime.now().add(Duration(minutes: 30)); // Default duration
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (endTime == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     return TimerCountdown(
       enableDescriptions: false,
-      endTime: endTime,
+      endTime: endTime!,
       format: CountDownTimerFormat.minutesSeconds,
       colonsTextStyle: FontStyleManager.interMedium(
         color: timerColor,
@@ -47,7 +57,7 @@ class TimerAppBarState extends State<TimerAppBar> {
           barrierDismissible: false,
           context: context,
           builder: (context) {
-            return AlertDialogWidget();
+            return const AlertDialogWidget();
           },
         );
       },

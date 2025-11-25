@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:exam_app/core/constants/spacing.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
@@ -28,8 +29,11 @@ class _QuestionsListviewState extends State<QuestionsListview> {
         itemBuilder: (context, answerIndex) {
           final isSelected = state.selectedAnswers[index] == answerIndex;
           return Container(
-            padding: EdgeInsets.symmetric(vertical: 17.5, horizontal: 12),
-            margin: EdgeInsets.all(16),
+            padding: EdgeInsets.symmetric(
+              vertical: Spacing.verticalPadding,
+              horizontal: Spacing.horizontalPadding,
+            ),
+            margin: EdgeInsets.all(Spacing.medium),
             decoration: BoxDecoration(
               color: isSelected ? AppColors.blue10 : AppColors.lightBlue,
               borderRadius: BorderRadius.circular(10.0),

@@ -1,3 +1,4 @@
+import 'package:exam_app/core/constants/spacing.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/features/exams_page/presentation/bloc/exam_page_bloc.dart';
 import 'package:exam_app/features/exams_page/presentation/bloc/exam_page_states.dart';
@@ -21,7 +22,7 @@ class LinearPercentIndicatorWidget extends StatelessWidget {
           }
         }
         return LinearPercentIndicator(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: Spacing.medium),
           lineHeight: 4.0,
           percent: progress,
           backgroundColor: AppColors.black10,

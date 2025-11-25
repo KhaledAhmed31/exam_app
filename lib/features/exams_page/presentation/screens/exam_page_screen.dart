@@ -1,4 +1,6 @@
 import 'package:exam_app/core/config/di/di.dart';
+import 'package:exam_app/core/constants/assets.dart';
+import 'package:exam_app/core/constants/spacing.dart';
 import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
@@ -13,6 +15,7 @@ import 'package:exam_app/features/exams_page/presentation/widgets/timer_app_bar.
 import 'package:flutter/material.dart';
 import 'package:exam_app/core/localization/l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 class ExamPageScreen extends StatefulWidget {
   const ExamPageScreen({super.key});
@@ -23,6 +26,7 @@ class ExamPageScreen extends StatefulWidget {
 
 class _ExamPageScreenState extends State<ExamPageScreen> {
   final ExamPageBloc examPageBloc = getIt<ExamPageBloc>();
+
   @override
   Widget build(BuildContext context) {
     AppLocalizations local = AppLocalizations.of(context)!;
@@ -56,11 +60,11 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 16.0),
+              padding: const EdgeInsets.only(right: Spacing.medium),
               child: Row(
                 children: [
-                  Image.asset("assets/images/alarm_pic.png"),
-                  SizedBox(width: 8),
+                  Image.asset(AppImages.assetsImagesAlarm),
+                  SizedBox(width: Spacing.small),
                   BlocBuilder<ExamPageBloc, ExamPageStates>(
                     builder: (context, state) {
                       if (state.getQuestionsState == null ||
@@ -79,18 +83,19 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
             ),
           ],
         ),
+
         body: BlocBuilder<ExamPageBloc, ExamPageStates>(
           builder: (context, state) {
+            var logger = Logger();
             int? totalQuestions = state.getQuestionsState?.data?.length;
-            // ignore: avoid_print
-            print(
+            logger.d(
               '<<<<<<< current ${state.currentQuestion} total $totalQuestions index ${state.index} ',
             );
             if (state.getQuestionsState?.data == null) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: Spacing.small),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -99,13 +104,13 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                       '${local.questionText} ${state.currentQuestion} ${local.ofText} ${state.getQuestionsState?.data?.length}',
                       style: FontStyleManager.robotoMedium(
                         fontSize: FontSizesManager.s14,
-                        color: AppColors.gray,
+                        color: AppColors.grey,
                       ),
                     ),
                   ),
                   SizedBox(height: 3),
                   LinearPercentIndicatorWidget(),
-                  SizedBox(height: 28),
+                  SizedBox(height: Spacing.large),
                   Text(
                     local.selectCorrectAnswer,
                     style: FontStyleManager.interMedium(
@@ -113,8 +118,7 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                       fontSize: FontSizesManager.s18,
                     ),
                   ),
-                  SizedBox(height: 30),
-
+                  SizedBox(height: Spacing.extraLarge),
                   Text(
                     '${state.getQuestionsState?.data?[state.index].question}',
                     style: FontStyleManager.interMedium(
@@ -123,7 +127,6 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                     ),
                   ),
                   QuestionsListview(),
-
                   Expanded(
                     child: Row(
                       children: [
@@ -136,9 +139,7 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                             },
                           ),
                         ),
-
-                        SizedBox(width: 16),
-
+                        SizedBox(width: Spacing.medium),
                         Expanded(
                           child: AppButton(
                             title: state.currentQuestion != totalQuestions
@@ -151,7 +152,7 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                                       barrierDismissible: false,
                                       context: context,
                                       builder: (context) {
-                                        return AlertDialogWidget();
+                                        return const AlertDialogWidget();
                                       },
                                     );
                             },
