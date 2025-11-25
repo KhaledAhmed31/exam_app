@@ -1,11 +1,12 @@
+import 'package:exam_app/core/config/di/di.dart';
 import '../../data/datasources/login_local_datasource.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: LoginLocalDatasource)
 class LoginLocalDatasourceImpl implements LoginLocalDatasource {
-  final FlutterSecureStorage secureStorage;
-  LoginLocalDatasourceImpl(this.secureStorage);
+  LoginLocalDatasourceImpl();
+  FlutterSecureStorage secureStorage = getIt<FlutterSecureStorage>();
   static const String _tokenKey = 'auth_token';
   static const String _rememberMeKey = 'remember_me';
 

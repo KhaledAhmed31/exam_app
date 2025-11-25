@@ -13,7 +13,7 @@ class ApiConsts {
   static const String profileDataEndPoint = "/auth/profileData";
   static const String updateProfileEndPoint = "/auth/updateProfile";
   static const String changePasswordEndPoint = "/auth/changePassword";
-
+  static const String getAllQuestionsOnExamEndPoint = "/questions";
   // Explore EndPoints
   static const String getCategoriesEndPoint = "/subjects";
 }

@@ -35,7 +35,6 @@ void main() async {
 class MainApp extends StatelessWidget {
   MainApp({super.key});
   final logger = Logger();
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocalizationBloc, LocalizationState>(

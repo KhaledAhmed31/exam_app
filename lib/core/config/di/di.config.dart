@@ -54,6 +54,20 @@ import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
 import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
     as _i946;
+import '../../../features/exams_page/api/api_client/exam_questions_api_client.dart'
+    as _i184;
+import '../../../features/exams_page/api/datasources/get_exam_questions_remote_datasource_impl.dart'
+    as _i18;
+import '../../../features/exams_page/data/datasources/get_exam_questions_remote_datasource.dart'
+    as _i1060;
+import '../../../features/exams_page/data/repos/get_exam_questions_repo_impl.dart'
+    as _i58;
+import '../../../features/exams_page/domain/repos/get_exam_questions_repo.dart'
+    as _i366;
+import '../../../features/exams_page/domain/usecases/get_exam_questions_usecase.dart'
+    as _i971;
+import '../../../features/exams_page/presentation/bloc/exam_page_bloc.dart'
+    as _i563;
 import '../../../features/explore/api/clients/get_all_subject_client.dart'
     as _i473;
 import '../../../features/explore/api/data_source/get_all_subjects_data_source_impl.dart'
@@ -87,7 +101,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i556.LocalizationBloc>(() => _i556.LocalizationBloc());
     gh.factory<_i918.LoginLocalDatasource>(
-      () => _i670.LoginLocalDatasourceImpl(gh<_i558.FlutterSecureStorage>()),
+      () => _i670.LoginLocalDatasourceImpl(),
     );
     gh.lazySingleton<_i672.ResetPasswordClient>(
       () => _i672.ResetPasswordClient(gh<_i361.Dio>()),
@@ -104,14 +118,27 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i463.LoginApiClient>(
       () => _i463.LoginApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i184.ExamQuestionsApiClient>(
+      () => _i184.ExamQuestionsApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i1056.LoginRemoteDatasource>(
       () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),
+    );
+    gh.factory<_i1060.GetExamQuestionsRemoteDatasource>(
+      () => _i18.GetExamQuestionsRemoteDatasourceImpl(
+        gh<_i184.ExamQuestionsApiClient>(),
+      ),
     );
     gh.lazySingleton<_i126.ForgetPassordDataSource>(
       () => _i849.SendResetCodeDataSuorceImpl(
         gh<_i672.ResetPasswordClient>(),
         gh<_i183.SendResetCodeClient>(),
         gh<_i779.VerifyResetCodeClient>(),
+      ),
+    );
+    gh.factory<_i366.GetExamQuestionsRepo>(
+      () => _i58.GetExamQuestionsRepoImpl(
+        gh<_i1060.GetExamQuestionsRemoteDatasource>(),
       ),
     );
     gh.lazySingleton<_i460.GetAllSubjectsDataSource>(
@@ -151,6 +178,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i934.ResetPasswordUseCase>(
       () => _i934.ResetPasswordUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
+    gh.factory<_i971.GetExamQuestionsUsecase>(
+      () => _i971.GetExamQuestionsUsecase(gh<_i366.GetExamQuestionsRepo>()),
+    );
     gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
       () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
@@ -159,6 +189,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i376.GetallSubjectsBloc>(
       () => _i376.GetallSubjectsBloc(gh<_i109.GetAllSubjectsUseCase>()),
+    );
+    gh.factory<_i563.ExamPageBloc>(
+      () => _i563.ExamPageBloc(gh<_i971.GetExamQuestionsUsecase>()),
     );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
       () => _i588.ForgetPasswordBloc(
