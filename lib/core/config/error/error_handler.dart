@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:exam_app/core/constants/api_messages.dart';
+import '../../constants/api_messages.dart';
 
 class Failure<T> {
   int statusCode;
