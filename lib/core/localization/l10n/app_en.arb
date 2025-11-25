@@ -43,7 +43,7 @@
      "@doNotHaveAccount" : {},
      "signUpTitle" : "sign Up",
      "@signUpTitle" : {},
-     "exploreTabLabel" : "Explore",
+     "exploreTabLabel" : "Survey",
      "@exploreTabLabel" : {},
      "resultTabLabel" : "Result",
      "@resultTabLabel" : {},
@@ -75,4 +75,10 @@
      "@ofText" : {},
      "finish" : "Finish",
      "@finish" : {}
+     "subjectListTitle" : "Browse by subject",
+     "@subjectListTitle" : {},
+     "noSubjectsFound":"No subjects found",
+     "@noSubjectsFound":{},
+     "exploreNavigationTitle" : "Explore",
+     "@exploreNavigationTitle" : {}
 }

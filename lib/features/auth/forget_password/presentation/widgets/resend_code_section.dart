@@ -1,8 +1,9 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
 import '../../../../../core/ui_manager/colors/app_colors.dart';
 import '../../../../../core/ui_manager/fonts/font_sizes_manager.dart';
 import '../../../../../core/ui_manager/fonts/font_style_manager.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 
 class ResendCodeSection extends StatelessWidget {
   const ResendCodeSection({

@@ -74,4 +74,9 @@
      "@ofText" : {},
      "finish" : "الانتهاء",
      "@finish" : {}
+     "subjectListTitle" : "تصفح حسب الموضوع",
+     "@subjectListTitle" : {},
+     "noSubjectsFound":"لا يوجد نتايج",
+     "@noSubjectsFound":{},"exploreNavigationTitle" : "استكشاف",
+     "@exploreNavigationTitle" : {}
 }

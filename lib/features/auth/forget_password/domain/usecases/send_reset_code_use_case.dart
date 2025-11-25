@@ -1,7 +1,8 @@
+import 'package:injectable/injectable.dart';
+
 import '../../../../../core/config/base_response/base_response.dart';
 import '../../data/models/send_reset_code_response.dart';
 import '../repositories/forgetpassword_repo.dart';
-import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class SendResetCodeUseCase {
