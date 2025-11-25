@@ -1,13 +1,13 @@
+import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+import 'package:exam_app/core/routes/route_manager.dart';
 import 'package:exam_app/core/shared/presentation/bloc/localization/localization_bloc.dart';
 import 'package:exam_app/core/shared/presentation/bloc/localization/localization_states.dart';
-import 'package:exam_app/core/config/di/di.dart';
-import 'package:exam_app/core/routes/route_manager.dart';
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
 import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
 import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
 import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,6 @@ import 'package:logger/logger.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
   await configureDependencies();
 
   runApp(

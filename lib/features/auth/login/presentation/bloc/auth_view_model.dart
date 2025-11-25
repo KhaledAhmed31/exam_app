@@ -1,5 +1,3 @@
-import 'package:exam_app/core/config/di/di.dart';
-
 import '../../../../../core/config/base_response/base_response.dart';
 import '../../../../../core/config/error/error_handler.dart';
 import '../../../../../core/config/validation/app_validation.dart';
@@ -9,9 +7,7 @@ import '../../domain/usecases/login_uescase.dart';
 import 'auth_events.dart';
 import 'auth_states.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -31,20 +27,16 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
   String email = '';
   String password = '';
   bool rememberMe = false;
-  final FlutterSecureStorage _storage = getIt<FlutterSecureStorage>();
 
   void _login(LoginEvents event, Emitter<AuthStates> emit) async {
     emit(state.copywith(loginStateCopywith: LoginState(isLoading: true)));
     BaseResponse<LoginModel> response = await _loginUescase.call(
       email: email,
       password: password,
+      rememberMe: rememberMe,
     );
     switch (response) {
       case SuccessResponse<LoginModel>():
-        if (rememberMe) {
-          await _storage.write(key: 'token', value: response.data.token);
-          await _storage.write(key: 'remember_me', value: 'true');
-        }
         emit(
           state.copywith(
             loginStateCopywith: LoginState(
@@ -83,7 +75,6 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
     Emitter<AuthStates> emit,
   ) async {
     rememberMe = event.value ?? false;
-    await _storage.write(key: 'remember_me', value: rememberMe.toString());
     emit(
       state.copywith(loginStateCopywith: LoginState(changeRememberMe: true)),
     );

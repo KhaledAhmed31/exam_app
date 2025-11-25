@@ -3,11 +3,12 @@ import '../../data/datasources/login_local_datasource.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
-@Singleton(as: LoginLocalDatasource)
+@Injectable(as: LoginLocalDatasource)
 class LoginLocalDatasourceImpl implements LoginLocalDatasource {
   FlutterSecureStorage secureStorage = getIt<FlutterSecureStorage>();
   LoginLocalDatasourceImpl({required this.secureStorage});
   static const String _tokenKey = 'auth_token';
+  static const String _rememberMeKey = 'remember_me';
 
   @override
   Future<void> saveToken(String token) async {
@@ -43,6 +44,15 @@ class LoginLocalDatasourceImpl implements LoginLocalDatasource {
       );
     } catch (e) {
       throw Exception('Failed to delete token: $e');
+    }
+  }
+
+  @override
+  Future<void> saveRememberMe(bool value) async {
+    try {
+      await secureStorage.write(key: _rememberMeKey, value: value.toString());
+    } catch (e) {
+      throw Exception('Failed to save remember me: $e');
     }
   }
 
