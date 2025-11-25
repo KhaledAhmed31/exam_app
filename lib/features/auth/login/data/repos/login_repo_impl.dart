@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:exam_app/core/config/base_response/base_response.dart';
 import 'package:exam_app/core/config/error/error_handler.dart';
 import 'package:exam_app/features/auth/login/data/datasources/login_local_datasource.dart';
@@ -9,9 +7,11 @@ import 'package:exam_app/features/auth/login/data/models/login_dto.dart';
 import 'package:exam_app/features/auth/login/domain/models/login_model.dart';
 import 'package:exam_app/features/auth/login/domain/repos/login_repo.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 
-@Singleton(as: LoginRepo)
+@Injectable(as: LoginRepo)
 class LoginRepoImpl implements LoginRepo {
+  final logger = Logger();
   LoginRemoteDatasource loginRemoteDatasource;
   LoginLocalDatasource loginLocalDatasource;
   LoginRepoImpl(this.loginRemoteDatasource, this.loginLocalDatasource);
@@ -20,6 +20,7 @@ class LoginRepoImpl implements LoginRepo {
   Future<BaseResponse<LoginModel>> login({
     String? email,
     String? password,
+    bool? rememberMe,
   }) async {
     BaseResponse<LoginDto> loginResponse = await loginRemoteDatasource.login(
       email: email,
@@ -30,9 +31,8 @@ class LoginRepoImpl implements LoginRepo {
       case SuccessResponse<LoginDto>():
         LoginDto dto = loginResponse.data;
         LoginModel loginModel = dto.toLoginModel();
-        if (dto.token != null) {
-          await loginLocalDatasource.saveToken(dto.token!);
-        }
+        await storeToken(dto.token!);
+        await saveRememberMe(rememberMe!);
         return SuccessResponse<LoginModel>(loginModel);
       case ErrorResponse<LoginDto, ErrorHandler>():
         return ErrorResponse<LoginModel, Failure>(
@@ -44,13 +44,23 @@ class LoginRepoImpl implements LoginRepo {
   }
 
   @override
+  Future<void> storeToken(String token) async {
+    await loginLocalDatasource.saveToken(token);
+  }
+
+  @override
+  Future<void> saveRememberMe(bool value) async {
+    await loginLocalDatasource.saveRememberMe(value);
+  }
+
+  @override
   Future<bool> isLoggedIn() async {
     String? token = await loginLocalDatasource.getToken();
     if (token != null) {
-      print('<<<<<<<<<<<<<<<<<<<<<<< retrieved token : $token');
+      logger.d('<<<<<<<<<<<<<<<<<<<<<<< retrieved token : $token');
       return true;
     } else {
-      print('<<<<<<<<<<<<<<<<<<<<<<< No token found');
+      logger.d('<<<<<<<<<<<<<<<<<<<<<<< No token found');
       return false;
     }
   }

@@ -69,8 +69,8 @@ import '../../../features/explore/domain/usecases/get_all_subjects_use_case.dart
 import '../../../features/explore/presentation/bloc/explore_bloc.dart' as _i376;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
-import 'dio_modules.dart' as _i291;
-import 'secure_storage_module.dart' as _i897;
+import 'di_modules.dart' as _i176;
+import 'flutter_secure_storage_module.dart' as _i319;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -86,7 +86,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => secureStorageModule.secureStorage,
     );
     gh.lazySingleton<_i556.LocalizationBloc>(() => _i556.LocalizationBloc());
-    gh.singleton<_i918.LoginLocalDatasource>(
+    gh.factory<_i918.LoginLocalDatasource>(
       () => _i670.LoginLocalDatasourceImpl(gh<_i558.FlutterSecureStorage>()),
     );
     gh.lazySingleton<_i672.ResetPasswordClient>(
@@ -101,10 +101,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i473.GetAllSubjectClient>(
       () => _i473.GetAllSubjectClient(gh<_i361.Dio>()),
     );
-    gh.singleton<_i463.LoginApiClient>(
+    gh.factory<_i463.LoginApiClient>(
       () => _i463.LoginApiClient(gh<_i361.Dio>()),
     );
-    gh.singleton<_i1056.LoginRemoteDatasource>(
+    gh.factory<_i1056.LoginRemoteDatasource>(
       () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),
     );
     gh.lazySingleton<_i126.ForgetPassordDataSource>(
@@ -125,16 +125,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i234.GetAllSubjectsRepo>(
       () => _i311.GetAllSubjectsRepoImpl(gh<_i460.GetAllSubjectsDataSource>()),
     );
-    gh.singleton<_i142.LoginRepo>(
+    gh.factory<_i142.LoginRepo>(
       () => _i226.LoginRepoImpl(
         gh<_i1056.LoginRemoteDatasource>(),
         gh<_i918.LoginLocalDatasource>(),
       ),
     );
-    gh.singleton<_i115.IsLoggedInUsecase>(
+    gh.factory<_i115.IsLoggedInUsecase>(
       () => _i115.IsLoggedInUsecase(loginRepo: gh<_i142.LoginRepo>()),
     );
-    gh.singleton<_i442.LoginUescase>(
+    gh.factory<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
     gh.factory<_i946.AuthViewModel>(
@@ -171,6 +171,6 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$RegisterModule extends _i291.RegisterModule {}
+class _$RegisterModule extends _i176.RegisterModule {}
 
-class _$SecureStorageModule extends _i897.SecureStorageModule {}
+class _$SecureStorageModule extends _i319.SecureStorageModule {}

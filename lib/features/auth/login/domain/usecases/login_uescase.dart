@@ -3,12 +3,14 @@ import '../models/login_model.dart';
 import '../repos/login_repo.dart';
 import 'package:injectable/injectable.dart';
 
-@singleton
+@injectable
 class LoginUescase {
   LoginRepo loginRepo;
   LoginUescase(this.loginRepo);
-    Future<BaseResponse<LoginModel>> call({
+  Future<BaseResponse<LoginModel>> call({
     String? email,
     String? password,
-    }) => loginRepo.login(email: email, password: password);
+    bool? rememberMe,
+  }) =>
+      loginRepo.login(email: email, password: password, rememberMe: rememberMe);
 }
