@@ -2,7 +2,7 @@ import 'package:exam_app/features/auth/login/data/datasources/login_local_dataso
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
-@Singleton(as: LoginLocalDatasource)
+@Injectable(as: LoginLocalDatasource)
 class LoginLocalDatasourceImpl implements LoginLocalDatasource {
   final FlutterSecureStorage secureStorage;
   LoginLocalDatasourceImpl(this.secureStorage);

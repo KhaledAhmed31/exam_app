@@ -4,8 +4,8 @@ import 'package:exam_app/core/config/validation/app_validation.dart';
 import 'package:exam_app/features/auth/login/domain/models/login_model.dart';
 import 'package:exam_app/features/auth/login/domain/usecases/is_loggedin_usecase.dart';
 import 'package:exam_app/features/auth/login/domain/usecases/login_uescase.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_events.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -33,6 +33,7 @@ class AuthViewModel extends Bloc<AuthEvents, AuthStates> {
     BaseResponse<LoginModel> response = await _loginUescase.call(
       email: email,
       password: password,
+      rememberMe: rememberMe,
     );
     switch (response) {
       case SuccessResponse<LoginModel>():

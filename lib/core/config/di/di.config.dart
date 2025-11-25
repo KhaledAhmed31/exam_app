@@ -73,7 +73,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => secureStorageModule.secureStorage,
     );
     gh.lazySingleton<_i556.LocalizationBloc>(() => _i556.LocalizationBloc());
-    gh.singleton<_i918.LoginLocalDatasource>(
+    gh.factory<_i918.LoginLocalDatasource>(
       () => _i670.LoginLocalDatasourceImpl(gh<_i558.FlutterSecureStorage>()),
     );
     gh.lazySingleton<_i672.ResetPasswordClient>(
@@ -88,7 +88,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i463.LoginApiClient>(
       () => _i463.LoginApiClient(gh<_i361.Dio>()),
     );
-    gh.lazySingleton<_i1056.LoginRemoteDatasource>(
+    gh.factory<_i1056.LoginRemoteDatasource>(
       () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),
     );
     gh.lazySingleton<_i126.ForgetPassordDataSource>(
@@ -103,16 +103,16 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordDataSource: gh<_i126.ForgetPassordDataSource>(),
       ),
     );
-    gh.lazySingleton<_i142.LoginRepo>(
+    gh.factory<_i142.LoginRepo>(
       () => _i226.LoginRepoImpl(
         gh<_i1056.LoginRemoteDatasource>(),
         gh<_i918.LoginLocalDatasource>(),
       ),
     );
-    gh.lazySingleton<_i115.IsLoggedInUsecase>(
+    gh.factory<_i115.IsLoggedInUsecase>(
       () => _i115.IsLoggedInUsecase(loginRepo: gh<_i142.LoginRepo>()),
     );
-    gh.lazySingleton<_i442.LoginUescase>(
+    gh.factory<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
     gh.factory<_i946.AuthViewModel>(

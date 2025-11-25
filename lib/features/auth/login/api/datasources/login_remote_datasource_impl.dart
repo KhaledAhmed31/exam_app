@@ -5,7 +5,7 @@ import 'package:exam_app/features/auth/login/data/datasources/login_remote_datas
 import 'package:exam_app/features/auth/login/data/models/login_dto.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: LoginRemoteDatasource)
+@Injectable(as: LoginRemoteDatasource)
 class LoginRemoteDatasourceImpl implements LoginRemoteDatasource {
   LoginApiClient loginApiClient;
   LoginRemoteDatasourceImpl(this.loginApiClient);

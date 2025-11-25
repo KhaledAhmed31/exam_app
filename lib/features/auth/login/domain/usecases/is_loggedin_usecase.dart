@@ -1,7 +1,7 @@
 import 'package:exam_app/features/auth/login/domain/repos/login_repo.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@injectable
 class IsLoggedInUsecase {
   final LoginRepo loginRepo;
   IsLoggedInUsecase({required this.loginRepo});

@@ -6,8 +6,8 @@ import 'package:exam_app/core/shared/presentation/bloc/localization/localization
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
 import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
 import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_events.dart';
-import 'package:exam_app/features/auth/login/presentation/view_model/auth_states.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
 import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +32,8 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+  final logger = Logger();
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +55,12 @@ class MainApp extends StatelessWidget {
                 previous.loginState?.isLoggedIn == null &&
                 current.loginState?.isLoggedIn != null,
             builder: (context, state) {
-              var logger = Logger();
               if (state.loginState?.isLoggedIn == false) {
                 logger.d(
                   '<<<<<< ${state.loginState?.isLoggedIn} / initial route in false: login screen',
                 );
                 FlutterNativeSplash.remove();
-                return LoginScreen();
+                return const LoginScreen();
               } else if (state.loginState?.isLoggedIn == true) {
                 logger.d(
                   '<<<<<< ${state.loginState?.isLoggedIn} / initial route in true: home screen',
@@ -68,7 +68,7 @@ class MainApp extends StatelessWidget {
                 FlutterNativeSplash.remove();
                 return HomeScreen();
               } else {
-                return Scaffold();
+                return const Scaffold();
               }
             },
           ),

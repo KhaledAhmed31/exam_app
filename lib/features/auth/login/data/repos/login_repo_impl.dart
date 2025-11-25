@@ -9,8 +9,9 @@ import 'package:exam_app/features/auth/login/domain/repos/login_repo.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
-@LazySingleton(as: LoginRepo)
+@Injectable(as: LoginRepo)
 class LoginRepoImpl implements LoginRepo {
+  final logger = Logger();
   LoginRemoteDatasource loginRemoteDatasource;
   LoginLocalDatasource loginLocalDatasource;
   LoginRepoImpl(this.loginRemoteDatasource, this.loginLocalDatasource);
@@ -19,6 +20,7 @@ class LoginRepoImpl implements LoginRepo {
   Future<BaseResponse<LoginModel>> login({
     String? email,
     String? password,
+    bool? rememberMe,
   }) async {
     BaseResponse<LoginDto> loginResponse = await loginRemoteDatasource.login(
       email: email,
@@ -30,7 +32,7 @@ class LoginRepoImpl implements LoginRepo {
         LoginDto dto = loginResponse.data;
         LoginModel loginModel = dto.toLoginModel();
         await storeToken(dto.token!);
-        await saveRememberMe(true);
+        await saveRememberMe(rememberMe!);
         return SuccessResponse<LoginModel>(loginModel);
       case ErrorResponse<LoginDto, ErrorHandler>():
         return ErrorResponse<LoginModel, Failure>(
@@ -53,7 +55,6 @@ class LoginRepoImpl implements LoginRepo {
 
   @override
   Future<bool> isLoggedIn() async {
-    var logger = Logger();
     String? token = await loginLocalDatasource.getToken();
     if (token != null) {
       logger.d('<<<<<<<<<<<<<<<<<<<<<<< retrieved token : $token');
