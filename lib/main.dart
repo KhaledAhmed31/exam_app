@@ -17,7 +17,8 @@ import 'package:logger/logger.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  configureDependencies();
+  await configureDependencies();
+
   runApp(
     MultiBlocProvider(
       providers: [

@@ -1,5 +1,5 @@
-import 'package:exam_app/features/auth/login/data/models/login_dto.dart';
-import 'package:exam_app/features/auth/login/domain/models/login_model.dart';
+import '../models/login_dto.dart';
+import '../../domain/models/login_model.dart';
 
 extension LoginDtoMapper on LoginDto {
   LoginModel toLoginModel() {

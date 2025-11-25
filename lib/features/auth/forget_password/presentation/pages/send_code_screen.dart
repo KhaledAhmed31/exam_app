@@ -1,12 +1,12 @@
-import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/config/validation/app_validation.dart';
+import '../../../../../core/localization/l10n/app_localizations.dart';
 import '../../../../../core/shared/presentation/widgets/app_button.dart';
 import '../../../../../core/shared/presentation/widgets/custom_text_feild.dart';
 import '../bloc/forget_password_bloc.dart';
 import '../widgets/description.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SendCodeScreen extends StatefulWidget {
   const SendCodeScreen({super.key});

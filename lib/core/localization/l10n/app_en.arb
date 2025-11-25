@@ -43,7 +43,7 @@
      "@doNotHaveAccount" : {},
      "signUpTitle" : "sign Up",
      "@signUpTitle" : {},
-     "exploreTabLabel" : "Explore",
+     "exploreTabLabel" : "Survey",
      "@exploreTabLabel" : {},
      "resultTabLabel" : "Result",
      "@resultTabLabel" : {},
@@ -56,5 +56,12 @@
      "ok" : "OK",
      "@ok" : {},
      "loadingTitle" : "Loading...",
-     "@loadingTitle" : {}
+     "@loadingTitle" : {},
+     "subjectListTitle" : "Browse by subject",
+     "@subjectListTitle" : {},
+     "noSubjectsFound":"No subjects found",
+     "@noSubjectsFound":{},
+     "exploreNavigationTitle" : "Explore",
+     "@exploreNavigationTitle" : {}
+     
 }
