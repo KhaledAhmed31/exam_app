@@ -20,7 +20,7 @@ class SignupRemoteDataSourceImpl implements SignupRemoteDataSource {
     final requestModel = SignupRequestModel.fromEntity(entity);
 
     final response = await dio.post(
-      ApiConsts.registerEndPoint,
+      ApiConsts.signupEndPoint,
       data: requestModel.toJson(),
     );
 
