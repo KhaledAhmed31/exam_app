@@ -1,15 +1,14 @@
-import 'package:exam_app/features/explore/domain/entities/subject_entity.dart';
-import 'package:exam_app/features/subject%20details/presentation/pages/subject_details_screen.dart';
-
-import 'route_path.dart';
-import '../../features/home/presentation/screens/home_screen.dart';
-import '../../features/auth/login/presentation/screens/login_screen.dart';
-import '../../features/auth/forget_password/presentation/pages/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:exam_app/features/explore/domain/entities/subject_entity.dart';
-import '../../features/exams/domain/entities/exam_entity.dart';
-import '../../features/exams/presentation/pages/subject_exams_screen.dart';
-import '../../features/exams/presentation/pages/start_exam_screen.dart';
+import 'package:exam_app/features/subject%20details/presentation/pages/subject_details_screen.dart';
+import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
+import 'package:exam_app/features/exams/domain/entities/exam_entity.dart';
+import 'package:exam_app/features/exams/presentation/pages/subject_exams_screen.dart';
+import 'package:exam_app/features/exams/presentation/pages/start_exam_screen.dart';
+import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
+import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:exam_app/features/auth/forget_password/presentation/pages/forget_password_screen.dart';
+import 'route_path.dart';
 
 class RouteManager {
   static Route generateRoute(RouteSettings settings) {
@@ -120,6 +119,11 @@ class RouteManager {
               ),
             ),
           ),
+          settings: settings,
+        );
+      case RoutePath.examPage:
+        return MaterialPageRoute(
+          builder: (_) => ExamPageScreen(),
           settings: settings,
         );
       default:

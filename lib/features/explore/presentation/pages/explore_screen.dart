@@ -36,8 +36,8 @@ class _ExploreScreenState extends State<ExploreScreen>
     super.build(context);
     locale = AppLocalizations.of(context)!;
 
-    return BlocProvider<GetallSubjectsBloc>.value(
-      value: getIt<GetallSubjectsBloc>(),
+    return BlocProvider<GetallSubjectsBloc>(
+      create: (context) => getIt<GetallSubjectsBloc>(),
       child: Scaffold(
         appBar: AppBar(
           titleSpacing: 16,
@@ -70,10 +70,7 @@ class _ExploreScreenState extends State<ExploreScreen>
               child: BlocBuilder<GetallSubjectsBloc, GetAllSubjectsState>(
                 builder: (context, state) {
                   if (state.isLoading) {
-                    return SizedBox(
-                      height: 500,
-                      child: Center(child: CircularProgressIndicator()),
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state.filteredSubjects != null &&
                       state.filteredSubjects!.isNotEmpty) {
                     return ListView.builder(

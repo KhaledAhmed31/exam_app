@@ -18,21 +18,19 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var viewModel = BlocProvider.of<AuthViewModel>(context);
     AppLocalizations local = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        // leading: IconButton(
-        //   icon: const Icon(
-        //     Icons.arrow_back_ios_new_outlined,
-        //     color: AppColors.black,
-        //   ),
-        //   onPressed: () {},
-        // ),
-        title: Text(
-          local.loginTitle,
-          style: FontStyleManager.interMedium(
-            color: AppColors.black,
-            fontSize: 25,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Text(
+            local.loginTitle,
+            style: FontStyleManager.interMedium(
+              color: AppColors.black,
+              fontSize: 25,
+            ),
           ),
         ),
       ),
@@ -75,15 +73,13 @@ class LoginScreen extends StatelessWidget {
           },
           builder: (context, state) {
             return Form(
-              key: BlocProvider.of<AuthViewModel>(context).formKey,
+              key: viewModel.formKey,
               child: Column(
                 children: [
                   SizedBox(height: 14),
                   CustomTextField(
                     onChanged: (val) {
-                      BlocProvider.of<AuthViewModel>(
-                        context,
-                      ).add(EmailOnChangedEvent(val));
+                      viewModel.add(EmailOnChangedEvent(val));
                     },
                     validator: (val) => Validators.emailValidator(val),
                     label: local.emailLabel,
@@ -93,9 +89,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 24),
                   CustomTextField(
                     onChanged: (val) {
-                      BlocProvider.of<AuthViewModel>(
-                        context,
-                      ).add(PasswordOnChangedEvent(val));
+                      viewModel.add(PasswordOnChangedEvent(val));
                     },
                     validator: (val) => Validators.passwordValidator(val),
                     label: local.forgetPasswordScreenTitle,
@@ -108,17 +102,12 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(width: 20),
                       Checkbox(
                         checkColor: AppColors.white,
-                        fillColor:
-                            BlocProvider.of<AuthViewModel>(context).rememberMe
+                        fillColor: viewModel.rememberMe
                             ? WidgetStateProperty.all(AppColors.grey)
                             : WidgetStateProperty.all(Colors.transparent),
-                        value: BlocProvider.of<AuthViewModel>(
-                          context,
-                        ).rememberMe,
+                        value: viewModel.rememberMe,
                         onChanged: (value) {
-                          BlocProvider.of<AuthViewModel>(
-                            context,
-                          ).add(ChangeRememberMeEvent(value));
+                          viewModel.add(ChangeRememberMeEvent(value));
                         },
                       ),
                       Text(
@@ -151,21 +140,12 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 48),
                   AppButton(
                     isDisabled:
-                        !(Validators.emailValidator(
-                                  BlocProvider.of<AuthViewModel>(context).email,
-                                ) ==
-                                null &&
-                            Validators.passwordValidator(
-                                  BlocProvider.of<AuthViewModel>(
-                                    context,
-                                  ).password,
-                                ) ==
+                        !(Validators.emailValidator(viewModel.email) == null &&
+                            Validators.passwordValidator(viewModel.password) ==
                                 null),
                     title: local.loginTitle,
                     onPressed: () {
-                      BlocProvider.of<AuthViewModel>(
-                        context,
-                      ).add(LoginEvents());
+                      viewModel.add(LoginEvents());
                     },
                   ),
                   SizedBox(height: 16),

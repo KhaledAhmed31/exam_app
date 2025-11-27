@@ -5,7 +5,7 @@ import '../../data/datasources/login_remote_datasource.dart';
 import '../../data/models/login_dto.dart';
 import 'package:injectable/injectable.dart';
 
-@Singleton(as: LoginRemoteDatasource)
+@Injectable(as: LoginRemoteDatasource)
 class LoginRemoteDatasourceImpl implements LoginRemoteDatasource {
   LoginApiClient loginApiClient;
   LoginRemoteDatasourceImpl(this.loginApiClient);
