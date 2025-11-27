@@ -8,7 +8,7 @@ import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.d
 import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
 import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
-import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
+import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -66,7 +66,7 @@ class MainApp extends StatelessWidget {
                   '<<<<<< ${state.loginState?.isLoggedIn} / initial route in true: home screen',
                 );
                 FlutterNativeSplash.remove();
-                return HomeScreen();
+                return ExamPageScreen();
               } else {
                 return const Scaffold();
               }

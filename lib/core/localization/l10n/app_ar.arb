@@ -77,6 +77,21 @@
      "subjectListTitle" : "تصفح حسب الموضوع",
      "@subjectListTitle" : {},
      "noSubjectsFound":"لا يوجد نتايج",
-     "@noSubjectsFound":{},"exploreNavigationTitle" : "استكشاف",
-     "@exploreNavigationTitle" : {}
+     "@noSubjectsFound":{},
+     "exploreNavigationTitle" : "استكشاف",
+     "@exploreNavigationTitle" : {},
+     "selectAnswer" : "من فضلك اختر اجابة.",
+     "@selectAnswer" : {},
+     "examScoreTitle" : "نتيجة الامتحان",
+     "@examScoreTitle" : {},
+     "yourScore" : "نتيجتك",
+     "@yourScore" : {},
+     "correct" : "صح",
+     "@correct" : {},
+     "incorrect" : "خطأ",
+     "@incorrect" : {},
+     "showResults" : "اظهار النتيجة",
+     "@showResults" : {},
+     "startAgain" : "البدأ من جديد",
+     "@startAgain" : {}
 }

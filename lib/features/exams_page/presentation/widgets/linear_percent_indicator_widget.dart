@@ -22,7 +22,7 @@ class LinearPercentIndicatorWidget extends StatelessWidget {
           }
         }
         return LinearPercentIndicator(
-          padding: EdgeInsets.symmetric(horizontal: Spacing.medium),
+          padding: EdgeInsets.symmetric(horizontal: Spacing.sp16),
           lineHeight: 4.0,
           percent: progress,
           backgroundColor: AppColors.black10,

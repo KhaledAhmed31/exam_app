@@ -1,3 +1,5 @@
+import 'package:exam_app/features/exams_page/presentation/screens/exam_score_screen.dart';
+
 import '../../features/exams_page/presentation/screens/exam_page_screen.dart';
 import 'route_path.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
@@ -31,6 +33,11 @@ class RouteManager {
       case RoutePath.examPage:
         return MaterialPageRoute(
           builder: (_) => ExamPageScreen(),
+          settings: settings,
+        );
+      case RoutePath.examScore:
+        return MaterialPageRoute(
+          builder: (_) => ExamScoreScreen(),
           settings: settings,
         );
       default:

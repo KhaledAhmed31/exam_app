@@ -130,4 +130,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get exploreNavigationTitle => 'استكشاف';
+
+  @override
+  String get selectAnswer => 'من فضلك اختر اجابة.';
+
+  @override
+  String get examScoreTitle => 'نتيجة الامتحان';
+
+  @override
+  String get yourScore => 'نتيجتك';
+
+  @override
+  String get correct => 'صح';
+
+  @override
+  String get incorrect => 'خطأ';
+
+  @override
+  String get showResults => 'اظهار النتيجة';
+
+  @override
+  String get startAgain => 'البدأ من جديد';
 }

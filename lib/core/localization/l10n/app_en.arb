@@ -80,5 +80,19 @@
      "noSubjectsFound":"No subjects found",
      "@noSubjectsFound":{},
      "exploreNavigationTitle" : "Explore",
-     "@exploreNavigationTitle" : {}
+     "@exploreNavigationTitle" : {},
+     "selectAnswer" : "Please select an answer before proceeding.",
+     "@selectAnswer" : {},
+     "examScoreTitle" : "Exam Score",
+     "@examScoreTitle" : {},
+     "yourScore" : "Your Score",
+     "@yourScore" : {},
+     "correct" : "Correct",
+     "@correct" : {},
+     "incorrect" : "Incorrect",
+     "@incorrect" : {},
+     "showResults" : "Show results",
+     "@showResults" : {},
+     "startAgain" : "Start again",
+     "@startAgain" : {}
 }
