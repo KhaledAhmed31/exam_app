@@ -3,8 +3,8 @@ class AppImages {
   AppImages._();
   
   /// Assets for assetsImagesAlarm
-  /// assets/images/alarm.svg
-  static const String assetsImagesAlarm = "assets/images/alarm.svg";
+  /// assets/images/alarm_pic.png
+  static const String assetsImagesAlarm = "assets/images/alarm_pic.png";
 
   /// Assets for assetsImagesColorPalette
   /// assets/images/color_palette.svg

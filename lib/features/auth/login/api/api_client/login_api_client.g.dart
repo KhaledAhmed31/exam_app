@@ -12,7 +12,7 @@ part of 'login_api_client.dart';
 
 class _LoginApiClient implements LoginApiClient {
   _LoginApiClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://exam.elevateegy.com/api/v1/auth';
+    baseUrl ??= 'https://exam.elevateegy.com/api/v1';
   }
 
   final Dio _dio;
@@ -32,7 +32,7 @@ class _LoginApiClient implements LoginApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/signin',
+            '/auth/signin',
             queryParameters: queryParameters,
             data: _data,
           )

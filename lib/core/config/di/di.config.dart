@@ -54,6 +54,35 @@ import '../../../features/auth/login/domain/usecases/login_uescase.dart'
     as _i442;
 import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
     as _i946;
+import '../../../features/exams_page/api/api_client/exam_questions_api_client.dart'
+    as _i184;
+import '../../../features/exams_page/api/datasources/get_exam_questions_remote_datasource_impl.dart'
+    as _i18;
+import '../../../features/exams_page/data/datasources/get_exam_questions_remote_datasource.dart'
+    as _i1060;
+import '../../../features/exams_page/data/repos/get_exam_questions_repo_impl.dart'
+    as _i58;
+import '../../../features/exams_page/domain/repos/get_exam_questions_repo.dart'
+    as _i366;
+import '../../../features/exams_page/domain/usecases/get_exam_questions_usecase.dart'
+    as _i971;
+import '../../../features/exams_page/presentation/bloc/exam_page_bloc.dart'
+    as _i563;
+import '../../../features/explore/api/clients/get_all_subject_client.dart'
+    as _i473;
+import '../../../features/explore/api/data_source/get_all_subjects_data_source_impl.dart'
+    as _i323;
+import '../../../features/explore/data/datasources/get_all_subjects_data_source.dart'
+    as _i460;
+import '../../../features/explore/data/repositories/get_all_subjects_repo_impl.dart'
+    as _i311;
+import '../../../features/explore/domain/repositories/get_all_subjects_repo.dart'
+    as _i234;
+import '../../../features/explore/domain/usecases/get_all_subjects_use_case.dart'
+    as _i109;
+import '../../../features/explore/presentation/bloc/explore_bloc.dart' as _i376;
+import '../../shared/presentation/bloc/localization/localization_bloc.dart'
+    as _i556;
 import '../../../features/signup/data/datasources/signup_remote_data_source.dart'
     as _i739;
 import '../../../features/signup/data/repositories/signup_repository_impl.dart'
@@ -62,10 +91,8 @@ import '../../../features/signup/domain/repositories/signup_repository.dart'
     as _i901;
 import '../../../features/signup/domain/usecases/signup_usecase.dart' as _i974;
 import '../../../features/signup/view_model/signup_cubit.dart' as _i393;
-import '../../shared/presentation/bloc/localization/localization_bloc.dart'
-    as _i556;
-import 'dio_modules.dart' as _i291;
-import 'secure_storage_module.dart' as _i897;
+import 'di_modules.dart' as _i176;
+import 'flutter_secure_storage_module.dart' as _i319;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -76,13 +103,13 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
     final secureStorageModule = _$SecureStorageModule();
-    gh.lazySingleton<_i361.Dio>(() => registerModule.dio());
+    gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => secureStorageModule.secureStorage,
     );
     gh.lazySingleton<_i556.LocalizationBloc>(() => _i556.LocalizationBloc());
-    gh.singleton<_i918.LoginLocalDatasource>(
-      () => _i670.LoginLocalDatasourceImpl(gh<_i558.FlutterSecureStorage>()),
+    gh.factory<_i918.LoginLocalDatasource>(
+      () => _i670.LoginLocalDatasourceImpl(),
     );
     gh.lazySingleton<_i672.ResetPasswordClient>(
       () => _i672.ResetPasswordClient(gh<_i361.Dio>()),
@@ -93,14 +120,25 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i779.VerifyResetCodeClient>(
       () => _i779.VerifyResetCodeClient(gh<_i361.Dio>()),
     );
-    gh.singleton<_i463.LoginApiClient>(
+    gh.lazySingleton<_i473.GetAllSubjectClient>(
+      () => _i473.GetAllSubjectClient(gh<_i361.Dio>()),
+    );
+    gh.factory<_i463.LoginApiClient>(
       () => _i463.LoginApiClient(gh<_i361.Dio>()),
     );
-    gh.singleton<_i1056.LoginRemoteDatasource>(
+    gh.factory<_i184.ExamQuestionsApiClient>(
+      () => _i184.ExamQuestionsApiClient(gh<_i361.Dio>()),
+    );
+    gh.factory<_i1056.LoginRemoteDatasource>(
       () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),
     );
     gh.factory<_i739.SignupRemoteDataSource>(
       () => _i739.SignupRemoteDataSourceImpl(dio: gh<_i361.Dio>()),
+    );
+    gh.factory<_i1060.GetExamQuestionsRemoteDatasource>(
+      () => _i18.GetExamQuestionsRemoteDatasourceImpl(
+        gh<_i184.ExamQuestionsApiClient>(),
+      ),
     );
     gh.lazySingleton<_i126.ForgetPassordDataSource>(
       () => _i849.SendResetCodeDataSuorceImpl(
@@ -109,21 +147,32 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i779.VerifyResetCodeClient>(),
       ),
     );
+    gh.factory<_i366.GetExamQuestionsRepo>(
+      () => _i58.GetExamQuestionsRepoImpl(
+        gh<_i1060.GetExamQuestionsRemoteDatasource>(),
+      ),
+    );
+    gh.lazySingleton<_i460.GetAllSubjectsDataSource>(
+      () => _i323.GetAllSubjectsDataSourceImpl(gh<_i473.GetAllSubjectClient>()),
+    );
     gh.lazySingleton<_i233.ForgetPawwordRepo>(
       () => _i704.ForgetPasswordRepoImpl(
         forgetPasswordDataSource: gh<_i126.ForgetPassordDataSource>(),
       ),
     );
-    gh.singleton<_i142.LoginRepo>(
+    gh.lazySingleton<_i234.GetAllSubjectsRepo>(
+      () => _i311.GetAllSubjectsRepoImpl(gh<_i460.GetAllSubjectsDataSource>()),
+    );
+    gh.factory<_i142.LoginRepo>(
       () => _i226.LoginRepoImpl(
         gh<_i1056.LoginRemoteDatasource>(),
         gh<_i918.LoginLocalDatasource>(),
       ),
     );
-    gh.singleton<_i115.IsLoggedInUsecase>(
+    gh.factory<_i115.IsLoggedInUsecase>(
       () => _i115.IsLoggedInUsecase(loginRepo: gh<_i142.LoginRepo>()),
     );
-    gh.singleton<_i442.LoginUescase>(
+    gh.factory<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
     gh.factory<_i946.AuthViewModel>(
@@ -148,11 +197,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i934.ResetPasswordUseCase>(
       () => _i934.ResetPasswordUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
+    gh.factory<_i971.GetExamQuestionsUsecase>(
+      () => _i971.GetExamQuestionsUsecase(gh<_i366.GetExamQuestionsRepo>()),
+    );
     gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
       () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
     gh.factory<_i393.SignupCubit>(
       () => _i393.SignupCubit(gh<_i974.SignupUseCase>()),
+    );
+    gh.lazySingleton<_i109.GetAllSubjectsUseCase>(
+      () => _i109.GetAllSubjectsUseCase(gh<_i234.GetAllSubjectsRepo>()),
+    );
+    gh.lazySingleton<_i376.GetallSubjectsBloc>(
+      () => _i376.GetallSubjectsBloc(gh<_i109.GetAllSubjectsUseCase>()),
+    );
+    gh.factory<_i563.ExamPageBloc>(
+      () => _i563.ExamPageBloc(gh<_i971.GetExamQuestionsUsecase>()),
     );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
       () => _i588.ForgetPasswordBloc(
@@ -165,6 +226,6 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$RegisterModule extends _i291.RegisterModule {}
+class _$RegisterModule extends _i176.RegisterModule {}
 
-class _$SecureStorageModule extends _i897.SecureStorageModule {}
+class _$SecureStorageModule extends _i319.SecureStorageModule {}

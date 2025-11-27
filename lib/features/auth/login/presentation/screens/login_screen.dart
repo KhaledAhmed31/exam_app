@@ -1,15 +1,15 @@
-import 'package:exam_app/core/config/utils/dialog_utils.dart';
-import 'package:exam_app/core/config/validation/app_validation.dart';
-import 'package:exam_app/core/localization/l10n/app_localizations.dart';
-import 'package:exam_app/core/routes/route_path.dart';
-import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
-import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
-import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
-import 'package:exam_app/core/ui_manager/fonts/font_style_manager.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
+import '../../../../../core/config/utils/dialog_utils.dart';
+import '../../../../../core/config/validation/app_validation.dart';
+import '../../../../../core/localization/l10n/app_localizations.dart';
+import '../../../../../core/routes/route_path.dart';
+import '../../../../../core/shared/presentation/widgets/app_button.dart';
+import '../../../../../core/shared/presentation/widgets/custom_text_feild.dart';
+import '../../../../../core/ui_manager/colors/app_colors.dart';
+import '../../../../../core/ui_manager/fonts/font_sizes_manager.dart';
+import '../../../../../core/ui_manager/fonts/font_style_manager.dart';
+import '../bloc/auth_events.dart';
+import '../bloc/auth_states.dart';
+import '../bloc/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,21 +18,19 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var viewModel = BlocProvider.of<AuthViewModel>(context);
     AppLocalizations local = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        // leading: IconButton(
-        //   icon: const Icon(
-        //     Icons.arrow_back_ios_new_outlined,
-        //     color: AppColors.black,
-        //   ),
-        //   onPressed: () {},
-        // ),
-        title: Text(
-          local.loginTitle,
-          style: FontStyleManager.interMedium(
-            color: AppColors.black,
-            fontSize: 25,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Text(
+            local.loginTitle,
+            style: FontStyleManager.interMedium(
+              color: AppColors.black,
+              fontSize: 25,
+            ),
           ),
         ),
       ),
@@ -75,15 +73,13 @@ class LoginScreen extends StatelessWidget {
           },
           builder: (context, state) {
             return Form(
-              key: BlocProvider.of<AuthViewModel>(context).formKey,
+              key: viewModel.formKey,
               child: Column(
                 children: [
                   SizedBox(height: 14),
                   CustomTextField(
                     onChanged: (val) {
-                      BlocProvider.of<AuthViewModel>(
-                        context,
-                      ).add(EmailOnChangedEvent(val));
+                      viewModel.add(EmailOnChangedEvent(val));
                     },
                     validator: (val) => Validators.emailValidator(val),
                     label: local.emailLabel,
@@ -93,9 +89,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 24),
                   CustomTextField(
                     onChanged: (val) {
-                      BlocProvider.of<AuthViewModel>(
-                        context,
-                      ).add(PasswordOnChangedEvent(val));
+                      viewModel.add(PasswordOnChangedEvent(val));
                     },
                     validator: (val) => Validators.passwordValidator(val),
                     label: local.forgetPasswordScreenTitle,
@@ -108,17 +102,12 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(width: 20),
                       Checkbox(
                         checkColor: AppColors.white,
-                        fillColor:
-                            BlocProvider.of<AuthViewModel>(context).rememberMe
-                            ? WidgetStateProperty.all(AppColors.gray)
+                        fillColor: viewModel.rememberMe
+                            ? WidgetStateProperty.all(AppColors.grey)
                             : WidgetStateProperty.all(Colors.transparent),
-                        value: BlocProvider.of<AuthViewModel>(
-                          context,
-                        ).rememberMe,
+                        value: viewModel.rememberMe,
                         onChanged: (value) {
-                          BlocProvider.of<AuthViewModel>(
-                            context,
-                          ).add(ChangeRememberMeEvent(value));
+                          viewModel.add(ChangeRememberMeEvent(value));
                         },
                       ),
                       Text(
@@ -151,21 +140,12 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 48),
                   AppButton(
                     isDisabled:
-                        !(Validators.emailValidator(
-                                  BlocProvider.of<AuthViewModel>(context).email,
-                                ) ==
-                                null &&
-                            Validators.passwordValidator(
-                                  BlocProvider.of<AuthViewModel>(
-                                    context,
-                                  ).password,
-                                ) ==
+                        !(Validators.emailValidator(viewModel.email) == null &&
+                            Validators.passwordValidator(viewModel.password) ==
                                 null),
                     title: local.loginTitle,
                     onPressed: () {
-                      BlocProvider.of<AuthViewModel>(
-                        context,
-                      ).add(LoginEvents());
+                      viewModel.add(LoginEvents());
                     },
                   ),
                   SizedBox(height: 16),

@@ -75,7 +75,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpTitle => 'sign Up';
 
   @override
-  String get exploreTabLabel => 'Explore';
+  String get exploreTabLabel => 'Survey';
 
   @override
   String get resultTabLabel => 'Result';
@@ -94,4 +94,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loadingTitle => 'Loading...';
+
+  @override
+  String get examTitle => 'Exam';
+
+  @override
+  String get selectCorrectAnswer => 'Select the correctly punctuated sentence.';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get viewScoreTitle => 'View Score';
+
+  @override
+  String get timeOut => 'Time Out!!';
+
+  @override
+  String get questionText => 'Questions';
+
+  @override
+  String get ofText => 'of';
+
+  @override
+  String get finish => 'Finish';
+
+  @override
+  String get subjectListTitle => 'Browse by subject';
+
+  @override
+  String get noSubjectsFound => 'No subjects found';
+
+  @override
+  String get exploreNavigationTitle => 'Explore';
 }
