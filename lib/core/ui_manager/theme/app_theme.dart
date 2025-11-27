@@ -19,7 +19,7 @@ class AppTheme {
       surfaceTintColor: Colors.transparent,
       backgroundColor: AppColors.white,
       elevation: 0,
-      titleSpacing: 12,
+      titleSpacing: 0,
       leadingWidth: 44,
       titleTextStyle: FontStyleManager.interMedium(
         color: AppColors.blackBase,
