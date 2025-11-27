@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:exam_app/core/shared/error/failure.dart';
 import 'package:exam_app/features/signup/domain/entities/signup_entity.dart';
+import 'package:exam_app/features/signup/domain/entities/signup_result_entity.dart';
 import 'package:exam_app/features/signup/domain/repositories/signup_repository.dart';
 
-import 'package:exam_app/features/signup/data/models/signup_response_model.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -12,7 +12,7 @@ class SignupUseCase {
 
   SignupUseCase({required this.repository});
 
-  Future<Either<Failure, SignupResponseModel>> call(
+  Future<Either<Failure, SignupResultEntity>> call(
     SignupEntity signupEntity,
   ) async {
     return await repository.signup(signupEntity);

@@ -12,12 +12,12 @@ class SignupInitial extends SignupState {}
 class SignupLoading extends SignupState {}
 
 class SignupSuccess extends SignupState {
-  final SignupResponseModel signupResponseModel;
+  final SignupResultEntity signupResult;
 
-  const SignupSuccess(this.signupResponseModel);
+  const SignupSuccess(this.signupResult);
 
   @override
-  List<Object> get props => [signupResponseModel];
+  List<Object> get props => [signupResult];
 }
 
 class SignupError extends SignupState {

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:exam_app/features/signup/data/models/signup_response_model.dart';
 import 'package:exam_app/features/signup/domain/entities/signup_entity.dart';
+import 'package:exam_app/features/signup/domain/entities/signup_result_entity.dart';
 import 'package:exam_app/features/signup/domain/usecases/signup_usecase.dart';
 import 'package:injectable/injectable.dart';
 
@@ -10,6 +10,7 @@ part 'signup_state.dart';
 @injectable
 class SignupCubit extends Cubit<SignupState> {
   final SignupUseCase _signupUseCase;
+
   SignupCubit(this._signupUseCase) : super(SignupInitial());
 
   Future<void> signup({
@@ -22,6 +23,7 @@ class SignupCubit extends Cubit<SignupState> {
     required String userName,
   }) async {
     emit(SignupLoading());
+
     final result = await _signupUseCase(
       SignupEntity(
         firstName: firstName,
@@ -33,9 +35,10 @@ class SignupCubit extends Cubit<SignupState> {
         userName: userName,
       ),
     );
+
     result.fold(
       (failure) => emit(SignupError(failure.message)),
-      (signupResponse) => emit(SignupSuccess(signupResponse)),
+      (signupResult) => emit(SignupSuccess(signupResult)),
     );
   }
 }

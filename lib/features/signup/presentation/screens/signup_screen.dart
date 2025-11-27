@@ -1,4 +1,5 @@
 import 'package:exam_app/core/config/validation/app_validation.dart';
+import 'package:exam_app/core/constants/app_strings.dart';
 import 'package:exam_app/core/shared/presentation/widgets/app_button.dart';
 import 'package:exam_app/core/shared/presentation/widgets/custom_text_feild.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
@@ -91,7 +92,7 @@ class _SignupScreenState extends State<SignupScreen> {
       password: _passwordController.text,
       rePassword: _confirmPasswordController.text,
       phone: _phoneController.text,
-      userName: _userNameController.text,
+      userName: _userNameController.text.toLowerCase(),
     );
   }
 
@@ -117,9 +118,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 context.loaderOverlay.hide();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text(
-                      'Account created successfully! Please login.',
-                    ),
+                    content: Text(AppStrings.signupSuccess),
                     backgroundColor: AppColors.success,
                     duration: Duration(seconds: 2),
                   ),
@@ -201,10 +200,10 @@ class _SignupScreenState extends State<SignupScreen> {
                               textFieldController: _confirmPasswordController,
                               validator: (val) {
                                 if (val == null || val.isEmpty) {
-                                  return "Confirm your password";
+                                  return AppStrings.confirmPasswordRequired;
                                 }
                                 if (val != _passwordController.text) {
-                                  return "Password not matched";
+                                  return AppStrings.passwordsDoNotMatch;
                                 }
                                 return null;
                               },
@@ -223,10 +222,11 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       const SizedBox(height: 32),
                       AppButton(
-                        title: isLoading ? 'Signup' : 'Signup',
-                        onPressed: (isLoading || (_submitted && !isFormValid))
-                            ? null
-                            : () => _handleSignup(context),
+                        title: isLoading
+                            ? AppStrings.signingUp
+                            : AppStrings.signup,
+                        isDisabled: isLoading || (_submitted && !isFormValid),
+                        onPressed: () => _handleSignup(context),
                       ),
                       const SizedBox(height: 16),
                       Center(
@@ -236,14 +236,14 @@ class _SignupScreenState extends State<SignupScreen> {
                           },
                           child: RichText(
                             text: TextSpan(
-                              text: 'Already have an account? ',
+                              text: AppStrings.alreadyHaveAccount,
                               style: FontStyleManager.interRegular(
                                 color: AppColors.blackBase,
                                 fontSize: FontSizesManager.s16,
                               ),
                               children: [
                                 TextSpan(
-                                  text: 'Login',
+                                  text: AppStrings.login,
                                   style: const TextStyle(
                                     decoration: TextDecoration.underline,
                                     color: AppColors.blueBase,

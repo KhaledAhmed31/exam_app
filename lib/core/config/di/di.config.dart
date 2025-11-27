@@ -81,8 +81,6 @@ import '../../../features/explore/domain/repositories/get_all_subjects_repo.dart
 import '../../../features/explore/domain/usecases/get_all_subjects_use_case.dart'
     as _i109;
 import '../../../features/explore/presentation/bloc/explore_bloc.dart' as _i376;
-import '../../shared/presentation/bloc/localization/localization_bloc.dart'
-    as _i556;
 import '../../../features/signup/data/datasources/signup_remote_data_source.dart'
     as _i739;
 import '../../../features/signup/data/repositories/signup_repository_impl.dart'
@@ -91,6 +89,8 @@ import '../../../features/signup/domain/repositories/signup_repository.dart'
     as _i901;
 import '../../../features/signup/domain/usecases/signup_usecase.dart' as _i974;
 import '../../../features/signup/view_model/signup_cubit.dart' as _i393;
+import '../../shared/presentation/bloc/localization/localization_bloc.dart'
+    as _i556;
 import 'di_modules.dart' as _i176;
 import 'flutter_secure_storage_module.dart' as _i319;
 
@@ -203,9 +203,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
       () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
     );
-    gh.factory<_i393.SignupCubit>(
-      () => _i393.SignupCubit(gh<_i974.SignupUseCase>()),
-    );
     gh.lazySingleton<_i109.GetAllSubjectsUseCase>(
       () => _i109.GetAllSubjectsUseCase(gh<_i234.GetAllSubjectsRepo>()),
     );
@@ -214,6 +211,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i563.ExamPageBloc>(
       () => _i563.ExamPageBloc(gh<_i971.GetExamQuestionsUsecase>()),
+    );
+    gh.factory<_i393.SignupCubit>(
+      () => _i393.SignupCubit(gh<_i974.SignupUseCase>()),
     );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
       () => _i588.ForgetPasswordBloc(

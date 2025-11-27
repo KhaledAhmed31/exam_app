@@ -1,8 +1,10 @@
+import 'package:exam_app/core/constants/app_strings.dart';
+
 class Validators {
   static bool notEmpty(String? text) => text != null && text.trim().isNotEmpty;
 
   static String? nameValidator(String? val) {
-    RegExp nameRegExp = RegExp('[a-zA-Z]');
+    RegExp nameRegExp = RegExp(r'^[a-zA-Z\s]{2,50}$');
     if (val == null || val.isEmpty) {
       return "Enter your name";
     } else if (!nameRegExp.hasMatch(val)) {
@@ -13,22 +15,23 @@ class Validators {
   }
 
   static String? usernameValidator(String? val) {
-    RegExp nameRegExp = RegExp('[a-zA-Z]');
+    RegExp usernameRegExp = RegExp(r'^[a-zA-Z0-9_]{3,20}$');
+
     if (val == null || val.isEmpty) {
-      return "This user name is not valid";
-    } else if (!nameRegExp.hasMatch(val)) {
-      return "This user name is not valid";
+      return AppStrings.usernameRequired;
+    } else if (!usernameRegExp.hasMatch(val)) {
+      return AppStrings.usernameInvalid;
     } else {
       return null;
     }
   }
 
   static String? phoneValidator(String? val) {
-    RegExp phoneRegExp = RegExp(r'\d');
+    RegExp phoneRegExp = RegExp(r'^\d{10,15}$');
     if (val == null || val.isEmpty) {
-      return "Enter your number";
+      return AppStrings.phoneRequired;
     } else if (!phoneRegExp.hasMatch(val)) {
-      return "Enter valid number";
+      return AppStrings.phoneInvalid;
     } else {
       return null;
     }
@@ -36,7 +39,7 @@ class Validators {
 
   static String? passwordValidator(String? val) {
     if (val == null || val.isEmpty) {
-      return "Password is required";
+      return AppStrings.passwordRequired;
     } else if (val.length < 8) {
       return "Password must be at least 8 characters long";
     } else if (!val.contains(RegExp(r'[A-Z]'))) {
@@ -50,20 +53,23 @@ class Validators {
     }
     return null;
   }
-  static String? confirmPasswordValidator(String? val, String? confirmPassowrd) {
+
+  static String? confirmPasswordValidator(
+    String? val,
+    String? confirmPassword,
+  ) {
     if (val == null || val.isEmpty) {
-      return "Password is required";
-    }else if(val != confirmPassowrd){
-      return "Password doesn't match";
+      return AppStrings.confirmPasswordRequired;
+    } else if (val != confirmPassword) {
+      return AppStrings.passwordsDoNotMatch;
     }
     return null;
   }
 
   static String? signInPasswordValidator(String? val) {
     if (val == null || val.isEmpty) {
-      return "Password is required";
+      return AppStrings.passwordRequired;
     }
-
     return null;
   }
 
@@ -72,9 +78,9 @@ class Validators {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
     );
     if (val == null || val.isEmpty) {
-      return "This Email is not valid";
+      return AppStrings.emailRequired;
     } else if (!emailRegExp.hasMatch(val)) {
-      return "This Email is not valid";
+      return AppStrings.emailInvalid;
     } else {
       return null;
     }
