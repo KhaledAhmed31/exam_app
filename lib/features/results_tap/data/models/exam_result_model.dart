@@ -1,6 +1,6 @@
-class ExamResultModel {
+class ExamResultsModel {
   final Map<String, List<ExamResultCardModel>> results;
-  ExamResultModel({required this.results});
+  ExamResultsModel({required this.results});
 }
 
 class ExamResultCardModel {
