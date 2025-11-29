@@ -90,8 +90,10 @@
      "@correct" : {},
      "incorrect" : "خطأ",
      "@incorrect" : {},
-     "showResults" : "اظهار النتيجة",
+     "showResults" : "عرض الاجابات",
      "@showResults" : {},
      "startAgain" : "البدأ من جديد",
-     "@startAgain" : {}
+     "@startAgain" : {},
+     "answersTitle" : "الاجابات",
+     "@answersTitle" : {}
 }

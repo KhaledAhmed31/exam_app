@@ -147,8 +147,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get incorrect => 'خطأ';
 
   @override
-  String get showResults => 'اظهار النتيجة';
+  String get showResults => 'عرض الاجابات';
 
   @override
   String get startAgain => 'البدأ من جديد';
+
+  @override
+  String get answersTitle => 'الاجابات';
 }

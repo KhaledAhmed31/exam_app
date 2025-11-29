@@ -91,8 +91,10 @@
      "@correct" : {},
      "incorrect" : "Incorrect",
      "@incorrect" : {},
-     "showResults" : "Show results",
+     "showResults" : "Show answers",
      "@showResults" : {},
      "startAgain" : "Start again",
-     "@startAgain" : {}
+     "@startAgain" : {},
+     "answersTitle" : "Answers",
+     "@answersTitle" : {}
 }

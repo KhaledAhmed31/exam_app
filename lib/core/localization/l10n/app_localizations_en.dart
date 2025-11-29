@@ -147,8 +147,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get incorrect => 'Incorrect';
 
   @override
-  String get showResults => 'Show results';
+  String get showResults => 'Show answers';
 
   @override
   String get startAgain => 'Start again';
+
+  @override
+  String get answersTitle => 'Answers';
 }

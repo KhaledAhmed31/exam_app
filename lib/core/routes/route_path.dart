@@ -5,4 +5,5 @@ class RoutePath {
   static const String login = '/login';
   static const String examPage = '/examPage';
   static const String examScore = '/examScore';
+  static const String examResults = '/examResults';
 }

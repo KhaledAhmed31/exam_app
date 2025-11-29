@@ -371,7 +371,7 @@ abstract class AppLocalizations {
   /// No description provided for @showResults.
   ///
   /// In en, this message translates to:
-  /// **'Show results'**
+  /// **'Show answers'**
   String get showResults;
 
   /// No description provided for @startAgain.
@@ -379,6 +379,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start again'**
   String get startAgain;
+
+  /// No description provided for @answersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers'**
+  String get answersTitle;
 }
 
 class _AppLocalizationsDelegate

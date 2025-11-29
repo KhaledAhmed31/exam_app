@@ -41,6 +41,12 @@ class ExamScoreScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, RoutePath.home);
+          },
+        ),
         iconTheme: IconThemeData(color: AppColors.blackBase),
       ),
 
@@ -111,7 +117,13 @@ class ExamScoreScreen extends StatelessWidget {
             AppButton(
               title: local.showResults,
               isDisabled: false,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  RoutePath.examResults,
+                  arguments: {"questions": questions, "answers": answers},
+                );
+              },
             ),
             const SizedBox(height: Spacing.sp24),
             SizedBox(
