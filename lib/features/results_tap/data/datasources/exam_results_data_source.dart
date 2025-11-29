@@ -19,6 +19,7 @@ class ExamResultsDataSource {
         await txn.insert('exams', {
           'examId': examResult.examId,
           'examTitle': examResult.title,
+          'finishDuration': examResult.finishDuration,
           'questions': examResult.numberOfQuestions,
           'correct': examResult.score,
           'time': examResult.duration,
@@ -35,8 +36,7 @@ class ExamResultsDataSource {
     }
   }
 
-  Future<BaseResponse<ExamResultsModel>>
-  getExamResults() async {
+  Future<BaseResponse<ExamResultsModel>> getExamResults() async {
     try {
       final List<Map<String, dynamic>> exams = await db.query('exams');
       final List<Map<String, dynamic>> results = await db.query('results');
@@ -47,6 +47,7 @@ class ExamResultsDataSource {
         final exam = exams.firstWhere((e) => e['examId'] == result['examId']);
         final examResultModel = ExamResultCardModel(
           subject: result['subjectName'],
+          finishDuration: exam['finishDuration'],
           title: exam['examTitle'],
           numberOfQuestions: exam['questions'],
           duration: exam['time'],
@@ -59,7 +60,6 @@ class ExamResultsDataSource {
         }
         groupedResults[result['subjectName']]!.add(examResultModel);
       }
-
       return SuccessResponse(ExamResultsModel(results: groupedResults));
     } catch (e) {
       return ErrorResponse(error: ErrorHandler.handle(e));

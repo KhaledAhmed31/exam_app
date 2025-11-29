@@ -17,7 +17,8 @@ Future<void> _initDb(Database db, int version) async {
     examTitle TEXT,
     questions INTEGER,
     correct INTEGER,
-    time INTEGER
+    time INTEGER,
+    finishDuration INTEGER
   );
 ''');
 

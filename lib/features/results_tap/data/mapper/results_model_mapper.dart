@@ -11,6 +11,7 @@ extension ResultsModelMapper on ExamResultsModel {
               .map(
                 (e) => ExamResultsCardEntity(
                   duration: e.duration,
+                  finishDuration: e.finishDuration,
                   title: e.title,
                   numberOfQuestions: e.numberOfQuestions,
                   score: e.score,

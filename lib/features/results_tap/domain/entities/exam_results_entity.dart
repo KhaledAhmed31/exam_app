@@ -1,7 +1,7 @@
 class ExamResultsEntity {
   final Map<String, List<ExamResultsCardEntity>>? results;
 
-  const ExamResultsEntity({ this.results});
+  const ExamResultsEntity({this.results});
 }
 
 class ExamResultsCardEntity {
@@ -10,13 +10,15 @@ class ExamResultsCardEntity {
   final String examId;
   final int numberOfQuestions;
   final int duration;
+  final int finishDuration;
   final int score;
 
- const ExamResultsCardEntity({
+  const ExamResultsCardEntity({
     required this.subject,
     required this.title,
     required this.numberOfQuestions,
     required this.duration,
-    required this.score, required this.examId,
+    required this.score,
+    required this.examId, required this.finishDuration,
   });
 }
