@@ -17,6 +17,7 @@ import 'package:logger/logger.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await configureDependencies();
 
   runApp(
@@ -35,6 +36,7 @@ void main() async {
 class MainApp extends StatelessWidget {
   MainApp({super.key});
   final logger = Logger();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocalizationBloc, LocalizationState>(

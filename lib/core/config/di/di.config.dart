@@ -137,6 +137,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i473.GetAllSubjectClient>(
       () => _i473.GetAllSubjectClient(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i822.GetExamsOnSubjectsClient>(
+      () => _i822.GetExamsOnSubjectsClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i463.LoginApiClient>(
       () => _i463.LoginApiClient(gh<_i361.Dio>()),
     );
@@ -199,11 +202,21 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i918.LoginLocalDatasource>(),
       ),
     );
+    gh.lazySingleton<_i88.GetExamsOnSubjectRemoteDataSource>(
+      () => _i64.GetExamsOnSubjectDataSourceImp(
+        gh<_i822.GetExamsOnSubjectsClient>(),
+      ),
+    );
     gh.factory<_i115.IsLoggedInUsecase>(
       () => _i115.IsLoggedInUsecase(loginRepo: gh<_i142.LoginRepo>()),
     );
     gh.factory<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
+    );
+    gh.lazySingleton<_i478.GetExamsOnSubjectRepo>(
+      () => _i576.GetExamsOnSubjectRepoImpl(
+        gh<_i88.GetExamsOnSubjectRemoteDataSource>(),
+      ),
     );
     gh.factory<_i946.AuthViewModel>(
       () => _i946.AuthViewModel(
@@ -234,12 +247,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i563.ExamPageBloc>(
       () => _i563.ExamPageBloc(gh<_i971.GetExamQuestionsUsecase>()),
     );
+    gh.lazySingleton<_i517.GetExamsOnSubjectsUseCase>(
+      () => _i517.GetExamsOnSubjectsUseCase(
+        getExamsOnSubjectRepo: gh<_i478.GetExamsOnSubjectRepo>(),
+      ),
+    );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
       () => _i588.ForgetPasswordBloc(
         gh<_i484.SendResetCodeUseCase>(),
         gh<_i614.VerifyResetCodeUseCase>(),
         gh<_i934.ResetPasswordUseCase>(),
       ),
+    );
+    gh.lazySingleton<_i1044.SubjectDetailsBloc>(
+      () => _i1044.SubjectDetailsBloc(gh<_i517.GetExamsOnSubjectsUseCase>()),
     );
     return this;
   }
