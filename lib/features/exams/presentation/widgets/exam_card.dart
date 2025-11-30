@@ -28,7 +28,7 @@ class ExamCard extends StatelessWidget {
           width: 60,
           height: 71,
           child: Image.asset(
-            AppImages.assetsImagesProfitPng,
+            AppImages.assetsImagesProfit,
             width: 60,
             height: 71,
             fit: BoxFit.contain,

@@ -10,6 +10,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:exam_app/features/subject%20details/api/clients/get_exams_on_subjects_client.dart' as _i822;
+import 'package:exam_app/features/subject%20details/api/data_source/get_exams_on_subject_data_source_imp.dart' as _i64;
+import 'package:exam_app/features/subject%20details/data/datasources/get_exams_on_subject_remote_data_source.dart' as _i88;
+import 'package:exam_app/features/subject%20details/data/repositories/get_exams_on_subject_repo_impl.dart' as _i576;
+import 'package:exam_app/features/subject%20details/domain/repositories/get_exams_on_subject_repo.dart' as _i478;
+import 'package:exam_app/features/subject%20details/domain/usecases/get_exams_on_subjects_use_case.dart' as _i517;
+import 'package:exam_app/features/subject%20details/presentation/bloc/subject_details_bloc.dart' as _i1044;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
