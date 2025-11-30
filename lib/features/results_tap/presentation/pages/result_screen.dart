@@ -10,11 +10,17 @@ import 'package:exam_app/features/results_tap/presentation/widgets/exam_result_c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key});
 
   @override
+  State<ResultScreen> createState() => _ResultScreenState();
+}
+
+class _ResultScreenState extends State<ResultScreen> with AutomaticKeepAliveClientMixin{
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Results')),
       body: BlocProvider.value(
@@ -62,4 +68,7 @@ class ResultScreen extends StatelessWidget {
       ),
     );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }
