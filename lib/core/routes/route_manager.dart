@@ -1,3 +1,4 @@
+import 'package:exam_app/features/profile/presentation/pages/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:exam_app/features/explore/domain/entities/subject_entity.dart';
 import 'package:exam_app/features/subject%20details/presentation/pages/subject_details_screen.dart';
@@ -124,6 +125,11 @@ class RouteManager {
       case RoutePath.examPage:
         return MaterialPageRoute(
           builder: (_) => ExamPageScreen(),
+          settings: settings,
+        );
+      case RoutePath.changePassword:
+        return MaterialPageRoute(
+          builder: (_) => const ChangePasswordScreen(),
           settings: settings,
         );
       default:

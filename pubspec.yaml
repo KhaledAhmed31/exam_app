@@ -30,6 +30,8 @@ dependencies:
   logger: ^2.6.0
   mockito: ^5.5.1
   retrofit: ^4.6.0
+  dartz: ^0.10.1
+  image_picker: ^1.2.1
 
 flutter_native_splash:
   color: "#004182"

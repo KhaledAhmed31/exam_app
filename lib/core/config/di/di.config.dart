@@ -81,6 +81,23 @@ import '../../../features/explore/domain/repositories/get_all_subjects_repo.dart
 import '../../../features/explore/domain/usecases/get_all_subjects_use_case.dart'
     as _i109;
 import '../../../features/explore/presentation/bloc/explore_bloc.dart' as _i376;
+import '../../../features/profile/data/datasources/profile_api_client.dart'
+    as _i211;
+import '../../../features/profile/data/datasources/profile_remote_data_source.dart'
+    as _i214;
+import '../../../features/profile/data/datasources/profile_remote_data_source_impl.dart'
+    as _i915;
+import '../../../features/profile/data/repositories/profile_repository_impl.dart'
+    as _i695;
+import '../../../features/profile/domain/repositories/profile_repository.dart'
+    as _i919;
+import '../../../features/profile/domain/usecases/change_password_usecase.dart'
+    as _i533;
+import '../../../features/profile/domain/usecases/edit_profile_usecase.dart'
+    as _i221;
+import '../../../features/profile/domain/usecases/get_profile_usecase.dart'
+    as _i248;
+import '../../../features/profile/view_model/profile_cubit.dart' as _i990;
 import '../../../features/subject%20details/api/clients/get_exams_on_subjects_client.dart'
     as _i822;
 import '../../../features/subject%20details/api/data_source/get_exams_on_subject_data_source_imp.dart'
@@ -129,6 +146,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i473.GetAllSubjectClient>(
       () => _i473.GetAllSubjectClient(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i211.ProfileApiClient>(
+      () => _i211.ProfileApiClient(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i822.GetExamsOnSubjectsClient>(
       () => _i822.GetExamsOnSubjectsClient(gh<_i361.Dio>()),
     );
@@ -137,6 +157,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i184.ExamQuestionsApiClient>(
       () => _i184.ExamQuestionsApiClient(gh<_i361.Dio>()),
+    );
+    gh.factory<_i214.ProfileRemoteDataSource>(
+      () => _i915.ProfileRemoteDataSourceImpl(gh<_i211.ProfileApiClient>()),
     );
     gh.factory<_i1056.LoginRemoteDatasource>(
       () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),
@@ -186,6 +209,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
+    gh.factory<_i919.ProfileRepository>(
+      () => _i695.ProfileRepositoryImpl(gh<_i214.ProfileRemoteDataSource>()),
+    );
     gh.lazySingleton<_i478.GetExamsOnSubjectRepo>(
       () => _i576.GetExamsOnSubjectRepoImpl(
         gh<_i88.GetExamsOnSubjectRemoteDataSource>(),
@@ -217,8 +243,24 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i376.GetallSubjectsBloc>(
       () => _i376.GetallSubjectsBloc(gh<_i109.GetAllSubjectsUseCase>()),
     );
+    gh.factory<_i533.ChangePasswordUseCase>(
+      () => _i533.ChangePasswordUseCase(gh<_i919.ProfileRepository>()),
+    );
+    gh.factory<_i221.EditProfileUseCase>(
+      () => _i221.EditProfileUseCase(gh<_i919.ProfileRepository>()),
+    );
+    gh.factory<_i248.GetProfileUseCase>(
+      () => _i248.GetProfileUseCase(gh<_i919.ProfileRepository>()),
+    );
     gh.factory<_i563.ExamPageBloc>(
       () => _i563.ExamPageBloc(gh<_i971.GetExamQuestionsUsecase>()),
+    );
+    gh.factory<_i990.ProfileCubit>(
+      () => _i990.ProfileCubit(
+        gh<_i248.GetProfileUseCase>(),
+        gh<_i221.EditProfileUseCase>(),
+        gh<_i533.ChangePasswordUseCase>(),
+      ),
     );
     gh.lazySingleton<_i517.GetExamsOnSubjectsUseCase>(
       () => _i517.GetExamsOnSubjectsUseCase(

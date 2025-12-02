@@ -1,4 +1,4 @@
-import '../../../../../core/config/utils/dialog_utils.dart';
+import '../../../../../core/utils/dialog_utils.dart';
 import '../../../../../core/config/validation/app_validation.dart';
 import '../../../../../core/localization/l10n/app_localizations.dart';
 import '../../../../../core/routes/route_path.dart';
