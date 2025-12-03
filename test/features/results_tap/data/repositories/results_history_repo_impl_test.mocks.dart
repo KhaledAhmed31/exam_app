@@ -7,12 +7,13 @@ import 'dart:async' as _i5;
 
 import 'package:exam_app/core/config/base_response/base_response.dart' as _i3;
 import 'package:exam_app/features/results_tap/data/datasources/exam_results_data_source.dart'
-    as _i2;
-import 'package:exam_app/features/results_tap/data/repositories/results_history_repo_impl.dart'
     as _i4;
+import 'package:exam_app/features/results_tap/data/models/exam_result_model.dart'
+    as _i7;
 import 'package:exam_app/features/results_tap/domain/entities/exam_results_entity.dart'
     as _i6;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:sqflite/sqflite.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,9 +30,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeExamResultsDataSource_0 extends _i1.SmartFake
-    implements _i2.ExamResultsDataSource {
-  _FakeExamResultsDataSource_0(Object parent, Invocation parentInvocation)
+class _FakeDatabase_0 extends _i1.SmartFake implements _i2.Database {
+  _FakeDatabase_0(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -41,52 +41,49 @@ class _FakeBaseResponse_1<T> extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-/// A class which mocks [ResultsHistoryRepoImpl].
+/// A class which mocks [ExamResultsDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockResultsHistoryRepoImpl extends _i1.Mock
-    implements _i4.ResultsHistoryRepoImpl {
-  MockResultsHistoryRepoImpl() {
+class MockExamResultsDataSource extends _i1.Mock
+    implements _i4.ExamResultsDataSource {
+  MockExamResultsDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.ExamResultsDataSource get examResultsDataSource =>
+  _i2.Database get db =>
       (super.noSuchMethod(
-            Invocation.getter(#examResultsDataSource),
-            returnValue: _FakeExamResultsDataSource_0(
-              this,
-              Invocation.getter(#examResultsDataSource),
-            ),
+            Invocation.getter(#db),
+            returnValue: _FakeDatabase_0(this, Invocation.getter(#db)),
           )
-          as _i2.ExamResultsDataSource);
+          as _i2.Database);
 
   @override
-  _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>> getResultsHistory() =>
+  _i5.Future<_i3.BaseResponse<bool>> saveExamResult(
+    _i6.ExamResultsCardEntity? examResult,
+  ) =>
       (super.noSuchMethod(
-            Invocation.method(#getResultsHistory, []),
-            returnValue:
-                _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>>.value(
-                  _FakeBaseResponse_1<_i6.ExamResultsEntity>(
-                    this,
-                    Invocation.method(#getResultsHistory, []),
-                  ),
-                ),
-          )
-          as _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>>);
-
-  @override
-  _i5.Future<_i3.BaseResponse<bool>> saveResult({
-    required _i6.ExamResultsCardEntity? examResult,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#saveResult, [], {#examResult: examResult}),
+            Invocation.method(#saveExamResult, [examResult]),
             returnValue: _i5.Future<_i3.BaseResponse<bool>>.value(
               _FakeBaseResponse_1<bool>(
                 this,
-                Invocation.method(#saveResult, [], {#examResult: examResult}),
+                Invocation.method(#saveExamResult, [examResult]),
               ),
             ),
           )
           as _i5.Future<_i3.BaseResponse<bool>>);
+
+  @override
+  _i5.Future<_i3.BaseResponse<_i7.ExamResultsModel>> getExamResults() =>
+      (super.noSuchMethod(
+            Invocation.method(#getExamResults, []),
+            returnValue:
+                _i5.Future<_i3.BaseResponse<_i7.ExamResultsModel>>.value(
+                  _FakeBaseResponse_1<_i7.ExamResultsModel>(
+                    this,
+                    Invocation.method(#getExamResults, []),
+                  ),
+                ),
+          )
+          as _i5.Future<_i3.BaseResponse<_i7.ExamResultsModel>>);
 }

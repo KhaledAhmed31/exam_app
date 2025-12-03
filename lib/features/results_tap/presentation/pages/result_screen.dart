@@ -1,4 +1,3 @@
-
 import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/core/ui_manager/fonts/font_sizes_manager.dart';
@@ -17,12 +16,13 @@ class ResultScreen extends StatefulWidget {
   State<ResultScreen> createState() => _ResultScreenState();
 }
 
-class _ResultScreenState extends State<ResultScreen> with AutomaticKeepAliveClientMixin{
+class _ResultScreenState extends State<ResultScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Results')),
+      appBar: AppBar(titleSpacing: 16, title: const Text('Results')),
       body: BlocProvider.value(
         value: getIt<ResultsHistoryBloc>()..add(LoadResultsHistoryEvent()),
         child: BlocBuilder<ResultsHistoryBloc, ResultsHistoryState>(
@@ -68,7 +68,7 @@ class _ResultScreenState extends State<ResultScreen> with AutomaticKeepAliveClie
       ),
     );
   }
-  
+
   @override
   bool get wantKeepAlive => true;
 }

@@ -3,15 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
-import 'package:exam_app/core/config/base_response/base_response.dart' as _i3;
+import 'package:exam_app/core/config/base_response/base_response.dart' as _i2;
 import 'package:exam_app/features/results_tap/domain/entities/exam_results_entity.dart'
-    as _i6;
+    as _i5;
 import 'package:exam_app/features/results_tap/domain/repositories/results_history_repo.dart'
-    as _i2;
-import 'package:exam_app/features/results_tap/domain/usecases/get_results_history_use_case.dart'
-    as _i4;
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -29,49 +27,47 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeResultsHistoryRepo_0 extends _i1.SmartFake
-    implements _i2.ResultsHistoryRepo {
-  _FakeResultsHistoryRepo_0(Object parent, Invocation parentInvocation)
+class _FakeBaseResponse_0<T> extends _i1.SmartFake
+    implements _i2.BaseResponse<T> {
+  _FakeBaseResponse_0(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeBaseResponse_1<T> extends _i1.SmartFake
-    implements _i3.BaseResponse<T> {
-  _FakeBaseResponse_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-/// A class which mocks [GetResultsHistoryUseCase].
+/// A class which mocks [ResultsHistoryRepo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetResultsHistoryUseCase extends _i1.Mock
-    implements _i4.GetResultsHistoryUseCase {
-  MockGetResultsHistoryUseCase() {
+class MockResultsHistoryRepo extends _i1.Mock
+    implements _i3.ResultsHistoryRepo {
+  MockResultsHistoryRepo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.ResultsHistoryRepo get resultsHistoryRepo =>
+  _i4.Future<_i2.BaseResponse<bool>> saveResult({
+    required _i5.ExamResultsCardEntity? examResult,
+  }) =>
       (super.noSuchMethod(
-            Invocation.getter(#resultsHistoryRepo),
-            returnValue: _FakeResultsHistoryRepo_0(
-              this,
-              Invocation.getter(#resultsHistoryRepo),
+            Invocation.method(#saveResult, [], {#examResult: examResult}),
+            returnValue: _i4.Future<_i2.BaseResponse<bool>>.value(
+              _FakeBaseResponse_0<bool>(
+                this,
+                Invocation.method(#saveResult, [], {#examResult: examResult}),
+              ),
             ),
           )
-          as _i2.ResultsHistoryRepo);
+          as _i4.Future<_i2.BaseResponse<bool>>);
 
   @override
-  _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>> call() =>
+  _i4.Future<_i2.BaseResponse<_i5.ExamResultsEntity>> getResultsHistory() =>
       (super.noSuchMethod(
-            Invocation.method(#call, []),
+            Invocation.method(#getResultsHistory, []),
             returnValue:
-                _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>>.value(
-                  _FakeBaseResponse_1<_i6.ExamResultsEntity>(
+                _i4.Future<_i2.BaseResponse<_i5.ExamResultsEntity>>.value(
+                  _FakeBaseResponse_0<_i5.ExamResultsEntity>(
                     this,
-                    Invocation.method(#call, []),
+                    Invocation.method(#getResultsHistory, []),
                   ),
                 ),
           )
-          as _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>>);
+          as _i4.Future<_i2.BaseResponse<_i5.ExamResultsEntity>>);
 }

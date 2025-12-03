@@ -1,24 +1,20 @@
 import 'package:exam_app/core/config/base_response/base_response.dart';
-import 'package:exam_app/features/results_tap/data/repositories/results_history_repo_impl.dart';
 import 'package:exam_app/features/results_tap/domain/entities/exam_results_entity.dart';
+import 'package:exam_app/features/results_tap/domain/repositories/results_history_repo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:exam_app/features/results_tap/domain/usecases/save_results_history_use_case.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../data/repositories/results_history_repo_impl_test.mocks.dart';
+import 'save_results_history_use_case_test.mocks.dart';
 
-@GenerateNiceMocks([
-  MockSpec<SaveResultsHistoryUseCase>(),
-  MockSpec<ResultsHistoryRepoImpl>(),
-])
+@GenerateMocks([ResultsHistoryRepo])
 void main() {
-  MockResultsHistoryRepoImpl mockResultsHistoryRepoImpl =
-      MockResultsHistoryRepoImpl();
-  SaveResultsHistoryUseCase mockSaveResultsHistoryUseCase =
+  ResultsHistoryRepo mockResultsHistoryRepoImpl = MockResultsHistoryRepo();
+  SaveResultsHistoryUseCase saveResultsHistoryUseCase =
       SaveResultsHistoryUseCase(resultsHistoryRepo: mockResultsHistoryRepoImpl);
 
-  test('Should ', () async {
+  test('saveResultsHistoryUseCase', () async {
     final examResult = ExamResultsCardEntity(
       examId: 'examId',
       finishDuration: 15,
@@ -30,13 +26,12 @@ void main() {
     );
 
     when(
-      mockSaveResultsHistoryUseCase(examResult: examResult),
+      mockResultsHistoryRepoImpl.saveResult(examResult: examResult),
     ).thenAnswer((_) async => SuccessResponse<bool>(true));
 
-    final response = await mockSaveResultsHistoryUseCase(
-      examResult: examResult,
-    );
+    final response = await saveResultsHistoryUseCase(examResult: examResult);
 
     expect(response, isA<SuccessResponse<bool>>());
+    expect((response as SuccessResponse<bool>).data, true);
   });
 }
