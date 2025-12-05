@@ -229,63 +229,79 @@ class _ProfileScreenBodyState extends State<_ProfileScreenBody> {
                   ),
                   const SizedBox(height: 32),
 
-                  CustomTextField(
-                    label: "User name",
-                    hint: "Enter your user name",
-                    textFieldController: _usernameController,
-                    validator: Validators.nameValidator,
+                  Center(
+                    child: CustomTextField(
+                      label: "User name",
+                      hint: "Enter your user name",
+                      textFieldController: _usernameController,
+                      validator: Validators.nameValidator,
+                      width: 343,
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: CustomTextField(
-                            label: "First name",
-                            hint: "Enter first name",
-                            textFieldController: _firstNameController,
-                            validator: Validators.nameValidator,
+                  Center(
+                    child: SizedBox(
+                      width: 343,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: CustomTextField(
+                                label: "First name",
+                                hint: "Enter first name",
+                                textFieldController: _firstNameController,
+                                validator: Validators.nameValidator,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: CustomTextField(
-                            label: "Last name",
-                            hint: "Enter last name",
-                            textFieldController: _lastNameController,
-                            validator: Validators.nameValidator,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: CustomTextField(
+                                label: "Last name",
+                                hint: "Enter last name",
+                                textFieldController: _lastNameController,
+                                validator: Validators.nameValidator,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                   const SizedBox(height: 16),
 
-                  CustomTextField(
-                    label: "Email",
-                    hint: "Enter your email",
-                    textFieldController: _emailController,
-                    validator: Validators.emailValidator,
-                    keyboardType: TextInputType.emailAddress,
+                  Center(
+                    child: CustomTextField(
+                      label: "Email",
+                      hint: "Enter your email",
+                      textFieldController: _emailController,
+                      validator: Validators.emailValidator,
+                      keyboardType: TextInputType.emailAddress,
+                      width: 343,
+                    ),
                   ),
                   const SizedBox(height: 16),
 
-                  _PasswordField(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutePath.changePassword);
-                    },
+                  Center(
+                    child: _PasswordField(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutePath.changePassword);
+                      },
+                    ),
                   ),
                   const SizedBox(height: 16),
 
-                  CustomTextField(
-                    label: "Phone number",
-                    hint: "Enter phone number",
-                    textFieldController: _phoneController,
-                    validator: Validators.phoneValidator,
-                    keyboardType: TextInputType.phone,
+                  Center(
+                    child: CustomTextField(
+                      label: "Phone number",
+                      hint: "Enter phone number",
+                      textFieldController: _phoneController,
+                      validator: Validators.phoneValidator,
+                      keyboardType: TextInputType.phone,
+                      width: 343,
+                    ),
                   ),
                   const SizedBox(height: 32),
 
@@ -347,7 +363,7 @@ class _PasswordField extends StatelessWidget {
         const SizedBox(height: 8),
         Container(
           height: 56,
-          constraints: const BoxConstraints(maxWidth: 343),
+          width: 343,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
