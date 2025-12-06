@@ -6,6 +6,7 @@ class SuccessResponse<T> extends BaseResponse<T> {
 }
 
 class ErrorResponse<T, E>extends BaseResponse<T> {
+  @override
   final E error;
   ErrorResponse({required this.error});
 }

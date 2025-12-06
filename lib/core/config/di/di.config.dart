@@ -81,6 +81,20 @@ import '../../../features/explore/domain/repositories/get_all_subjects_repo.dart
 import '../../../features/explore/domain/usecases/get_all_subjects_use_case.dart'
     as _i109;
 import '../../../features/explore/presentation/bloc/explore_bloc.dart' as _i376;
+import '../../../features/subject%20details/api/clients/get_exams_on_subjects_client.dart'
+    as _i822;
+import '../../../features/subject%20details/api/data_source/get_exams_on_subject_data_source_imp.dart'
+    as _i64;
+import '../../../features/subject%20details/data/datasources/get_exams_on_subject_remote_data_source.dart'
+    as _i88;
+import '../../../features/subject%20details/data/repositories/get_exams_on_subject_repo_impl.dart'
+    as _i576;
+import '../../../features/subject%20details/domain/repositories/get_exams_on_subject_repo.dart'
+    as _i478;
+import '../../../features/subject%20details/domain/usecases/get_exams_on_subjects_use_case.dart'
+    as _i517;
+import '../../../features/subject%20details/presentation/bloc/subject_details_bloc.dart'
+    as _i1044;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
 import 'di_modules.dart' as _i176;
@@ -114,6 +128,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i473.GetAllSubjectClient>(
       () => _i473.GetAllSubjectClient.new(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i822.GetExamsOnSubjectsClient>(
+      () => _i822.GetExamsOnSubjectsClient(gh<_i361.Dio>()),
     );
     gh.factory<_i463.LoginApiClient>(
       () => _i463.LoginApiClient.new(gh<_i361.Dio>()),
@@ -158,11 +175,21 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i918.LoginLocalDatasource>(),
       ),
     );
+    gh.lazySingleton<_i88.GetExamsOnSubjectRemoteDataSource>(
+      () => _i64.GetExamsOnSubjectDataSourceImp(
+        gh<_i822.GetExamsOnSubjectsClient>(),
+      ),
+    );
     gh.factory<_i115.IsLoggedInUsecase>(
       () => _i115.IsLoggedInUsecase(loginRepo: gh<_i142.LoginRepo>()),
     );
     gh.factory<_i442.LoginUescase>(
       () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
+    );
+    gh.lazySingleton<_i478.GetExamsOnSubjectRepo>(
+      () => _i576.GetExamsOnSubjectRepoImpl(
+        gh<_i88.GetExamsOnSubjectRemoteDataSource>(),
+      ),
     );
     gh.factory<_i946.AuthViewModel>(
       () => _i946.AuthViewModel(
@@ -193,12 +220,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i563.ExamPageBloc>(
       () => _i563.ExamPageBloc(gh<_i971.GetExamQuestionsUsecase>()),
     );
+    gh.lazySingleton<_i517.GetExamsOnSubjectsUseCase>(
+      () => _i517.GetExamsOnSubjectsUseCase(
+        getExamsOnSubjectRepo: gh<_i478.GetExamsOnSubjectRepo>(),
+      ),
+    );
     gh.lazySingleton<_i588.ForgetPasswordBloc>(
       () => _i588.ForgetPasswordBloc(
         gh<_i484.SendResetCodeUseCase>(),
         gh<_i614.VerifyResetCodeUseCase>(),
         gh<_i934.ResetPasswordUseCase>(),
       ),
+    );
+    gh.lazySingleton<_i1044.SubjectDetailsBloc>(
+      () => _i1044.SubjectDetailsBloc(gh<_i517.GetExamsOnSubjectsUseCase>()),
     );
     return this;
   }

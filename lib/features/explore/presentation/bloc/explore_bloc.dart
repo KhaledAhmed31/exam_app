@@ -24,6 +24,7 @@ class GetallSubjectsBloc extends Bloc<ExploreEvent, GetAllSubjectsState> {
     switch (response) {
       case SuccessResponse<List<SubjectEntity>>():
         emit(state.copywith(subjects: response.data, isLoading: false));
+        break;
       case ErrorResponse<List<SubjectEntity>, Failure>():
         emit(
           state.copywith(
