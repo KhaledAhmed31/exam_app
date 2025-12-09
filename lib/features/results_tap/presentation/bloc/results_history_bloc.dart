@@ -1,4 +1,3 @@
-
 import 'package:exam_app/core/config/base_response/base_response.dart';
 import 'package:exam_app/core/config/error/error_handler.dart';
 import 'package:exam_app/features/results_tap/domain/entities/exam_results_entity.dart';
@@ -32,15 +31,14 @@ class ResultsHistoryBloc
       examResult: event.examResult,
     );
     switch (response) {
+      case SuccessResponse<bool>():
+        emit(state.copywith(errorMessage: "no error"));
+        break;
       case ErrorResponse<bool, Failure>():
         emit(state.copywith(errorMessage: response.error.message));
+        break;
       default:
-        emit(
-          state.copywith(
-            isLoading: false,
-            errorMessage: 'Unknown error occurred.',
-          ),
-        );
+        emit(state.copywith(errorMessage: 'Unknown error occurred.'));
     }
   }
 
