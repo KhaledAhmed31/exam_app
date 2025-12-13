@@ -57,7 +57,9 @@ class TimerAppBarState extends State<TimerAppBar> {
           barrierDismissible: false,
           context: context,
           builder: (context) {
-            return const AlertDialogWidget();
+            return AlertDialogWidget(
+              bloc: BlocProvider.of<ExamPageBloc>(context),
+            );
           },
         );
       },

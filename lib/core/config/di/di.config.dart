@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -13,6 +13,7 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:sqflite/sqflite.dart' as _i779;
 
 import '../../../features/auth/forget_password/api/clients/reset_password_client.dart'
     as _i672;
@@ -98,6 +99,18 @@ import '../../../features/profile/domain/usecases/edit_profile_usecase.dart'
 import '../../../features/profile/domain/usecases/get_profile_usecase.dart'
     as _i248;
 import '../../../features/profile/view_model/profile_cubit.dart' as _i990;
+import '../../../features/results_tap/data/datasources/exam_results_data_source.dart'
+    as _i498;
+import '../../../features/results_tap/data/repositories/results_history_repo_impl.dart'
+    as _i519;
+import '../../../features/results_tap/domain/repositories/results_history_repo.dart'
+    as _i132;
+import '../../../features/results_tap/domain/usecases/get_results_history_use_case.dart'
+    as _i997;
+import '../../../features/results_tap/domain/usecases/save_results_history_use_case.dart'
+    as _i376;
+import '../../../features/results_tap/presentation/bloc/results_history_bloc.dart'
+    as _i598;
 import '../../../features/subject%20details/api/clients/get_exams_on_subjects_client.dart'
     as _i822;
 import '../../../features/subject%20details/api/data_source/get_exams_on_subject_data_source_imp.dart'
@@ -114,37 +127,46 @@ import '../../../features/subject%20details/presentation/bloc/subject_details_bl
     as _i1044;
 import '../../shared/presentation/bloc/localization/localization_bloc.dart'
     as _i556;
+import 'db_module.dart' as _i982;
 import 'di_modules.dart' as _i176;
 import 'flutter_secure_storage_module.dart' as _i319;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final dbModule = _$DbModule();
     final registerModule = _$RegisterModule();
     final secureStorageModule = _$SecureStorageModule();
+    await gh.factoryAsync<_i779.Database>(
+      () => dbModule.initDb,
+      preResolve: true,
+    );
     gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => secureStorageModule.secureStorage,
     );
     gh.lazySingleton<_i556.LocalizationBloc>(() => _i556.LocalizationBloc());
+    gh.lazySingleton<_i498.ExamResultsDataSource>(
+      () => _i498.ExamResultsDataSource(db: gh<_i779.Database>()),
+    );
     gh.factory<_i918.LoginLocalDatasource>(
       () => _i670.LoginLocalDatasourceImpl(),
     );
     gh.lazySingleton<_i672.ResetPasswordClient>(
-      () => _i672.ResetPasswordClient(gh<_i361.Dio>()),
+      () => _i672.ResetPasswordClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i183.SendResetCodeClient>(
-      () => _i183.SendResetCodeClient(gh<_i361.Dio>()),
+      () => _i183.SendResetCodeClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i779.VerifyResetCodeClient>(
-      () => _i779.VerifyResetCodeClient(gh<_i361.Dio>()),
+      () => _i779.VerifyResetCodeClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i473.GetAllSubjectClient>(
-      () => _i473.GetAllSubjectClient(gh<_i361.Dio>()),
+      () => _i473.GetAllSubjectClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i211.ProfileApiClient>(
       () => _i211.ProfileApiClient(gh<_i361.Dio>()),
@@ -153,10 +175,29 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i822.GetExamsOnSubjectsClient(gh<_i361.Dio>()),
     );
     gh.factory<_i463.LoginApiClient>(
-      () => _i463.LoginApiClient(gh<_i361.Dio>()),
+      () => _i463.LoginApiClient.new(gh<_i361.Dio>()),
     );
     gh.factory<_i184.ExamQuestionsApiClient>(
-      () => _i184.ExamQuestionsApiClient(gh<_i361.Dio>()),
+      () => _i184.ExamQuestionsApiClient.new(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i132.ResultsHistoryRepo>(
+      () => _i519.ResultsHistoryRepoImpl(gh<_i498.ExamResultsDataSource>()),
+    );
+    gh.lazySingleton<_i997.GetResultsHistoryUseCase>(
+      () => _i997.GetResultsHistoryUseCase(
+        resultsHistoryRepo: gh<_i132.ResultsHistoryRepo>(),
+      ),
+    );
+    gh.lazySingleton<_i376.SaveResultsHistoryUseCase>(
+      () => _i376.SaveResultsHistoryUseCase(
+        resultsHistoryRepo: gh<_i132.ResultsHistoryRepo>(),
+      ),
+    );
+    gh.lazySingleton<_i598.ResultsHistoryBloc>(
+      () => _i598.ResultsHistoryBloc(
+        getResultsHistoryUseCase: gh<_i997.GetResultsHistoryUseCase>(),
+        saveResultsHistoryUseCase: gh<_i376.SaveResultsHistoryUseCase>(),
+      ),
     );
     gh.factory<_i214.ProfileRemoteDataSource>(
       () => _i915.ProfileRemoteDataSourceImpl(gh<_i211.ProfileApiClient>()),
@@ -280,6 +321,8 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$DbModule extends _i982.DbModule {}
 
 class _$RegisterModule extends _i176.RegisterModule {}
 

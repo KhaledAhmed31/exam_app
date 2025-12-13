@@ -19,34 +19,38 @@ class QuestionsListview extends StatefulWidget {
 class _QuestionsListviewState extends State<QuestionsListview> {
   @override
   Widget build(BuildContext context) {
-    final state = BlocProvider.of<ExamPageBloc>(context).state;
+    final bloc = BlocProvider.of<ExamPageBloc>(context);
+    final state = bloc.state;
     final index = state.index;
     final answers = state.getQuestionsState?.data?[index].answers;
+
     return Expanded(
       flex: 3,
       child: ListView.builder(
         itemCount: answers?.length,
         itemBuilder: (context, answerIndex) {
-          final isSelected = state.selectedAnswers[index] == answerIndex;
+          final selectedAnswerIndex = state.selectedAnswers[index];
+          final isSelected = selectedAnswerIndex == answerIndex.toString();
+          final answerKey = answers?[answerIndex].key;
+
           return Container(
             padding: EdgeInsets.symmetric(
               vertical: Spacing.verticalPadding,
               horizontal: Spacing.horizontalPadding,
             ),
-            margin: EdgeInsets.all(Spacing.medium),
+            margin: EdgeInsets.all(Spacing.sp16),
             decoration: BoxDecoration(
               color: isSelected ? AppColors.blue10 : AppColors.lightBlue,
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Row(
               children: [
-                Radio(
-                  value: answerIndex,
+                Radio<String>(
+                  value: answerKey!,
                   groupValue: state.selectedAnswers[index],
                   onChanged: (value) {
-                    BlocProvider.of<ExamPageBloc>(
-                      context,
-                    ).add(SelectAnswer(index, value!));
+                    bloc.add(SelectAnswer(index, value!));
+                    setState(() {});
                   },
                 ),
                 Flexible(

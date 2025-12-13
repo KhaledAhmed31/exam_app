@@ -10,4 +10,6 @@ class RoutePath {
   static const String examPage = '/examPage';
   static const String profile = '/profile';
   static const String changePassword = '/change-password';
+  static const String examScore = '/examScore';
+  static const String examResults = '/examResults';
 }

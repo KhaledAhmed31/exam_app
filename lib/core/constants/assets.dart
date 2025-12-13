@@ -33,10 +33,6 @@ class AppImages {
   /// assets/images/Profit.png
   static const String assetsImagesProfit = "assets/images/Profit.png";
 
-  /// Assets for assetsImagesProfitPng
-  /// assets/images/Profit.png
-  static const String assetsImagesProfitPng = "assets/images/Profit.png";
-
   /// Assets for assetsImagesSandClock
   /// assets/images/sand-clock.svg
   static const String assetsImagesSandClock = "assets/images/sand-clock.svg";
