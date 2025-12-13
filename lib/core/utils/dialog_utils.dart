@@ -1,9 +1,12 @@
-import '../../ui_manager/colors/app_colors.dart';
+import '../ui_manager/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DialogUtils {
   static void showLoading(
-      BuildContext context, String message, Color backgroundColor) {
+    BuildContext context,
+    String message,
+    Color backgroundColor,
+  ) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -17,10 +20,11 @@ class DialogUtils {
               Text(
                 message,
                 style: TextStyle(
-                    color: backgroundColor == AppColors.white
-                        ? AppColors.black
-                        : AppColors.white),
-              )
+                  color: backgroundColor == AppColors.white
+                      ? AppColors.black
+                      : AppColors.white,
+                ),
+              ),
             ],
           ),
         );
@@ -32,17 +36,21 @@ class DialogUtils {
     Navigator.of(context).pop();
   }
 
-  static void showMessage(BuildContext context, String contentMessage,
-      {String titleMessage = '',
-      String? posActionName,
-      VoidCallback? posAction,
-      String? negActionName,
-      Color? backgroundColor,
-      Color? textColor,
-      Color? actionColor}) {
+  static void showMessage(
+    BuildContext context,
+    String contentMessage, {
+    String titleMessage = '',
+    String? posActionName,
+    VoidCallback? posAction,
+    String? negActionName,
+    Color? backgroundColor,
+    Color? textColor,
+    Color? actionColor,
+  }) {
     List<Widget> actions = [];
     if (posActionName != null) {
-      actions.add(TextButton(
+      actions.add(
+        TextButton(
           onPressed: () {
             Navigator.of(context).pop();
 
@@ -51,18 +59,23 @@ class DialogUtils {
           child: Text(
             posActionName,
             style: TextStyle(color: actionColor, fontSize: 16),
-          )));
+          ),
+        ),
+      );
     }
 
     if (negActionName != null) {
-      actions.add(TextButton(
+      actions.add(
+        TextButton(
           onPressed: () {
             Navigator.pop(context);
           },
           child: Text(
             negActionName,
             style: TextStyle(color: actionColor, fontSize: 16),
-          )));
+          ),
+        ),
+      );
     }
     showDialog(
       barrierDismissible: false,
@@ -70,10 +83,7 @@ class DialogUtils {
       builder: (context) {
         return AlertDialog(
           backgroundColor: backgroundColor,
-          title: Text(
-            titleMessage,
-            style: TextStyle(color: textColor),
-          ),
+          title: Text(titleMessage, style: TextStyle(color: textColor)),
           content: Text(contentMessage, style: TextStyle(color: textColor)),
           actions: actions,
         );
