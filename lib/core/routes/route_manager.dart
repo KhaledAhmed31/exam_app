@@ -90,12 +90,23 @@ class RouteManager {
           transitionDuration: const Duration(milliseconds: 300),
           reverseTransitionDuration: const Duration(milliseconds: 300),
         );
+
       case RoutePath.subjectExams:
-        final subject = settings.arguments as SubjectEntity;
-        return MaterialPageRoute(
-          builder: (_) => SubjectExamsScreen(subject: subject),
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              SubjectExamsScreen(subject: settings.arguments as SubjectEntity),
           settings: settings,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              SlideTransition(
+                position: animation.drive(
+                  Tween(begin: const Offset(1.0, 0.0), end: Offset.zero),
+                ),
+                child: child,
+              ),
+          transitionDuration: const Duration(milliseconds: 300),
+          reverseTransitionDuration: const Duration(milliseconds: 300),
         );
+
       case RoutePath.startExam:
         final args = settings.arguments;
         ExamEntity exam;
