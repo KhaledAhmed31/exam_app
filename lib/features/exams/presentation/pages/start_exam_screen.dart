@@ -31,7 +31,7 @@ class StartExamScreen extends StatelessWidget {
             Row(
               children: [
                 Image.asset(
-                  AppImages.assetsImagesProfitPng,
+                  AppImages.assetsImagesProfit,
                   width: 42,
                   height: 47,
                   fit: BoxFit.contain,

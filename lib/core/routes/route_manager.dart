@@ -1,3 +1,5 @@
+import 'package:exam_app/features/exams_page/presentation/screens/exam_results_screen.dart';
+import 'package:exam_app/features/exams_page/presentation/screens/exam_score_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:exam_app/core/config/di/di.dart';
@@ -95,12 +97,23 @@ class RouteManager {
           transitionDuration: const Duration(milliseconds: 300),
           reverseTransitionDuration: const Duration(milliseconds: 300),
         );
+
       case RoutePath.subjectExams:
-        final subject = settings.arguments as SubjectEntity;
-        return MaterialPageRoute(
-          builder: (_) => SubjectExamsScreen(subject: subject),
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              SubjectExamsScreen(subject: settings.arguments as SubjectEntity),
           settings: settings,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              SlideTransition(
+                position: animation.drive(
+                  Tween(begin: const Offset(1.0, 0.0), end: Offset.zero),
+                ),
+                child: child,
+              ),
+          transitionDuration: const Duration(milliseconds: 300),
+          reverseTransitionDuration: const Duration(milliseconds: 300),
         );
+
       case RoutePath.startExam:
         final args = settings.arguments;
         ExamEntity exam;
@@ -131,6 +144,16 @@ class RouteManager {
       case RoutePath.examPage:
         return MaterialPageRoute(
           builder: (_) => ExamPageScreen(),
+          settings: settings,
+        );
+      case RoutePath.examScore:
+        return MaterialPageRoute(
+          builder: (_) => ExamScoreScreen(),
+          settings: settings,
+        );
+      case RoutePath.examResults:
+        return MaterialPageRoute(
+          builder: (_) => ExamResultsScreen(),
           settings: settings,
         );
       default:

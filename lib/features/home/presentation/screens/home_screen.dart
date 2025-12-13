@@ -5,7 +5,7 @@ import '../../../../core/constants/app_icons.dart';
 import '../../../../core/localization/l10n/app_localizations.dart';
 import '../../../explore/presentation/pages/explore_screen.dart';
 import 'profile_screen.dart';
-import 'result_screen.dart';
+import '../../../results_tap/presentation/pages/result_screen.dart';
 import '../widgets/nav_bar_item.dart';
 import 'package:flutter/material.dart';
 
