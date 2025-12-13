@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:exam_app/core/config/di/di.dart';
 import 'package:exam_app/core/constants/assets.dart';
 import 'package:exam_app/core/constants/spacing.dart';
@@ -60,11 +62,11 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: Spacing.medium),
+              padding: const EdgeInsets.only(right: Spacing.sp16),
               child: Row(
                 children: [
                   Image.asset(AppImages.assetsImagesAlarm),
-                  SizedBox(width: Spacing.small),
+                  SizedBox(width: Spacing.sp8),
                   BlocBuilder<ExamPageBloc, ExamPageStates>(
                     builder: (context, state) {
                       if (state.getQuestionsState == null ||
@@ -95,7 +97,7 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
               return const Center(child: CircularProgressIndicator());
             }
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spacing.small),
+              padding: const EdgeInsets.symmetric(horizontal: Spacing.sp8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -110,7 +112,7 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                   ),
                   SizedBox(height: 3),
                   LinearPercentIndicatorWidget(),
-                  SizedBox(height: Spacing.large),
+                  SizedBox(height: Spacing.sp28),
                   Text(
                     local.selectCorrectAnswer,
                     style: FontStyleManager.interMedium(
@@ -118,7 +120,7 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                       fontSize: FontSizesManager.s18,
                     ),
                   ),
-                  SizedBox(height: Spacing.extraLarge),
+                  SizedBox(height: Spacing.sp30),
                   Text(
                     '${state.getQuestionsState?.data?[state.index].question}',
                     style: FontStyleManager.interMedium(
@@ -139,22 +141,50 @@ class _ExamPageScreenState extends State<ExamPageScreen> {
                             },
                           ),
                         ),
-                        SizedBox(width: Spacing.medium),
+                        SizedBox(width: Spacing.sp16),
                         Expanded(
                           child: AppButton(
                             title: state.currentQuestion != totalQuestions
                                 ? local.next
                                 : local.finish,
                             onPressed: () {
-                              state.currentQuestion != totalQuestions
-                                  ? examPageBloc.add(NextQuestionEvent())
-                                  : showDialog(
-                                      barrierDismissible: false,
+                              final lastSelected = examPageBloc
+                                  .state
+                                  .selectedAnswers[state.index];
+                              if (lastSelected == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(local.selectAnswer),
+                                    backgroundColor: AppColors.grey,
+                                  ),
+                                );
+                                return;
+                              }
+                              if (state.currentQuestion != totalQuestions) {
+                                examPageBloc.add(
+                                  NextQuestionEvent(
+                                    selectedAnswerKey: lastSelected,
+                                  ),
+                                );
+                              } else {
+                                examPageBloc.add(
+                                  NextQuestionEvent(
+                                    selectedAnswerKey: lastSelected,
+                                  ),
+                                );
+                                examPageBloc.add(FinishExamEvent());
+
+                                Future.delayed(
+                                  const Duration(milliseconds: 150),
+                                  () {
+                                    showDialog(
                                       context: context,
-                                      builder: (context) {
-                                        return const AlertDialogWidget();
-                                      },
+                                      builder: (_) =>
+                                          AlertDialogWidget(bloc: examPageBloc),
                                     );
+                                  },
+                                );
+                              }
                             },
                           ),
                         ),
