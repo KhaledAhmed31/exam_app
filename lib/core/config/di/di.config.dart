@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -118,25 +118,25 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i670.LoginLocalDatasourceImpl(),
     );
     gh.lazySingleton<_i672.ResetPasswordClient>(
-      () => _i672.ResetPasswordClient(gh<_i361.Dio>()),
+      () => _i672.ResetPasswordClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i183.SendResetCodeClient>(
-      () => _i183.SendResetCodeClient(gh<_i361.Dio>()),
+      () => _i183.SendResetCodeClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i779.VerifyResetCodeClient>(
-      () => _i779.VerifyResetCodeClient(gh<_i361.Dio>()),
+      () => _i779.VerifyResetCodeClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i473.GetAllSubjectClient>(
-      () => _i473.GetAllSubjectClient(gh<_i361.Dio>()),
+      () => _i473.GetAllSubjectClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i822.GetExamsOnSubjectsClient>(
       () => _i822.GetExamsOnSubjectsClient(gh<_i361.Dio>()),
     );
     gh.factory<_i463.LoginApiClient>(
-      () => _i463.LoginApiClient(gh<_i361.Dio>()),
+      () => _i463.LoginApiClient.new(gh<_i361.Dio>()),
     );
     gh.factory<_i184.ExamQuestionsApiClient>(
-      () => _i184.ExamQuestionsApiClient(gh<_i361.Dio>()),
+      () => _i184.ExamQuestionsApiClient.new(gh<_i361.Dio>()),
     );
     gh.factory<_i1056.LoginRemoteDatasource>(
       () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),

@@ -1,3 +1,5 @@
+import 'package:exam_app/features/exams_page/presentation/screens/exam_results_screen.dart';
+import 'package:exam_app/features/exams_page/presentation/screens/exam_score_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:exam_app/features/explore/domain/entities/subject_entity.dart';
 import 'package:exam_app/features/subject%20details/presentation/pages/subject_details_screen.dart';
@@ -124,6 +126,16 @@ class RouteManager {
       case RoutePath.examPage:
         return MaterialPageRoute(
           builder: (_) => ExamPageScreen(),
+          settings: settings,
+        );
+      case RoutePath.examScore:
+        return MaterialPageRoute(
+          builder: (_) => ExamScoreScreen(),
+          settings: settings,
+        );
+      case RoutePath.examResults:
+        return MaterialPageRoute(
+          builder: (_) => ExamResultsScreen(),
           settings: settings,
         );
       default:

@@ -130,4 +130,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exploreNavigationTitle => 'Explore';
+
+  @override
+  String get selectAnswer => 'Please select an answer before proceeding.';
+
+  @override
+  String get examScoreTitle => 'Exam Score';
+
+  @override
+  String get yourScore => 'Your Score';
+
+  @override
+  String get correct => 'Correct';
+
+  @override
+  String get incorrect => 'Incorrect';
+
+  @override
+  String get showResults => 'Show answers';
+
+  @override
+  String get startAgain => 'Start again';
+
+  @override
+  String get answersTitle => 'Answers';
 }
