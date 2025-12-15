@@ -337,6 +337,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explore'**
   String get exploreNavigationTitle;
+
+  /// No description provided for @selectAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an answer before proceeding.'**
+  String get selectAnswer;
+
+  /// No description provided for @examScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam Score'**
+  String get examScoreTitle;
+
+  /// No description provided for @yourScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Score'**
+  String get yourScore;
+
+  /// No description provided for @correct.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct'**
+  String get correct;
+
+  /// No description provided for @incorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect'**
+  String get incorrect;
+
+  /// No description provided for @showResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Show answers'**
+  String get showResults;
+
+  /// No description provided for @startAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Start again'**
+  String get startAgain;
+
+  /// No description provided for @answersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers'**
+  String get answersTitle;
 }
 
 class _AppLocalizationsDelegate

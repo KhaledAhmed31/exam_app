@@ -1,3 +1,5 @@
+import 'package:exam_app/features/explore/presentation/widgets/loading_list.dart';
+
 import '../../../../core/config/di/di.dart';
 import '../../../../core/localization/l10n/app_localizations.dart';
 import '../../../../core/ui_manager/colors/app_colors.dart';
@@ -70,7 +72,7 @@ class _ExploreScreenState extends State<ExploreScreen>
               child: BlocBuilder<GetallSubjectsBloc, GetAllSubjectsState>(
                 builder: (context, state) {
                   if (state.isLoading) {
-                    return Center(child: CircularProgressIndicator());
+                    return LoadingList();
                   } else if (state.filteredSubjects != null &&
                       state.filteredSubjects!.isNotEmpty) {
                     return ListView.builder(

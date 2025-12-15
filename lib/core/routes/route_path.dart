@@ -8,4 +8,6 @@ class RoutePath {
   static const String questions = '/questions';
   static const String subjectDetails = '/subjectDetails';
   static const String examPage = '/examPage';
+  static const String examScore = '/examScore';
+  static const String examResults = '/examResults';
 }

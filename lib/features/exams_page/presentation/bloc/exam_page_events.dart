@@ -2,7 +2,10 @@ abstract class ExamPageEvents {}
 
 class PreviousQuestionEvent extends ExamPageEvents {}
 
-class NextQuestionEvent extends ExamPageEvents {}
+class NextQuestionEvent extends ExamPageEvents {
+  final String? selectedAnswerKey;
+  NextQuestionEvent({this.selectedAnswerKey});
+}
 
 class GetExamQuestionsEvent extends ExamPageEvents {
   String? examId;
@@ -11,6 +14,8 @@ class GetExamQuestionsEvent extends ExamPageEvents {
 
 class SelectAnswer extends ExamPageEvents {
   final int questionIndex;
-  final int answerIndex;
-  SelectAnswer(this.questionIndex, this.answerIndex);
+  final String answerKey;
+  SelectAnswer(this.questionIndex, this.answerKey);
 }
+
+class FinishExamEvent extends ExamPageEvents {}
