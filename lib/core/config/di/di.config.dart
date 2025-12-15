@@ -15,46 +15,31 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:sqflite/sqflite.dart' as _i779;
 
-import '../../../features/auth/forget_password/api/clients/reset_password_client.dart'
-    as _i672;
-import '../../../features/auth/forget_password/api/clients/send_reset_code_client.dart'
-    as _i183;
-import '../../../features/auth/forget_password/api/clients/verify_reset_code_client.dart'
-    as _i779;
-import '../../../features/auth/forget_password/api/data_source/send_reset_code_data_suorce_impl.dart'
-    as _i849;
-import '../../../features/auth/forget_password/data/data_source/forget_password_data_suorce.dart'
-    as _i126;
-import '../../../features/auth/forget_password/data/repositories/forget_password_repo_impl.dart'
-    as _i704;
-import '../../../features/auth/forget_password/domain/repositories/forgetpassword_repo.dart'
-    as _i233;
-import '../../../features/auth/forget_password/domain/usecases/reset_password_use_case.dart'
-    as _i934;
-import '../../../features/auth/forget_password/domain/usecases/send_reset_code_use_case.dart'
-    as _i484;
-import '../../../features/auth/forget_password/domain/usecases/verify_reset_code_use_case.dart'
-    as _i614;
-import '../../../features/auth/forget_password/presentation/bloc/forget_password_bloc.dart'
-    as _i588;
-import '../../../features/auth/login/api/api_client/login_api_client.dart'
-    as _i463;
-import '../../../features/auth/login/api/datasources/login_local_datasource_impl.dart'
-    as _i670;
-import '../../../features/auth/login/api/datasources/login_remote_datasource_impl.dart'
-    as _i129;
-import '../../../features/auth/login/data/datasources/login_local_datasource.dart'
-    as _i918;
-import '../../../features/auth/login/data/datasources/login_remote_datasource.dart'
-    as _i1056;
-import '../../../features/auth/login/data/repos/login_repo_impl.dart' as _i226;
-import '../../../features/auth/login/domain/repos/login_repo.dart' as _i142;
-import '../../../features/auth/login/domain/usecases/is_loggedin_usecase.dart'
-    as _i115;
-import '../../../features/auth/login/domain/usecases/login_uescase.dart'
-    as _i442;
-import '../../../features/auth/login/presentation/bloc/auth_view_model.dart'
-    as _i946;
+import '../../../features/auth/api/clients/auth_api_client.dart' as _i748;
+import '../../../features/auth/api/data_source/auth_local_datasource_impl.dart'
+    as _i997;
+import '../../../features/auth/api/data_source/auth_remote_datasource_impl.dart'
+    as _i102;
+import '../../../features/auth/data/data_source/auth_local_datasource.dart'
+    as _i438;
+import '../../../features/auth/data/data_source/auth_remote_datasource.dart'
+    as _i507;
+import '../../../features/auth/data/repositories/auth_repo_impl.dart' as _i858;
+import '../../../features/auth/domain/repositories/auth_repo.dart' as _i519;
+import '../../../features/auth/domain/usecases/is_loggedin_usecase.dart'
+    as _i655;
+import '../../../features/auth/domain/usecases/login_uescase.dart' as _i307;
+import '../../../features/auth/domain/usecases/reset_password_use_case.dart'
+    as _i187;
+import '../../../features/auth/domain/usecases/send_reset_code_use_case.dart'
+    as _i152;
+import '../../../features/auth/domain/usecases/signup_usecase.dart' as _i754;
+import '../../../features/auth/domain/usecases/verify_reset_code_use_case.dart'
+    as _i711;
+import '../../../features/auth/presentation/bloc/auth_view_model.dart' as _i985;
+import '../../../features/auth/presentation/bloc/forget_password_bloc.dart'
+    as _i324;
+import '../../../features/auth/presentation/bloc/signup_cubit.dart' as _i718;
 import '../../../features/exams_page/api/api_client/exam_questions_api_client.dart'
     as _i184;
 import '../../../features/exams_page/api/datasources/get_exam_questions_remote_datasource_impl.dart'
@@ -153,32 +138,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i498.ExamResultsDataSource>(
       () => _i498.ExamResultsDataSource(db: gh<_i779.Database>()),
     );
-    gh.factory<_i918.LoginLocalDatasource>(
-      () => _i670.LoginLocalDatasourceImpl(),
+    gh.factory<_i438.AuthLocalDatasource>(
+      () => _i997.AuthLocalDatasourceImpl(),
     );
-    gh.lazySingleton<_i672.ResetPasswordClient>(
-      () => _i672.ResetPasswordClient.new(gh<_i361.Dio>()),
-    );
-    gh.lazySingleton<_i183.SendResetCodeClient>(
-      () => _i183.SendResetCodeClient.new(gh<_i361.Dio>()),
-    );
-    gh.lazySingleton<_i779.VerifyResetCodeClient>(
-      () => _i779.VerifyResetCodeClient.new(gh<_i361.Dio>()),
+    gh.lazySingleton<_i748.AuthApiClient>(
+      () => _i748.AuthApiClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i473.GetAllSubjectClient>(
       () => _i473.GetAllSubjectClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i211.ProfileApiClient>(
-      () => _i211.ProfileApiClient(gh<_i361.Dio>()),
+      () => _i211.ProfileApiClient.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i822.GetExamsOnSubjectsClient>(
-      () => _i822.GetExamsOnSubjectsClient(gh<_i361.Dio>()),
-    );
-    gh.factory<_i463.LoginApiClient>(
-      () => _i463.LoginApiClient.new(gh<_i361.Dio>()),
+      () => _i822.GetExamsOnSubjectsClient.new(gh<_i361.Dio>()),
     );
     gh.factory<_i184.ExamQuestionsApiClient>(
       () => _i184.ExamQuestionsApiClient.new(gh<_i361.Dio>()),
+    );
+    gh.factory<_i507.AuthRemoteDatasource>(
+      () => _i102.AuthRemoteDatasourceImpl(
+        gh<_i748.AuthApiClient>(),
+        gh<_i361.Dio>(),
+      ),
     );
     gh.lazySingleton<_i132.ResultsHistoryRepo>(
       () => _i519.ResultsHistoryRepoImpl(gh<_i498.ExamResultsDataSource>()),
@@ -202,19 +184,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i214.ProfileRemoteDataSource>(
       () => _i915.ProfileRemoteDataSourceImpl(gh<_i211.ProfileApiClient>()),
     );
-    gh.factory<_i1056.LoginRemoteDatasource>(
-      () => _i129.LoginRemoteDatasourceImpl(gh<_i463.LoginApiClient>()),
-    );
     gh.factory<_i1060.GetExamQuestionsRemoteDatasource>(
       () => _i18.GetExamQuestionsRemoteDatasourceImpl(
         gh<_i184.ExamQuestionsApiClient>(),
-      ),
-    );
-    gh.lazySingleton<_i126.ForgetPassordDataSource>(
-      () => _i849.SendResetCodeDataSuorceImpl(
-        gh<_i672.ResetPasswordClient>(),
-        gh<_i183.SendResetCodeClient>(),
-        gh<_i779.VerifyResetCodeClient>(),
       ),
     );
     gh.factory<_i366.GetExamQuestionsRepo>(
@@ -225,30 +197,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i460.GetAllSubjectsDataSource>(
       () => _i323.GetAllSubjectsDataSourceImpl(gh<_i473.GetAllSubjectClient>()),
     );
-    gh.lazySingleton<_i233.ForgetPawwordRepo>(
-      () => _i704.ForgetPasswordRepoImpl(
-        forgetPasswordDataSource: gh<_i126.ForgetPassordDataSource>(),
+    gh.factory<_i519.AuthRepo>(
+      () => _i858.AuthRepoImpl(
+        authRemoteDatasource: gh<_i507.AuthRemoteDatasource>(),
+        authLocalDatasource: gh<_i438.AuthLocalDatasource>(),
       ),
     );
     gh.lazySingleton<_i234.GetAllSubjectsRepo>(
       () => _i311.GetAllSubjectsRepoImpl(gh<_i460.GetAllSubjectsDataSource>()),
     );
-    gh.factory<_i142.LoginRepo>(
-      () => _i226.LoginRepoImpl(
-        gh<_i1056.LoginRemoteDatasource>(),
-        gh<_i918.LoginLocalDatasource>(),
-      ),
-    );
     gh.lazySingleton<_i88.GetExamsOnSubjectRemoteDataSource>(
       () => _i64.GetExamsOnSubjectDataSourceImp(
         gh<_i822.GetExamsOnSubjectsClient>(),
       ),
-    );
-    gh.factory<_i115.IsLoggedInUsecase>(
-      () => _i115.IsLoggedInUsecase(loginRepo: gh<_i142.LoginRepo>()),
-    );
-    gh.factory<_i442.LoginUescase>(
-      () => _i442.LoginUescase(gh<_i142.LoginRepo>()),
     );
     gh.factory<_i919.ProfileRepository>(
       () => _i695.ProfileRepositoryImpl(gh<_i214.ProfileRemoteDataSource>()),
@@ -258,25 +219,26 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i88.GetExamsOnSubjectRemoteDataSource>(),
       ),
     );
-    gh.factory<_i946.AuthViewModel>(
-      () => _i946.AuthViewModel(
-        gh<_i442.LoginUescase>(),
-        gh<_i115.IsLoggedInUsecase>(),
-      ),
+    gh.lazySingleton<_i711.VerifyResetCodeUseCase>(
+      () => _i711.VerifyResetCodeUseCase(gh<_i519.AuthRepo>()),
     );
-    gh.lazySingleton<_i484.SendResetCodeUseCase>(
-      () => _i484.SendResetCodeUseCase(
-        sendRestCodeRepo: gh<_i233.ForgetPawwordRepo>(),
-      ),
-    );
-    gh.lazySingleton<_i934.ResetPasswordUseCase>(
-      () => _i934.ResetPasswordUseCase(gh<_i233.ForgetPawwordRepo>()),
+    gh.factory<_i307.LoginUescase>(
+      () => _i307.LoginUescase(gh<_i519.AuthRepo>()),
     );
     gh.factory<_i971.GetExamQuestionsUsecase>(
       () => _i971.GetExamQuestionsUsecase(gh<_i366.GetExamQuestionsRepo>()),
     );
-    gh.lazySingleton<_i614.VerifyResetCodeUseCase>(
-      () => _i614.VerifyResetCodeUseCase(gh<_i233.ForgetPawwordRepo>()),
+    gh.lazySingleton<_i187.ResetPasswordUseCase>(
+      () => _i187.ResetPasswordUseCase(gh<_i519.AuthRepo>()),
+    );
+    gh.lazySingleton<_i152.SendResetCodeUseCase>(
+      () => _i152.SendResetCodeUseCase(sendRestCodeRepo: gh<_i519.AuthRepo>()),
+    );
+    gh.factory<_i754.SignupUseCase>(
+      () => _i754.SignupUseCase(repository: gh<_i519.AuthRepo>()),
+    );
+    gh.factory<_i655.IsLoggedInUsecase>(
+      () => _i655.IsLoggedInUsecase(loginRepo: gh<_i519.AuthRepo>()),
     );
     gh.lazySingleton<_i109.GetAllSubjectsUseCase>(
       () => _i109.GetAllSubjectsUseCase(gh<_i234.GetAllSubjectsRepo>()),
@@ -303,17 +265,26 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i533.ChangePasswordUseCase>(),
       ),
     );
+    gh.lazySingleton<_i324.ForgetPasswordBloc>(
+      () => _i324.ForgetPasswordBloc(
+        gh<_i152.SendResetCodeUseCase>(),
+        gh<_i711.VerifyResetCodeUseCase>(),
+        gh<_i187.ResetPasswordUseCase>(),
+      ),
+    );
     gh.lazySingleton<_i517.GetExamsOnSubjectsUseCase>(
       () => _i517.GetExamsOnSubjectsUseCase(
         getExamsOnSubjectRepo: gh<_i478.GetExamsOnSubjectRepo>(),
       ),
     );
-    gh.lazySingleton<_i588.ForgetPasswordBloc>(
-      () => _i588.ForgetPasswordBloc(
-        gh<_i484.SendResetCodeUseCase>(),
-        gh<_i614.VerifyResetCodeUseCase>(),
-        gh<_i934.ResetPasswordUseCase>(),
+    gh.factory<_i985.AuthViewModel>(
+      () => _i985.AuthViewModel(
+        gh<_i307.LoginUescase>(),
+        gh<_i655.IsLoggedInUsecase>(),
       ),
+    );
+    gh.factory<_i718.SignupCubit>(
+      () => _i718.SignupCubit(gh<_i754.SignupUseCase>()),
     );
     gh.lazySingleton<_i1044.SubjectDetailsBloc>(
       () => _i1044.SubjectDetailsBloc(gh<_i517.GetExamsOnSubjectsUseCase>()),

@@ -8,14 +8,11 @@ import 'package:exam_app/core/routes/route_path.dart';
 import 'package:exam_app/features/explore/domain/entities/subject_entity.dart';
 import 'package:exam_app/features/subject%20details/presentation/pages/subject_details_screen.dart';
 import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
-import 'package:exam_app/features/exams/domain/entities/exam_entity.dart';
-import 'package:exam_app/features/exams/presentation/pages/subject_exams_screen.dart';
-import 'package:exam_app/features/exams/presentation/pages/start_exam_screen.dart';
 import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
-import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
-import 'package:exam_app/features/auth/forget_password/presentation/pages/forget_password_screen.dart';
-import 'package:exam_app/features/signup/presentation/screens/signup_screen.dart';
-import 'package:exam_app/features/signup/view_model/signup_cubit.dart';
+import 'package:exam_app/features/auth/presentation/pages/login_screen.dart';
+import 'package:exam_app/features/auth/presentation/pages/forget_password_screen.dart';
+import 'package:exam_app/features/auth/presentation/pages/signup_screen.dart';
+import 'package:exam_app/features/auth/presentation/bloc/signup_cubit.dart';
 
 class RouteManager {
   static Route generateRoute(RouteSettings settings) {
@@ -98,37 +95,6 @@ class RouteManager {
           transitionDuration: const Duration(milliseconds: 300),
           reverseTransitionDuration: const Duration(milliseconds: 300),
         );
-
-      case RoutePath.subjectExams:
-        return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              SubjectExamsScreen(subject: settings.arguments as SubjectEntity),
-          settings: settings,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              SlideTransition(
-                position: animation.drive(
-                  Tween(begin: const Offset(1.0, 0.0), end: Offset.zero),
-                ),
-                child: child,
-              ),
-          transitionDuration: const Duration(milliseconds: 300),
-          reverseTransitionDuration: const Duration(milliseconds: 300),
-        );
-
-      case RoutePath.startExam:
-        final args = settings.arguments;
-        ExamEntity exam;
-        if (args is ExamEntity) {
-          exam = args;
-        } else if (args is Map && args['exam'] is ExamEntity) {
-          exam = args['exam'] as ExamEntity;
-        } else {
-          return MaterialPageRoute(builder: (_) => const SizedBox.shrink());
-        }
-        return MaterialPageRoute(
-          builder: (_) => StartExamScreen(exam: exam),
-          settings: settings,
-        );
       case RoutePath.questions:
         final examId = settings.arguments as String?;
         return MaterialPageRoute(
@@ -150,6 +116,8 @@ class RouteManager {
       case RoutePath.changePassword:
         return MaterialPageRoute(
           builder: (_) => const ChangePasswordScreen(),
+          settings: settings,
+        );
       case RoutePath.examScore:
         return MaterialPageRoute(
           builder: (_) => ExamScoreScreen(),

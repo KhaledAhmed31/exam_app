@@ -52,7 +52,7 @@ class ExamResultCard extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: exam.score.toString(),
+                            text: '${exam.score.toString()}%',
                             style: FontStyleManager.interBold(
                               color: AppColors.blueBase,
                               fontSize: FontSizesManager.s13,

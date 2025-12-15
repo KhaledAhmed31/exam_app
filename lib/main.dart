@@ -4,11 +4,11 @@ import 'package:exam_app/core/routes/route_manager.dart';
 import 'package:exam_app/core/shared/presentation/bloc/localization/localization_bloc.dart';
 import 'package:exam_app/core/shared/presentation/bloc/localization/localization_states.dart';
 import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
-import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
-import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
-import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
+import 'package:exam_app/features/auth/presentation/bloc/auth_view_model.dart';
+import 'package:exam_app/features/auth/presentation/pages/login_screen.dart';
+import 'package:exam_app/features/auth/presentation/bloc/auth_events.dart';
+import 'package:exam_app/features/auth/presentation/bloc/login_states.dart';
+import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -68,7 +68,7 @@ class MainApp extends StatelessWidget {
                   '<<<<<< ${state.loginState?.isLoggedIn} / initial route in true: home screen',
                 );
                 FlutterNativeSplash.remove();
-                return ExamPageScreen();
+                return HomeScreen();
               } else {
                 return const Scaffold();
               }

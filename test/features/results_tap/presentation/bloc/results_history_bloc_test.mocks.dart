@@ -11,9 +11,9 @@ import 'package:exam_app/features/results_tap/domain/entities/exam_results_entit
 import 'package:exam_app/features/results_tap/domain/repositories/results_history_repo.dart'
     as _i2;
 import 'package:exam_app/features/results_tap/domain/usecases/get_results_history_use_case.dart'
-    as _i7;
-import 'package:exam_app/features/results_tap/domain/usecases/save_results_history_use_case.dart'
     as _i4;
+import 'package:exam_app/features/results_tap/domain/usecases/save_results_history_use_case.dart'
+    as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -29,7 +29,6 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
-// ignore_for_file: invalid_use_of_internal_member
 
 class _FakeResultsHistoryRepo_0 extends _i1.SmartFake
     implements _i2.ResultsHistoryRepo {
@@ -43,11 +42,46 @@ class _FakeBaseResponse_1<T> extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
+/// A class which mocks [GetResultsHistoryUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetResultsHistoryUseCase extends _i1.Mock
+    implements _i4.GetResultsHistoryUseCase {
+  MockGetResultsHistoryUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.ResultsHistoryRepo get resultsHistoryRepo =>
+      (super.noSuchMethod(
+            Invocation.getter(#resultsHistoryRepo),
+            returnValue: _FakeResultsHistoryRepo_0(
+              this,
+              Invocation.getter(#resultsHistoryRepo),
+            ),
+          )
+          as _i2.ResultsHistoryRepo);
+
+  @override
+  _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>> call() =>
+      (super.noSuchMethod(
+            Invocation.method(#call, []),
+            returnValue:
+                _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>>.value(
+                  _FakeBaseResponse_1<_i6.ExamResultsEntity>(
+                    this,
+                    Invocation.method(#call, []),
+                  ),
+                ),
+          )
+          as _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>>);
+}
+
 /// A class which mocks [SaveResultsHistoryUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSaveResultsHistoryUseCase extends _i1.Mock
-    implements _i4.SaveResultsHistoryUseCase {
+    implements _i7.SaveResultsHistoryUseCase {
   MockSaveResultsHistoryUseCase() {
     _i1.throwOnMissingStub(this);
   }
@@ -77,39 +111,4 @@ class MockSaveResultsHistoryUseCase extends _i1.Mock
             ),
           )
           as _i5.Future<_i3.BaseResponse<bool>>);
-}
-
-/// A class which mocks [GetResultsHistoryUseCase].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockGetResultsHistoryUseCase extends _i1.Mock
-    implements _i7.GetResultsHistoryUseCase {
-  MockGetResultsHistoryUseCase() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i2.ResultsHistoryRepo get resultsHistoryRepo =>
-      (super.noSuchMethod(
-            Invocation.getter(#resultsHistoryRepo),
-            returnValue: _FakeResultsHistoryRepo_0(
-              this,
-              Invocation.getter(#resultsHistoryRepo),
-            ),
-          )
-          as _i2.ResultsHistoryRepo);
-
-  @override
-  _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>> call() =>
-      (super.noSuchMethod(
-            Invocation.method(#call, []),
-            returnValue:
-                _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>>.value(
-                  _FakeBaseResponse_1<_i6.ExamResultsEntity>(
-                    this,
-                    Invocation.method(#call, []),
-                  ),
-                ),
-          )
-          as _i5.Future<_i3.BaseResponse<_i6.ExamResultsEntity>>);
 }

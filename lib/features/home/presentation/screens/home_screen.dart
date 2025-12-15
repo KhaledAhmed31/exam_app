@@ -1,13 +1,11 @@
 import 'package:exam_app/core/ui_manager/colors/app_colors.dart';
 import 'package:exam_app/features/profile/presentation/pages/profile_screen.dart';
+import 'package:exam_app/features/results_tap/presentation/pages/result_screen.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../core/constants/app_icons.dart';
 import '../../../../core/localization/l10n/app_localizations.dart';
 import '../../../explore/presentation/pages/explore_screen.dart';
-import 'result_screen.dart';
-import 'profile_screen.dart';
-import '../../../results_tap/presentation/pages/result_screen.dart';
 import '../widgets/nav_bar_item.dart';
 import 'package:flutter/material.dart';
 
