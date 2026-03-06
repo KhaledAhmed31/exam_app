@@ -36,4 +36,6 @@ class AppImages {
   /// Assets for assetsImagesSandClock
   /// assets/images/sand-clock.svg
   static const String assetsImagesSandClock = "assets/images/sand-clock.svg";
+
+  static const String assetsImagesProfile = "assets/images/Profile.svg";
 }

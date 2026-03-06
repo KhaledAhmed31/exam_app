@@ -8,9 +8,9 @@ class ApiConsts {
   static const String verifyResetCodeEndPoint = "/auth/verifyResetCode";
   static const String resetPasswordEndPoint = "/auth/resetPassword";
   static const String profileDataEndPoint = "/auth/profileData";
-  static const String updateProfileEndPoint = "/auth/updateProfile";
+  static const String updateProfileEndPoint = "/auth/editProfile";
   static const String changePasswordEndPoint = "/auth/changePassword";
-
+  static const String logoutEndPoint = "/auth/logout";
   static const String getExamsOnSubjectEndPoint = "/exams";
   static const String getAllQuestionsOnExamEndPoint = "/questions";
 

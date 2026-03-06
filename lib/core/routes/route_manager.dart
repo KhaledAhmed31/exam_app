@@ -1,3 +1,4 @@
+import 'package:exam_app/features/profile/presentation/pages/change_password_screen.dart';
 import 'package:exam_app/features/exams_page/presentation/screens/exam_results_screen.dart';
 import 'package:exam_app/features/exams_page/presentation/screens/exam_score_screen.dart';
 import 'package:flutter/material.dart';
@@ -146,6 +147,9 @@ class RouteManager {
           builder: (_) => ExamPageScreen(),
           settings: settings,
         );
+      case RoutePath.changePassword:
+        return MaterialPageRoute(
+          builder: (_) => const ChangePasswordScreen(),
       case RoutePath.examScore:
         return MaterialPageRoute(
           builder: (_) => ExamScoreScreen(),
