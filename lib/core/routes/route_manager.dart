@@ -1,6 +1,9 @@
 import 'package:exam_app/features/exams_page/presentation/screens/exam_results_screen.dart';
 import 'package:exam_app/features/exams_page/presentation/screens/exam_score_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:exam_app/core/config/di/di.dart';
+import 'package:exam_app/core/routes/route_path.dart';
 import 'package:exam_app/features/explore/domain/entities/subject_entity.dart';
 import 'package:exam_app/features/subject%20details/presentation/pages/subject_details_screen.dart';
 import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
@@ -10,7 +13,8 @@ import 'package:exam_app/features/exams/presentation/pages/start_exam_screen.dar
 import 'package:exam_app/features/home/presentation/screens/home_screen.dart';
 import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/pages/forget_password_screen.dart';
-import 'route_path.dart';
+import 'package:exam_app/features/signup/presentation/screens/signup_screen.dart';
+import 'package:exam_app/features/signup/view_model/signup_cubit.dart';
 
 class RouteManager {
   static Route generateRoute(RouteSettings settings) {
@@ -46,7 +50,10 @@ class RouteManager {
         );
       case RoutePath.signup:
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Container(),
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (_) => getIt<SignupCubit>(),
+            child: const SignupScreen(),
+          ),
           settings: settings,
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               SlideTransition(
