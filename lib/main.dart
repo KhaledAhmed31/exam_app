@@ -1,20 +1,81 @@
+import 'package:exam_app/core/config/di/di.dart';
+import 'package:exam_app/core/localization/l10n/app_localizations.dart';
+import 'package:exam_app/core/routes/route_manager.dart';
+import 'package:exam_app/core/shared/presentation/bloc/localization/localization_bloc.dart';
+import 'package:exam_app/core/shared/presentation/bloc/localization/localization_states.dart';
+import 'package:exam_app/core/ui_manager/theme/app_theme.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_view_model.dart';
+import 'package:exam_app/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_events.dart';
+import 'package:exam_app/features/auth/login/presentation/bloc/auth_states.dart';
+import 'package:exam_app/features/exams_page/presentation/screens/exam_page_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:logger/logger.dart';
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  await configureDependencies();
+
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthViewModel>(
+          create: (context) => getIt<AuthViewModel>()..add(IsLoggedInEvent()),
+        ),
+        BlocProvider(create: (context) => getIt<LocalizationBloc>()),
+      ],
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+  final logger = Logger();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return BlocBuilder<LocalizationBloc, LocalizationState>(
+      builder: (context, localizationState) {
+        Locale currentLocale = AppLocalizations.supportedLocales.first;
+        if (localizationState is LocalizationLoadedState) {
+          currentLocale = Locale(localizationState.langCode);
+        }
+        return MaterialApp(
+          locale: currentLocale,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light,
+          onGenerateRoute: RouteManager.generateRoute,
+          home: BlocBuilder<AuthViewModel, AuthStates>(
+            buildWhen: (previous, current) =>
+                previous.loginState?.isLoggedIn == null &&
+                current.loginState?.isLoggedIn != null,
+            builder: (context, state) {
+              if (state.loginState?.isLoggedIn == false) {
+                logger.d(
+                  '<<<<<< ${state.loginState?.isLoggedIn} / initial route in false: login screen',
+                );
+                FlutterNativeSplash.remove();
+                return const LoginScreen();
+              } else if (state.loginState?.isLoggedIn == true) {
+                logger.d(
+                  '<<<<<< ${state.loginState?.isLoggedIn} / initial route in true: home screen',
+                );
+                FlutterNativeSplash.remove();
+                return ExamPageScreen();
+              } else {
+                return const Scaffold();
+              }
+            },
+          ),
+        );
+      },
     );
   }
 }
